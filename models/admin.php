@@ -34,6 +34,7 @@ class AdminModel{
         $consult = $this->pdo->prepare("SELECT SUM(total) AS total, fecha FROM ventas WHERE fecha BETWEEN ? AND ? AND id_usuario = ? GROUP BY fecha");
         $consult->execute([$fecha, $actual, $id_user]);
         return $consult->fetchAll(PDO::FETCH_ASSOC);
+        
     }
 
     public function getDato()
