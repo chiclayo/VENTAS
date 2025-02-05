@@ -1,23 +1,17 @@
-const frm = document.querySelector('#frmCliente');
-const telefono = document.querySelector('#telefono');
+const frm = document.querySelector('#frmcategoria');
 const nombre = document.querySelector('#nombre');
-const tipo_documento = document.querySelector('#tipo_documento');
-const direccion = document.querySelector('#direccion');
-const id_cliente = document.querySelector('#id_cliente');
+const id_categoria = document.querySelector('#id_categoria');
 const btn_nuevo = document.querySelector('#btn-nuevo');
 const btn_save = document.querySelector('#btn-save');
 document.addEventListener('DOMContentLoaded', function () {
-  $('#table_clientes').DataTable({
+  $('#table_categorias').DataTable({
     ajax: {
-      url: ruta + 'controllers/clientesController.php?option=listar',
+      url: ruta + 'controllers/categoriasController.php?option=listar',
       dataSrc: ''
     },
     columns: [
-      { data: 'idcliente' },
+      { data: 'idcategoria' },
       { data: 'nombre' },
-      { data: 'tipo_documento' },
-      { data: 'telefono' },
-      { data: 'direccion' },
       { data: 'accion' }
     ],
     language: {
@@ -27,12 +21,11 @@ document.addEventListener('DOMContentLoaded', function () {
   });
   frm.onsubmit = function (e) {
     e.preventDefault();
-    if (telefono.value == '' || nombre.value == ''|| tipo_documento.value == ''
-      || direccion.value == '') {
-      message('error', 'TODO LOS CAMPOS CON * SON REQUERIDOS')
+    if (nombre.value == '' ) {
+      message('error', 'TODO LOS CAMPOS SON OBLIGATORIOS')
     } else {
       const frmData = new FormData(frm);
-      axios.post(ruta + 'controllers/clientesController.php?option=save', frmData)
+      axios.post(ruta + 'controllers/categoriasController.php?option=save', frmData)
         .then(function (response) {
           const info = response.data;
           message(info.tipo, info.mensaje);
@@ -49,20 +42,20 @@ document.addEventListener('DOMContentLoaded', function () {
   }
   btn_nuevo.onclick = function () {
     frm.reset();
-    id_cliente.value = '';
+    id_categoria.value = '';
     btn_save.innerHTML = 'Guardar';
     nombre.focus();
   }
 })
 
-function deleteCliente(id) {
+function deleteCategoria(id) {
   Snackbar.show({
     text: 'Esta seguro de eliminar',
     width: '475px',
     actionText: 'Si eliminar',
     backgroundColor: '#FF0303',
     onActionClick: function (element) {
-      axios.get(ruta + 'controllers/clientesController.php?option=delete&id=' + id)
+      axios.get(ruta + 'controllers/categoriasController.php?option=delete&id=' + id)
         .then(function (response) {
           const info = response.data;
           message(info.tipo, info.mensaje);
@@ -80,15 +73,12 @@ function deleteCliente(id) {
 
 }
 
-function editCliente(id) {
-  axios.get(ruta + 'controllers/clientesController.php?option=edit&id=' + id)
+function editCategoria(id) {
+  axios.get(ruta + 'controllers/categoriasController.php?option=edit&id=' + id)
     .then(function (response) {
       const info = response.data;
-      telefono.value = info.telefono;
       nombre.value = info.nombre;
-      tipo_documento.value = info.tipo_documento;
-      direccion.value = info.direccion;
-      id_cliente.value = info.idcliente;
+      id_categoria.value = info.idcategoria;
       btn_save.innerHTML = 'Actualizar';
     })
     .catch(function (error) {

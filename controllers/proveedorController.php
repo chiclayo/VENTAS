@@ -7,21 +7,22 @@ switch ($option) {
         $data = $proveedor->getProveedores();
         for ($i = 0; $i < count($data); $i++) {
             $data[$i]['accion'] = '<div class="d-flex">
-                <a class="btn btn-danger btn-sm" onclick="deleteProveedor(' . $data[$i]['idproveedor'] . ')"><i class="fas fa-eraser"></i></a>
-                <a class="btn btn-primary btn-sm" onclick="editProveedor(' . $data[$i]['idproveedor'] . ')"><i class="fas fa-edit"></i></a>
+                <a class="btn btn-danger btn-sm" onclick="deleteProveedor(' . $data[$i]['idproveedor'] . ')"><i class="fas fa-trash-alt"></i></a>
+                <a class="btn btn-warning btn-sm" onclick="editProveedor(' . $data[$i]['idproveedor'] . ')"><i class="fas fa-edit"></i></a>
                 </div>';
         }
         echo json_encode($data);
         break;
     case 'save':
         $nombre = $_POST['nombre'];
+        $ruc = $_POST['ruc'];
         $telefono = $_POST['telefono'];
         $direccion = $_POST['direccion'];
         $id_proveedor = $_POST['id_proveedor'];
         if ($id_proveedor == '') {
             $consult = $proveedor->comprobarTelefono($telefono);
             if (empty($consult)) {
-                $result = $proveedor->saveProveedor($nombre, $telefono, $direccion);
+                $result = $proveedor->saveProveedor($nombre,$ruc, $telefono, $direccion);
                 if ($result) {
                     $res = array('tipo' => 'success', 'mensaje' => 'PROVEEDOR REGISTRADO');
                 } else {
@@ -31,7 +32,7 @@ switch ($option) {
                 $res = array('tipo' => 'error', 'mensaje' => 'EL TELEFONO YA EXISTE');
             }
         } else {
-            $result = $proveedor->updateProveedor($nombre, $telefono, $direccion, $id_proveedor);
+            $result = $proveedor->updateProveedor($nombre, $ruc, $telefono, $direccion, $id_proveedor);
             if ($result) {
                 $res = array('tipo' => 'success', 'mensaje' => 'PROVEEDOR MODIFICADO');
             } else {

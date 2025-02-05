@@ -17,8 +17,9 @@ document.addEventListener('DOMContentLoaded', function () {
       dataSrc: ''
     },
     columns: [
-      { data: 'codigo' },
-      { data: 'descripcion' },
+      { data: 'codproducto' },
+      { data: 'idcategoria' },
+      { data: 'nombre' },
       { data: 'cantidad' },
       { data: 'precio' },
       { data: 'addcart' }
@@ -29,6 +30,8 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   temp()
+
+  renderSedesPerfil();
 
   table_proveedores = $('#table_proveedores').DataTable({
     ajax: {
@@ -91,6 +94,31 @@ document.addEventListener('DOMContentLoaded', function () {
 
 })
 
+function renderSedesPerfil() {
+  axios.get(ruta + 'controllers/comprasController.php?option=sedesPerfil')
+    .then(function (response) {
+      const info = response.data;
+      const sedes = document.getElementById('sede_data');
+
+      let html = "";
+
+      if(info.length > 1) {
+        html = `<option value="">Seleccione...</option>`;
+      }
+
+      
+
+      info.forEach(sede => {
+        html += `<option value="${sede.sede_id}">${sede.nombre}</option>`;
+      });
+
+      sedes.innerHTML = html;
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+}
+
 
 function addCart(codProducto) {
   axios.get(ruta + 'controllers/comprasController.php?option=addcart&id=' + codProducto)
@@ -112,11 +140,11 @@ function temp() {
       let tempProductos = '';
       info.forEach(pro => {
         tempProductos += `<tr>
-                    <td>${pro.descripcion}</td>
+                    <td>${pro.nombre}</td>
                     <td><input class="form-control" type="number" value="${pro.precio}" onchange="addPrecio(event, ${pro.id})" /></td>
                     <td><input class="form-control" type="number" value="${pro.cantidad}" onchange="addCantidad(event, ${pro.id})" /></td>
                     <td>${parseFloat(pro.precio) * parseInt(pro.cantidad)}</td>
-                    <td><i class="fas fa-eraser text-danger" onclick="deleteproducto(${pro.id})"></i></td>
+                    <td><i class="fas fa-trash-alt text-danger" onclick="deleteproducto(${pro.id})"></i></td>
                 </tr>`;
       });
       table_temp.innerHTML = tempProductos;

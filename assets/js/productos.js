@@ -15,11 +15,11 @@ document.addEventListener('DOMContentLoaded', function () {
     },
     columns: [
       { data: 'codproducto' },
-      { data: 'categoria' },
+      { data: 'nameCategoria' },
       { data: 'nombre' },
       { data: 'descripcion' },
       { data: 'precio' },
-      { data: 'existencia' },
+      { data: 'precio' },
       { data: 'accion' }
     ],
     language: {
@@ -28,10 +28,11 @@ document.addEventListener('DOMContentLoaded', function () {
     "order": [[0, 'desc']]
   });
   frm.onsubmit = function (e) {
+
     e.preventDefault();
-    if (categoria.value == '' || nombre.value == ''|| descripcion.value == ''
-      || precio.value == '' || stock.value == '') {
-      message('error', 'TODO LOS CAMPOS CON * SON REQUERIDOS')
+    if ( categoria.value == ''|| nombre.value == ''|| descripcion.value == ''
+      || precio.value == '' ) {
+      message('error', 'TODO LOS CAMPOS SON OBLIGATORIOS')
     } else {
       const frmData = new FormData(frm);
       axios.post(ruta + 'controllers/productosController.php?option=save', frmData)
@@ -53,8 +54,10 @@ document.addEventListener('DOMContentLoaded', function () {
     frm.reset();
     id_product.value = '';
     btn_save.innerHTML = 'Guardar';
-    categoria.focus();
+    nombre.focus();
   }
+
+  loadCategorias();
 })
 
 function deleteProducto(id) {
@@ -86,13 +89,31 @@ function editProducto(id) {
   axios.get(ruta + 'controllers/productosController.php?option=edit&id=' + id)
     .then(function (response) {
       const info = response.data;
-      categoria.value = info.categoria;
+      categoria.value = info.idcategoria;
       nombre.value = info.nombre;
       descripcion.value = info.descripcion;
       precio.value = info.precio;
-      stock.value = info.existencia;
       id_product.value = info.codproducto;
       btn_save.innerHTML = 'Actualizar';
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+}
+function loadCategorias() {
+  axios.get(ruta + 'controllers/productosController.php?option=categorias')
+    .then(function (response) {
+      const info = response.data;
+      const categoria= document.getElementById('categoria');
+
+      let html = `<option value="">Seleccione...</option>`;
+
+      info.forEach(cat=> {
+        html += `<option value="${cat.idcategoria}">${cat.nombre}</option>`;
+      });
+
+      categoria.innerHTML = html;
+      
     })
     .catch(function (error) {
       console.log(error);

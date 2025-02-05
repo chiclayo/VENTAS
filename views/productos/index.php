@@ -7,14 +7,11 @@
                     <label for="">Categoria <span class="text-danger">*</span></label>
                     <div class="input-group mb-2">
                     <select id="categoria" name="categoria" class="form-control">
-                                <option value="SELECCIONE">SELECCIONE....</option>
-                                <option value="ROPA DE VESTIR">ROPA DE VESTIR</option>
-                                <option value="CALZADO">CALZADO</option>
-                                <option value="LIBRO ODEC">LIBRO ODEC</option>
-                            </select>
+                              
+                    </select>
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <label for="">Producto <span class="text-danger">*</span></label>
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
@@ -23,7 +20,7 @@
                         <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre....">
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <label for="">Descripción <span class="text-danger">*</span></label>
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
@@ -41,21 +38,12 @@
                         <input type="text" class="form-control" id="precio" name="precio" placeholder="0.00">
                     </div>
                 </div>
-                <div class="col-md-2">
-                    <label for="">Stock <span class="text-danger">*</span></label>
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fas fa-barcode"></i></span>
-                        </div>
-                        <input type="text" class="form-control" id="stock" name="stock" placeholder="0">
-                    </div>
-                </div>
             </div>
         </div>
         <div class="card-footer text-right">
-            <button type="button" class="btn btn-danger" id="btn-nuevo">Nuevo</button>
+            <button type="button" class="btn btn-success" id="btn-nuevo">Nuevo</button>
             <button type="submit" class="btn btn-primary" id="btn-save">Guardar</button>
-            <button type="submit" class="btn btn-primary" id="btn-save">Descargar</button>
+            <button type="submit" class="btn btn-info" id="btn-pdf">Descargar</button>
         </div>
     </div>
 </form>

@@ -14,6 +14,15 @@
                         <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre">
                     </div>
                 </div>
+                <div class="col-md-2">
+                    <label for="">Ruc <span class="text-danger">*</span></label>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-list"></i></span>
+                        </div>
+                        <input type="text" class="form-control" id="ruc" name="ruc" placeholder="Ruc">
+                    </div>
+                </div>
                 <div class="col-md-4">
                     <label for="">Correo <span class="text-danger">*</span></label>
                     <div class="input-group mb-3">
@@ -23,7 +32,7 @@
                         <input type="email" class="form-control" id="correo" name="correo" placeholder="Correo">
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-2">
                     <label for="">Teléfono <span class="text-danger">*</span></label>
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">

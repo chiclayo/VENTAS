@@ -10,40 +10,53 @@ if ($id_venta != null) {
 
     require('../fpdf/fpdf.php');
 
-    $pdf = new FPDF('P', 'mm', array(100, 300));
+    $pdf = new FPDF('P', 'mm', array(100, 200));
     $pdf->AddPage();
-    $pdf->SetFont('Arial', 'B', 14);
-    $pdf->Cell(100, 10, $datos['nombre'], 0, 1, 'C');
+    $pdf->SetFont('Arial', 'B', 12);
+    $pdf->MultiCell(80, 10, $datos['nombre'], 0, 'C');
     $pdf->SetFont('Arial', '', 11);
-    $pdf->Cell(60, 5, utf8_decode('Telefono: ' . $datos['telefono']), 0, 1, 'C');
-    $pdf->Cell(60, 5, 'Correo: ' . $datos['email'], 0, 1, 'C');
-    $pdf->Cell(60, 5, utf8_decode('Dirección: ' . $datos['direccion']), 0, 1, 'C');
-
-    $pdf->Cell(60, 5, '===============================', 0, 1, 'C');
+    $pdf->Cell(80, 5, mb_convert_encoding('Ruc: ' . $datos['ruc'], 'ISO-8859-1', 'UTF-8'), 0, 1, 'C');
+    $pdf->Cell(80, 5, mb_convert_encoding('Direcion: ' . $datos['direccion'], 'ISO-8859-1', 'UTF-8'), 0, 1, 'C');
+    $pdf->Cell(80, 5, utf8_decode('Fecha: ' . $result['fecha'] . ' - Hora: ' . date('H:i:s')), 0, 1, 'C');
+    $pdf->Cell(80, 5, utf8_decode('Forma Pago: ' . $result['metodo']), 0, 1, 'C');
+    $pdf->Cell(80, 5, '-------------------------------------------------------------------------', 0, 1, 'C');
     //########## Datos del cliente
-    $pdf->Cell(60, 5, utf8_decode('Nombre: ' . $result['nombre']), 0, 1, 'C');
-    $pdf->Cell(60, 5, utf8_decode('Telefono: ' . $result['telefono']), 0, 1, 'C');
-    $pdf->Cell(60, 5, utf8_decode('Dirección: ' . $result['direccion']), 0, 1, 'C');
+    $pdf->Cell(80, 5, utf8_decode('Nombre: ' . $result['nombre']), 0, 1, 'L');
+    $pdf->Cell(80, 5, utf8_decode('Dni/Ruc: ' . $result['tipo_documento']), 0, 1, 'L');
+    $pdf->Cell(80, 5, utf8_decode('Dirección: ' . $result['direccion']), 0, 1, 'L');
 
 
-    $pdf->Cell(60, 5, '===============================', 0, 1, 'C');
+    $pdf->Cell(80, 5, '--------------------------------------------------------------------------', 0, 1, 'C');
 
     $pdf->SetFont('Arial', 'B', 11);
-    $pdf->Cell(20, 5, utf8_decode('Cant - Precio: '), 0, 0, 'C');
+    $pdf->Cell(30, 5, utf8_decode('Cant - Precio: '), 0, 0, 'L');
     $pdf->Cell(40, 5, utf8_decode('Producto: '), 0, 1, 'C');
     $pdf->SetFont('Arial', '', 11);
     $total = 0;
     foreach ($products as $product) {
         $total += $product['cantidad'] * $product['precio'];
-        $pdf->Cell(20, 5, $product['cantidad'] . ' x ' . $product['precio'], 0, 0, 'C');
-        $pdf->MultiCell(40, 5, $product['descripcion'], 0, 'C');
+        $pdf->Cell(30, 5, $product['cantidad'] . ' x ' . $product['precio'], 0, 0, 'C');
+        $pdf->MultiCell(40, 5, $product['nombre'], 0, 'C');
         $pdf->Cell(60, 5, number_format($product['cantidad'] * $product['precio'], 2), 0, 1, 'R');
-        $pdf->Cell(60, 5, '------------------------------------------------------', 0, 1, 'C');
+        $pdf->Cell(80, 5, '----------------------------------------------------------------------', 0, 1, 'C');
     }
-    $pdf->Cell(60, 5, 'Total: ' . number_format($total, 2), 0, 1, 'R');
+
+    if($result['metodo'] === 'DONACION') {
+        $donacion = $total;
+        $subtotal = $total;
+        $total = 0.00;
+    } else {
+        $subtotal = $total;
+        $donacion = 0.00;
+        $total = $total;
+    }
+
+    $pdf->Cell(80, 5, 'Sub Total: ' . number_format($subtotal, 2), 0, 1, 'R');
+    $pdf->Cell(80, 5, 'Donacion: ' . number_format($donacion, 2), 0, 1, 'R');
+    $pdf->Cell(80, 5, 'Total: ' . number_format($total, 2), 0, 1, 'R');
+    $pdf->Cell(80, 5, 'Usuario: ' . $_SESSION['nombre'], 0, 1, 'L');
     $pdf->Ln(2);
-    $pdf->Cell(60, 5, 'Metodo', 0, 1, 'C');
-    $pdf->Cell(60, 5, $result['metodo'], 0, 1, 'C');
+ 
 
     $pdf->Output();
 } else {

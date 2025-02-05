@@ -8,10 +8,10 @@ switch ($option) {
         $result = $ventas->getProducts();
         for ($i = 0; $i < count($result); $i++) {
             $result[$i]['addcart'] = '<a href="#" class="btn btn-primary btn-sm" onclick="addCart(' . $result[$i]['codproducto'] . ')"><i class="fas fa-cart-plus"></i></a>';
-            if ($result[$i]['existencia'] > 15) {
-                $result[$i]['cantidad'] = '<span class="badge badge-info">'.$result[$i]['existencia'].'</span>';
+            if ($result[$i]['precio'] > 10) {
+                $result[$i]['precio'] = '<span class="badge badge-info">'.$result[$i]['precio'].'</span>';
             } else {
-                $result[$i]['cantidad'] = '<span class="badge badge-warning">'.$result[$i]['existencia'].'</span>';
+                $result[$i]['precio'] = '<span class="badge badge-warning">'.$result[$i]['precio'].'</span>';
             }           
             
         }
@@ -19,11 +19,19 @@ switch ($option) {
         break;
     case 'addcart':
         $cve = $_GET['id'];
+        $cant = $_GET['cantidad'];
         $result = $ventas->getProduct($cve);
         $id_product = $result['codproducto'];
+        $existencia = $result['precio'];
         $cantidad = 1;
         $precio = $result['precio'];
         $consult = $ventas->getTemp($id_product, $id_user);
+
+        if($existencia <= 0) {
+            $res = array('tipo' => 'error', 'mensaje' => 'PRODUCTO NO TIENE STOCK');
+            echo json_encode($res);
+            exit;
+        }
 
         if (empty($consult)) {
             $temp = $ventas->addTemp($id_user, $id_product, $cantidad, $precio);
@@ -34,6 +42,12 @@ switch ($option) {
             }
         } else {
             $cantidad = $consult['cantidad'] + 1;
+
+            if($existencia == $cant) {
+                $res = array('tipo' => 'error', 'mensaje' => 'YA NO SE PUEDE AGREGAR MAS STCOK');
+                echo json_encode($res); exit;
+            }
+
             $temp = $ventas->upadteTemp($cantidad, $id_product, $id_user);
             if ($temp) {
                 $res = array('tipo' => 'success', 'mensaje' => 'PRODUCTO INCREMENTADO');
@@ -44,11 +58,15 @@ switch ($option) {
 
         echo json_encode($res);
         break;
+    case 'sumaVentaTemporal':
+        $result = $ventas->sumaVentaTemporal($id_user);
+        echo json_encode($result);
+        break;
     case 'listarTemp':
         $result = $ventas->getProductsUsers($id_user);
-        // for ($i = 0; $i < count($result); $i++) {
-        //     $result[$i]['addcart'] = '<a href="#" onclick="addCart(' . $result[$i]['codproducto'] . ')"><i class="fas fa-cart-plus"></i></a>';
-        // }
+         for ($i = 0; $i < count($result); $i++) {
+            $result[$i]['addcart'] = '<a href="#" onclick="addCart(' . $result[$i]['codproducto'] . ')"><i class="fas fa-cart-plus"></i></a>';
+         }
         echo json_encode($result);
         break;
     case 'addcantidad':
@@ -56,6 +74,17 @@ switch ($option) {
         $array = json_decode($accion, true);
         $idTemp = $array['id'];
         $cantidad = $array['cantidad'];
+        $idproducto = $array['producto'];
+        $prod = $ventas->getProduct($idproducto);
+
+        $existencia = $prod['existencia'];
+
+        if($cantidad > $existencia) {
+            $res = array('tipo' => 'warning', 'mensaje' => 'LA CANTIDAD SUPERA AL STOCK', 'stock' => $existencia);
+            echo json_encode($res);
+            exit;
+        }
+
         $result = $ventas->updateCantidad($cantidad, $idTemp);
         if ($result) {
             $res = array('tipo' => 'success', 'mensaje' => 'ok');
@@ -110,6 +139,7 @@ switch ($option) {
             }
         }
         echo json_encode($res);
+
         break;
     case 'historial':
         $historial = $ventas->getSales();
@@ -117,10 +147,16 @@ switch ($option) {
             $historial[$i]['producto'] = '';
             $productos = $ventas->getProductsVenta($historial[$i]['id']);
             foreach ($productos as $producto) {
-                $historial[$i]['producto'] .= '<li>' . $producto['descripcion'] . '</li>';
+                $historial[$i]['producto'] .= '<li>' . $producto['nombre'] . '</li>';
             }
-            $historial[$i]['accion'] = '<a href="?pagina=reporte&sale=' . $historial[$i]['id'] . '">PDF</a>';
-        }
+            $historial[$i]['accion'] = '
+            <a href="?pagina=reporte&sale=' . $historial[$i]['id'] . '" class="btn btn-primary btn-sm">
+                <i class="fas fa-file-pdf"></i> 
+            </a>
+            <button class="btn btn-danger btn-sm btnEliminar " data-id="' . $historial[$i]['id'] . '">
+                <i class="fas fa-trash-alt"></i> 
+            </button>';
+                    }
         echo json_encode($historial);
         break;
     case 'searchbarcode':
@@ -161,6 +197,19 @@ switch ($option) {
         }
         echo json_encode($res);
         break;
+
+   case 'delete':
+            if (!empty($_GET['id'])) {
+                $idVenta = $_GET['id'];
+                $result = $ventas->deleteVenta($idVenta);
+                
+                if ($result) {
+                    echo json_encode(['tipo' => 'success', 'mensaje' => 'Venta eliminada']);
+                } else {
+                    echo json_encode(['tipo' => 'error', 'mensaje' => 'Error al eliminar']);
+                }
+            }
+            break;
     case 'logout':
         session_destroy();
         header('Location: ../');

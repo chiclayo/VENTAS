@@ -30,7 +30,7 @@ class Compras{
 
     public function getProductsUsers($id_user)
     {
-        $consult = $this->pdo->prepare("SELECT temp.*, pro.descripcion FROM temp_compras temp INNER JOIN producto pro ON temp.id_producto = pro.codproducto WHERE temp.id_usuario = ?");
+        $consult = $this->pdo->prepare("SELECT temp.*, pro.nombre FROM temp_compras temp INNER JOIN producto pro ON temp.id_producto = pro.codproducto WHERE temp.id_usuario = ?");
         $consult->execute([$id_user]);
         return $consult->fetchAll(PDO::FETCH_ASSOC);
     }
@@ -95,7 +95,7 @@ class Compras{
 
     public function getProductsCompra($id_compra)
     {
-        $consult = $this->pdo->prepare("SELECT d.*, p.descripcion FROM detalle_compras d INNER JOIN compras c ON d.id_compra = c.id INNER JOIN producto p ON d.id_producto = p.codproducto WHERE c.id = ?");
+        $consult = $this->pdo->prepare("SELECT d.*, p.nombre FROM detalle_compras d INNER JOIN compras c ON d.id_compra = c.id INNER JOIN producto p ON d.id_producto = p.codproducto WHERE c.id = ?");
         $consult->execute([$id_compra]);
         return $consult->fetchAll(PDO::FETCH_ASSOC);
     }

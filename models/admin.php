@@ -44,10 +44,10 @@ class AdminModel{
         return $consult->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function saveDatos($nombre, $telefono, $correo, $direccion, $id)
+    public function saveDatos($nombre, $ruc,$telefono, $correo, $direccion, $id)
     {
-        $consult = $this->pdo->prepare("UPDATE configuracion SET nombre=?, telefono=?, email=?, direccion=? WHERE id = ?");
-        return $consult->execute([$nombre, $telefono, $correo, $direccion, $id]);
+        $consult = $this->pdo->prepare("UPDATE configuracion SET nombre=?, ruc=?, telefono=?, email=?, direccion=? WHERE id = ?");
+        return $consult->execute([$nombre, $ruc, $telefono, $correo, $direccion, $id]);
     }
 }
 

@@ -23,14 +23,14 @@ class Reporte
 
     public function getProductsVenta($id_venta)
     {
-        $consult = $this->pdo->prepare("SELECT d.*, p.descripcion FROM detalle_ventas d INNER JOIN ventas v ON d.id_venta = v.id INNER JOIN producto p ON d.id_producto = p.codproducto WHERE v.id = ?");
+        $consult = $this->pdo->prepare("SELECT d.*, p.nombre FROM detalle_ventas d INNER JOIN ventas v ON d.id_venta = v.id INNER JOIN producto p ON d.id_producto = p.codproducto WHERE v.id = ?");
         $consult->execute([$id_venta]);
         return $consult->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function getProductsCompra($id_compra)
     {
-        $consult = $this->pdo->prepare("SELECT d.*, p.descripcion FROM detalle_compras d INNER JOIN compras c ON d.id_compra = c.id INNER JOIN producto p ON d.id_producto = p.codproducto WHERE c.id = ?");
+        $consult = $this->pdo->prepare("SELECT d.*, p.nombre FROM detalle_compras d INNER JOIN compras c ON d.id_compra = c.id INNER JOIN producto p ON d.id_producto = p.codproducto WHERE c.id = ?");
         $consult->execute([$id_compra]);
         return $consult->fetchAll(PDO::FETCH_ASSOC);
     }

@@ -28,11 +28,17 @@ class ClientesModel{
         $consult->execute([$telefono]);
         return $consult->fetch(PDO::FETCH_ASSOC);
     }
-
-    public function saveCliente($nombre, $telefono, $direccion)
+    public function comprobarTipo_documento($tipo_documento)
     {
-        $consult = $this->pdo->prepare("INSERT INTO cliente (nombre, telefono, direccion) VALUES (?,?,?)");
-        return $consult->execute([$nombre, $telefono, $direccion]);
+        $consult = $this->pdo->prepare("SELECT * FROM cliente WHERE tipo_documento = ?");
+        $consult->execute([$tipo_documento]);
+        return $consult->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function saveCliente($nombre,$tipo_documento, $telefono, $direccion)
+    {
+        $consult = $this->pdo->prepare("INSERT INTO cliente (nombre,tipo_documento, telefono, direccion) VALUES (?,?,?,?)");
+        return $consult->execute([$nombre,$tipo_documento, $telefono, $direccion]);
     }
 
     public function deleteCliente($id)
@@ -41,10 +47,10 @@ class ClientesModel{
         return $consult->execute([0, $id]);
     }
 
-    public function updateCliente($nombre, $telefono, $direccion, $id)
+    public function updateCliente($nombre, $tipo_documento,$telefono, $direccion, $id)
     {
-        $consult = $this->pdo->prepare("UPDATE cliente SET nombre=?, telefono=?, direccion=? WHERE idcliente=?");
-        return $consult->execute([$nombre, $telefono, $direccion, $id]);
+        $consult = $this->pdo->prepare("UPDATE cliente SET nombre=?,tipo_documento=?, telefono=?, direccion=? WHERE idcliente=?");
+        return $consult->execute([$nombre, $tipo_documento, $telefono, $direccion, $id]);
     }
 }
 

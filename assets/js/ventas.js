@@ -18,8 +18,9 @@ document.addEventListener('DOMContentLoaded', function () {
       dataSrc: ''
     },
     columns: [
-      { data: 'codigo' },
-      { data: 'descripcion' },
+      { data: 'codproducto' },
+      { data: 'idcategoria' },
+      { data: 'nombre' },
       { data: 'cantidad' },
       { data: 'precio' },
       { data: 'addcart' }
@@ -55,6 +56,11 @@ document.addEventListener('DOMContentLoaded', function () {
   })
 
   btn_save.onclick = function () {
+    if(nombre_cliente.value === "") {
+      alert('seleccione un cliente');
+      return false;
+    }
+
     axios.post(ruta + 'controllers/ventasController.php?option=saveventa', {
       idCliente: id_cliente.value,
       metodo: metodo.value,
@@ -95,17 +101,25 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 function addCart(codProducto) {
-  axios.get(ruta + 'controllers/ventasController.php?option=addcart&id=' + codProducto)
+  const quanty = $("#cantidad-"+codProducto).val();
+  
+  axios.get(ruta + 'controllers/ventasController.php?option=addcart&id=' + codProducto+'&cantidad='+quanty)
     .then(function (response) {
       const info = response.data;
+
+      if(info.tipo === 'error') {
+        message('error', info.mensaje);
+        return false;
+      }
+
       message(info.tipo, info.mensaje);
       temp();
+      sumaVentaCarrito();
     })
     .catch(function (error) {
       console.log(error);
     });
 }
-
 
 function temp() {
   axios.get(ruta + 'controllers/ventasController.php?option=listarTemp')
@@ -114,11 +128,12 @@ function temp() {
       let tempProductos = '';
       info.forEach(pro => {
         tempProductos += `<tr>
-                    <td>${pro.descripcion}</td>
+                    <td>${pro.nombre}</td>
                     <td><input class="form-control" type="number" value="${pro.precio}" onchange="addPrecio(event, ${pro.id})" /></td>
-                    <td><input class="form-control" type="number" value="${pro.cantidad}" onchange="addCantidad(event, ${pro.id})" /></td>
+                    <td><input class="form-control" type="number" id="cantidad-${pro.id_producto}" value="${pro.cantidad}" onchange="addCantidad(event, ${pro.id}, ${pro.id_producto})" /></td>
+                    <td>0.00</td>
                     <td>${parseFloat(pro.precio) * parseInt(pro.cantidad)}</td>
-                    <td><i class="fas fa-eraser text-danger" onclick="deleteproducto(${pro.id})"></i></td>
+                    <td><i class="fas fa-trash-alt text-danger"  onclick="deleteproducto(${pro.id})"></i></td>
                 </tr>`;
       });
       table_temp.innerHTML = tempProductos;
@@ -128,18 +143,41 @@ function temp() {
     });
 }
 
-function addCantidad(e, idTemp) {
+function sumaVentaCarrito() {
+  axios.get(ruta + 'controllers/ventasController.php?option=sumaVentaTemporal')
+    .then(function (response) {
+      const info = response.data;
+
+      const total = document.getElementById('total');
+
+      total.textContent = info[0].total;
+      
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+}
+
+function addCantidad(e, idTemp, idProd) {
   axios.post(ruta + 'controllers/ventasController.php?option=addcantidad', {
     id: idTemp,
-    cantidad: e.target.value
+    cantidad: e.target.value,
+    producto: idProd
   })
     .then(function (response) {
       const info = response.data;
+      if (info.tipo == 'warning') {
+        message('error', info.mensaje);
+        $("#cantidad-"+idProd).val(info.stock);
+        return;
+      }
+
       if (info.tipo == 'error') {
         message(info.tipo, info.mensaje);
         return;
       }
       temp();
+      sumaVentaCarrito();
     })
     .catch(function (error) {
       console.log(error);
@@ -158,6 +196,7 @@ function addPrecio(e, idTemp) {
         return;
       }
       temp();
+      sumaVentaCarrito();
     })
     .catch(function (error) {
       console.log(error);
@@ -170,8 +209,30 @@ function deleteproducto(idTemp) {
       const info = response.data;
       message(info.tipo, info.mensaje);
       temp();
+      sumaVentaCarrito();
     })
     .catch(function (error) {
       console.log(error);
     });
 }
+document.addEventListener('click', function (event) {
+  if (event.target.classList.contains('btnEliminar')) {
+      let idVenta = event.target.getAttribute('data-id');
+
+      if (confirm('¿Estás seguro de eliminar esta venta?')) {
+          fetch('controllers/ventasController.php?option=delete&id=' + idVenta, {
+              method: 'GET'
+          })
+          .then(response => response.json())
+          .then(data => {
+              if (data.tipo === 'success') {
+                  alert('Venta eliminada correctamente');
+                  location.reload();
+              } else {
+                  alert('Error al eliminar');
+              }
+          })
+          .catch(error => console.log(error));
+      }
+  }
+});

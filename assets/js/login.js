@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function(){
     frm.onsubmit = function(e){
         e.preventDefault();
         if (email.value == '' || password.value == '') {
-            message('error', 'TODO LOS CAMPOS CON * SON REUQERIDOS');
+            message('error', 'TODO LOS CAMPOS SON OBLIGATORIOS');
         } else {
             axios.post(ruta + 'controllers/usuariosController.php?option=acceso', {
                 email: email.value,
@@ -30,7 +30,7 @@ function message(tipo, mensaje) {
     Snackbar.show({
         text: mensaje,
         pos: 'top-right',
-        backgroundColor: tipo == 'success' ? '#079F00' : '#FF0303',
+        backgroundColor: tipo == 'success' ? '#fdfefe' : '#CC0000 ',
         actionText: 'Cerrar'
     });
 }

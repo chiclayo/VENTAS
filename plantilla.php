@@ -17,7 +17,10 @@ $nueva_venta = $permisos->getPermiso(6, $id_user);
 $compras = $permisos->getPermiso(7, $id_user);
 $nueva_compra = $permisos->getPermiso(8, $id_user);
 $proveedor = $permisos->getPermiso(9, $id_user);
-
+$categorias = $permisos->getPermiso(9, $id_user);
+$precios = $permisos->getPermiso(9, $id_user);
+$traslados = $permisos->getPermiso(9, $id_user);
+$perfiles = $permisos->getPermiso(9, $id_user);
 ##### FIN PERMISOS ####
 require_once 'views/includes/header.php';
 if (isset($_GET['pagina'])) {
@@ -50,7 +53,18 @@ if (isset($_GET['pagina'])) {
                 $plantilla->reporte_compra();
             } else if ($archivo == 'sedes' && !empty($sedes)) {
                 $plantilla->sedes();
-            } else{                
+            } else if ($archivo == 'detalles' && !empty($ventas)) {
+                $plantilla->detalles();          
+            }else if ($archivo == 'categorias' && !empty($categorias)) {
+                $plantilla->categorias();
+            }else if ($archivo == 'traslados' && !empty($traslados)) {
+                $plantilla->traslados();    
+            }else if ($archivo == 'perfiles' && !empty($perfiles)) {
+                $plantilla->perfiles();     
+                
+            } else{ 
+            
+                               
                 $plantilla->notFound();
             }          
         } catch (\Throwable $th) {            

@@ -1,7 +1,7 @@
-<form id="frmCliente" autocomplete="off">
+<form id="frmsede" autocomplete="off">
     <div class="card mb-2">
         <div class="card-body">
-            <input type="hidden" id="id_cliente" name="id_cliente">
+            <input type="hidden" id="id_sede" name="id_sede">
             <div class="row">
                 <div class="col-md-4">
                     <label for="">Nombre <span class="text-danger">*</span></label>
@@ -25,7 +25,7 @@
                     <label for="">Estado <span class="text-danger">*</span></label>
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fas fa-home"></i></span>
+                            <span class="input-group-text"><i class="fas fa-list"></i></span>
                         </div>
                         <input type="text" class="form-control" id="estado" name="estado" placeholder="Estado">
                     </div>
@@ -33,7 +33,7 @@
             </div>
         </div>
         <div class="card-footer text-right">
-            <button type="button" class="btn btn-danger" id="btn-nuevo">Nuevo</button>
+            <button type="button" class="btn btn-success" id="btn-nuevo">Nuevo</button>
             <button type="submit" class="btn btn-primary" id="btn-save">Guardar</button>
         </div>
     </div>
@@ -41,7 +41,7 @@
 <div class="card">
     <div class="card-body">
         <div class="table-responsive">
-            <table class="table table-striped table-hover" style="width: 100%;" id="table_clientes">
+            <table class="table table-striped table-hover" style="width: 100%;" id="table_sedes">
                 <thead>
                     <tr>
                         <th scope="col">Id</th>

@@ -1,6 +1,7 @@
 const frm = document.querySelector('#frmProveedor');
 const telefono = document.querySelector('#telefono');
 const nombre = document.querySelector('#nombre');
+const ruc = document.querySelector('#ruc');
 const direccion = document.querySelector('#direccion');
 const id_proveedor = document.querySelector('#id_proveedor');
 const btn_nuevo = document.querySelector('#btn-nuevo');
@@ -14,6 +15,7 @@ document.addEventListener('DOMContentLoaded', function () {
     columns: [
       { data: 'idproveedor' },
       { data: 'nombre' },
+      { data: 'ruc' },
       { data: 'telefono' },
       { data: 'direccion' },
       { data: 'accion' }
@@ -25,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function () {
   });
   frm.onsubmit = function (e) {
     e.preventDefault();
-    if (telefono.value == '' || nombre.value == ''
+    if (telefono.value == '' || nombre.value == ''||ruc.value == ''
       || direccion.value == '') {
       message('error', 'TODO LOS CAMPOS CON * SON REQUERIDOS')
     } else {
@@ -51,6 +53,7 @@ document.addEventListener('DOMContentLoaded', function () {
     btn_save.innerHTML = 'Guardar';
     nombre.focus();
   }
+
 })
 
 function deleteProveedor(id) {
@@ -84,6 +87,7 @@ function editProveedor(id) {
       const info = response.data;
       telefono.value = info.telefono;
       nombre.value = info.nombre;
+      ruc.value = info.ruc;
       direccion.value = info.direccion;
       id_proveedor.value = info.idproveedor;
       btn_save.innerHTML = 'Actualizar';

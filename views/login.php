@@ -23,40 +23,42 @@
 
 </head>
 
-<body class="bg-gradient-primary">
+<body class="bg-gradient-dark">
 
     <div class="container">
 
         <!-- Outer Row -->
         <div class="row justify-content-center">
 
-            <div class="col-xl-10 col-lg-12 col-md-9">
+            <div class="col-xl-10 col-lg-12 col-md-10">
 
                 <div class="card o-hidden border-0 shadow-lg my-5">
                     <div class="card-body p-0">
                         <!-- Nested Row within Card Body -->
                         <div class="row">
-                            <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
+                            <div class="col-lg-5 d-none d-lg-block bg-login-image"></div>
                             <div class="col-lg-6">
                                 <div class="p-5">
                                     <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-4">BIENVENIDO</h1>
+                                        <h1 class="h4 text-gray-800 mb-0"><b>BIENVENIDOS AL SISTEMA DE VENTAS</b></h1>
                                     </div>
                                     <form class="user" autocomplete="off" id="frmLogin">
                                         <div class="form-group">
-                                            <label for="email">E-MAIL <span class="text-danger">*</span></label>
+                                            <label for="email">CORREO <span class="text-danger">*</span></label>
                                             <input type="email" class="form-control form-control-user"
                                                 id="email" aria-describedby="emailHelp"
-                                                placeholder="Enter Email Address...">
+                                                placeholder="Correo.....">
                                         </div>
                                         <div class="form-group">
                                             <label for="password">CONTRASEÑA<span class="text-danger">*</span></label>
                                             <input type="password" class="form-control form-control-user"
-                                                id="password" placeholder="Password">
+                                                id="password" placeholder="Contraseña.....">
                                         </div>
-                                        <button type="submit" class="btn btn-primary btn-user btn-block">
+                                     <div class="text-center">
+                                        <button type="submit" class="btn btn-danger btn-user btn-sm">
                                             INICIAR SESIÓN
                                         </button>
+                                        </div>
                                         <hr>
                                     </form>
                                 </div>

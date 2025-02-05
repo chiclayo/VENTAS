@@ -1,17 +1,20 @@
 <?php
 $option = (empty($_GET['option'])) ? '' : $_GET['option'];
 require_once '../models/compras.php';
+require_once '../models/sedes.php';
 $compras = new Compras();
+$sede = new SedesModel();
 $id_user = $_SESSION['idusuario'];
+$id_perfil = $_SESSION['idperfil'];
 switch ($option) {
     case 'listar':
         $result = $compras->getProducts();
         for ($i = 0; $i < count($result); $i++) {
             $result[$i]['addcart'] = '<a href="#" class="btn btn-primary btn-sm" onclick="addCart(' . $result[$i]['codproducto'] . ')"><i class="fas fa-cart-plus"></i></a>';
-            if ($result[$i]['existencia'] > 15) {
-                $result[$i]['cantidad'] = '<span class="badge badge-info">'.$result[$i]['existencia'].'</span>';
+            if ($result[$i]['precio'] > 15) {
+                $result[$i]['cantidad'] = '<span class="badge badge-info">'.$result[$i]['precio'].'</span>';
             } else {
-                $result[$i]['cantidad'] = '<span class="badge badge-warning">'.$result[$i]['existencia'].'</span>';
+                $result[$i]['cantidad'] = '<span class="badge badge-warning">'.$result[$i]['precio'].'</span>';
             }           
             
         }
@@ -113,7 +116,7 @@ switch ($option) {
             $historial[$i]['producto'] = '';
             $productos = $compras->getProductsCompra($historial[$i]['id']);
             foreach ($productos as $producto) {
-                $historial[$i]['producto'] .= '<li>' . $producto['descripcion'] . '</li>';
+                $historial[$i]['producto'] .= '<li>' . $producto['nombre'] . '</li>';
             }
             $historial[$i]['accion'] = '<a href="?pagina=reporte_compra&shoping=' . $historial[$i]['id'] . '">PDF</a>';
         }
@@ -156,6 +159,10 @@ switch ($option) {
             $res = array('tipo' => 'error', 'mensaje' => 'ERROR AL ELIMINAR');
         }
         echo json_encode($res);
+        break;
+    case 'sedesPerfil':
+        $sedes_perfil = $sede->sedesPerfil($id_perfil);
+        echo json_encode($sedes_perfil);
         break;
 
     default:

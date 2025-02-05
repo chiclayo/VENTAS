@@ -28,11 +28,17 @@ class ProveedorModel{
         $consult->execute([$telefono]);
         return $consult->fetch(PDO::FETCH_ASSOC);
     }
-
-    public function saveProveedor($nombre, $telefono, $direccion)
+    public function comprobarRuc($ruc)
     {
-        $consult = $this->pdo->prepare("INSERT INTO proveedor (nombre, telefono, direccion) VALUES (?,?,?)");
-        return $consult->execute([$nombre, $telefono, $direccion]);
+        $consult = $this->pdo->prepare("SELECT * FROM proveedor WHERE ruc = ?");
+        $consult->execute([$ruc]);
+        return $consult->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function saveProveedor($nombre, $ruc, $telefono, $direccion)
+    {
+        $consult = $this->pdo->prepare("INSERT INTO proveedor (nombre, ruc,telefono, direccion) VALUES (?,?,?,?)");
+        return $consult->execute([$nombre, $ruc, $telefono, $direccion]);
     }
 
     public function deleteProveedor($id)
@@ -41,10 +47,10 @@ class ProveedorModel{
         return $consult->execute([0, $id]);
     }
 
-    public function updateProveedor($nombre, $telefono, $direccion, $id)
+    public function updateProveedor($nombre, $ruc,$telefono, $direccion, $id)
     {
-        $consult = $this->pdo->prepare("UPDATE proveedor SET nombre=?, telefono=?, direccion=? WHERE idproveedor=?");
-        return $consult->execute([$nombre, $telefono, $direccion, $id]);
+        $consult = $this->pdo->prepare("UPDATE proveedor SET nombre=?, ruc=?,telefono=?, direccion=? WHERE idproveedor=?");
+        return $consult->execute([$nombre, $ruc, $telefono, $direccion, $id]);
     }
 }
 

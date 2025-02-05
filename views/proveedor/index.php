@@ -4,7 +4,7 @@
             <input type="hidden" id="id_proveedor" name="id_proveedor">
             <div class="row">
                 <div class="col-md-4">
-                    <label for="">Nombre <span class="text-danger">*</span></label>
+                    <label for="">Nombre /Razón Social <span class="text-danger">*</span></label>
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-list"></i></span>
@@ -12,16 +12,25 @@
                         <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre">
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <label for="">Telefono <span class="text-danger">*</span></label>
+                <div class="col-md-3">
+                    <label for="">Ruc <span class="text-danger">*</span></label>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-list"></i></span>
+                        </div>
+                        <input type="number" class="form-control" id="ruc" name="ruc" placeholder="Numero Documento">
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <label for="">Teléfono <span class="text-danger">*</span></label>
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-phone"></i></span>
                         </div>
-                        <input type="number" class="form-control" id="telefono" name="telefono" placeholder="Telefono">
+                        <input type="number" class="form-control" id="telefono" name="telefono" placeholder="Teléfono">
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <label for="">Dirección <span class="text-danger">*</span></label>
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
@@ -33,7 +42,7 @@
             </div>
         </div>
         <div class="card-footer text-right">
-            <button type="button" class="btn btn-danger" id="btn-nuevo">Nuevo</button>
+            <button type="button" class="btn btn-success" id="btn-nuevo">Nuevo</button>
             <button type="submit" class="btn btn-primary" id="btn-save">Guardar</button>
         </div>
     </div>
@@ -46,7 +55,8 @@
                     <tr>
                         <th scope="col">Id</th>
                         <th scope="col">Nombre</th>
-                        <th scope="col">telefono</th>
+                        <th scope="col">Ruc</th>
+                        <th scope="col">teléfono</th>
                         <th scope="col">Dirección</th>
                         <th></th>
                     </tr>

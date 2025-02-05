@@ -17,7 +17,7 @@ class UsuariosModel{
 
     public function getUsers()
     {
-        $consult = $this->pdo->prepare("SELECT * FROM usuario WHERE status = 1");
+        $consult = $this->pdo->prepare("SELECT usuario.idusuario, usuario.nombre, usuario.perfil, usuario.correo, usuario.status, sede.nombre as nameSede, perfil.nombre_perfil FROM usuario LEFT JOIN sede ON sede.sede_id = usuario.sede_id LEFT JOIN perfil ON perfil.id = usuario.perfil WHERE usuario.status = 1");
         $consult->execute();
         return $consult->fetchAll(PDO::FETCH_ASSOC);
     }
@@ -36,10 +36,10 @@ class UsuariosModel{
         return $consult->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function saveUser($nombre, $correo, $clave)
+    public function saveUser($nombre, $correo, $clave, $perfil, $sede_id)
     {
-        $consult = $this->pdo->prepare("INSERT INTO usuario (nombre, correo, clave) VALUES (?,?,?)");
-        return $consult->execute([$nombre, $correo, $clave]);
+        $consult = $this->pdo->prepare("INSERT INTO usuario (nombre, correo, clave, perfil, sede_id) VALUES (?,?,?,?,?)");
+        return $consult->execute([$nombre, $correo, $clave, $perfil, $sede_id]);
     }
 
     public function deleteUser($id)
@@ -48,10 +48,10 @@ class UsuariosModel{
         return $consult->execute([0, $id]);
     }
 
-    public function updateUser($nombre, $correo, $id)
+    public function updateUser($nombre,$perfil, $correo, $sede_id, $id)
     {
-        $consult = $this->pdo->prepare("UPDATE usuario SET nombre=?, correo=? WHERE idusuario=?");
-        return $consult->execute([$nombre, $correo, $id]);
+        $consult = $this->pdo->prepare("UPDATE usuario SET nombre=?, correo=?, perfil=?, sede_id=? WHERE idusuario=?");
+        return $consult->execute([$nombre, $correo, $perfil, $sede_id, $id]);
     }
 
     public function getPermisos()

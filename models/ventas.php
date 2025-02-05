@@ -30,7 +30,14 @@ class Ventas{
 
     public function getProductsUsers($id_user)
     {
-        $consult = $this->pdo->prepare("SELECT temp.*, pro.descripcion FROM temp_ventas temp INNER JOIN producto pro ON temp.id_producto = pro.codproducto WHERE temp.id_usuario = ?");
+        $consult = $this->pdo->prepare("SELECT temp.*, pro.nombre, pro.codproducto FROM temp_ventas temp INNER JOIN producto pro ON temp.id_producto = pro.codproducto WHERE temp.id_usuario = ?");
+        $consult->execute([$id_user]);
+        return $consult->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function sumaVentaTemporal($id_user)
+    {
+        $consult = $this->pdo->prepare("SELECT SUM(cantidad * precio) as total FROM temp_ventas WHERE id_usuario = ?");
         $consult->execute([$id_user]);
         return $consult->fetchAll(PDO::FETCH_ASSOC);
     }
@@ -95,7 +102,7 @@ class Ventas{
 
     public function getProductsVenta($id_venta)
     {
-        $consult = $this->pdo->prepare("SELECT d.*, p.descripcion FROM detalle_ventas d INNER JOIN ventas v ON d.id_venta = v.id INNER JOIN producto p ON d.id_producto = p.codproducto WHERE v.id = ?");
+        $consult = $this->pdo->prepare("SELECT d.*, p.nombre FROM detalle_ventas d INNER JOIN ventas v ON d.id_venta = v.id INNER JOIN producto p ON d.id_producto = p.codproducto WHERE v.id = ?");
         $consult->execute([$id_venta]);
         return $consult->fetchAll(PDO::FETCH_ASSOC);
     }
@@ -117,6 +124,12 @@ class Ventas{
         $consult = $this->pdo->prepare("UPDATE producto SET existencia = ? WHERE codproducto = ?");
         return $consult->execute([$stock, $id_producto]);
     }
+
+    public function deleteVenta($idVenta)
+   {
+        $consult = $this->pdo->prepare("DELETE FROM ventas WHERE id = ?");
+        return $consult->execute([$idVenta]);
+   }
 }
 
 ?>

@@ -4,6 +4,8 @@ const correo = document.querySelector('#correo');
 const nombre = document.querySelector('#nombre');
 const clave = document.querySelector('#clave');
 const id_user = document.querySelector('#id_user');
+const perfil = document.querySelector('#perfil');
+const sede_id = document.querySelector('#sede_id');
 const btn_nuevo = document.querySelector('#btn-nuevo');
 const btn_save = document.querySelector('#btn-save');
 document.addEventListener('DOMContentLoaded', function () {
@@ -15,6 +17,8 @@ document.addEventListener('DOMContentLoaded', function () {
     columns: [
       { data: 'idusuario' },
       { data: 'nombre' },
+      { data: 'nombre_perfil' },
+      { data: 'nameSede' },
       { data: 'correo' },
       { data: 'accion' }
     ],
@@ -66,7 +70,30 @@ document.addEventListener('DOMContentLoaded', function () {
         });
   }
 
+  loadSedes();
+  loadPerfiles();
+
 })
+
+function loadPerfiles() {
+  axios.get(ruta + 'controllers/usuariosController.php?option=perfiles')
+    .then(function (response) {
+      const info = response.data;
+      const perfil = document.getElementById('perfil');
+
+      let html = `<option value="">Seleccione...</option>`;
+
+      info.forEach(perfil => {
+        html += `<option value="${perfil.id}">${perfil.nombre_perfil}</option>`;
+      });
+
+      perfil.innerHTML = html;
+      
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+}
 
 function deleteUser(id) {
   Snackbar.show({
@@ -99,6 +126,8 @@ function editUser(id) {
       const info = response.data;
       correo.value = info.correo;
       nombre.value = info.nombre;
+      perfil.value = info.perfil;
+      sede_id.value = info.sede_id;
       clave.value = '*********************';
       clave.setAttribute('readonly', 'readonly');
       id_user.value = info.idusuario;
@@ -126,6 +155,26 @@ function permisos(id) {
       <button class="btn btn-outline-success float-right" type="submit">Guardar</button>`;
       permiso.innerHTML = html;
       $('#modalPermiso').modal('show');
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+}
+
+function loadSedes() {
+  axios.get(ruta + 'controllers/usuariosController.php?option=sedes')
+    .then(function (response) {
+      const info = response.data;
+      const sede_id = document.getElementById('sede_id');
+
+      let html = `<option value="">Seleccione...</option>`;
+
+      info.forEach(sede => {
+        html += `<option value="${sede.sede_id}">${sede.nombre}</option>`;
+      });
+
+      sede_id.innerHTML = html;
+      
     })
     .catch(function (error) {
       console.log(error);

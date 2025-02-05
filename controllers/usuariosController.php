@@ -1,7 +1,11 @@
 <?php
 require_once '../models/usuarios.php';
+require_once '../models/sedes.php';
+require_once '../models/perfil.php';
 $option = (empty($_GET['option'])) ? '' : $_GET['option'];
 $usuarios = new UsuariosModel();
+$sedes = new SedesModel();
+$perfil = new PerfilModel();
 switch ($option) {
     case 'acceso':
         $accion = file_get_contents('php://input');
@@ -16,6 +20,8 @@ switch ($option) {
                 $_SESSION['nombre'] = $result['nombre'];
                 $_SESSION['correo'] = $result['correo'];
                 $_SESSION['idusuario'] = $result['idusuario'];
+                $_SESSION['idperfil'] = $result['perfil'];
+                $_SESSION['idsede'] = $result['sede_id'];
                 $res = array('tipo' => 'success', 'mensaje' => 'ok');
             } else {
                 $res = array('tipo' => 'error', 'mensaje' => 'CONTRASEÑA INCORRECTA');
@@ -23,12 +29,28 @@ switch ($option) {
         }
         echo json_encode($res);
         break;
+
+    case 'sedes': 
+        $data = $sedes->getSedes();
+        echo json_encode($data);
+        break;
+    case 'perfiles': 
+        $data = $perfil->getPerfiles();
+        echo json_encode($data);
+        break;
     case 'listar':
         $data = $usuarios->getUsers();
         for ($i = 0; $i < count($data); $i++) {
+
+            $delete = "";
+
+            if($data[$i]['idusuario'] != 1) {
+                $delete = '<a class="btn btn-danger btn-sm" onclick="deleteUser(' . $data[$i]['idusuario'] . ')"><i class="fas fa-trash-alt"></i></a>';
+            }
+
             $data[$i]['accion'] = '<div class="d-flex">
-                <a class="btn btn-danger btn-sm" onclick="deleteUser(' . $data[$i]['idusuario'] . ')"><i class="fas fa-eraser"></i></a>
-                <a class="btn btn-primary btn-sm" onclick="editUser(' . $data[$i]['idusuario'] . ')"><i class="fas fa-edit"></i></a>
+                '.$delete.'
+                <a class="btn btn-warning btn-sm" onclick="editUser(' . $data[$i]['idusuario'] . ')"><i class="fas fa-edit"></i></a>
                 <a class="btn btn-info btn-sm" onclick="permisos(' . $data[$i]['idusuario'] . ')"><i class="fas fa-lock"></i></a>
                 </div>';
         }
@@ -37,13 +59,15 @@ switch ($option) {
     case 'save':
         $nombre = $_POST['nombre'];
         $correo = $_POST['correo'];
+        $sede_id = $_POST['sede_id'];
+        $perfil = $_POST['perfil'];
         $clave = $_POST['clave'];
         $id_user = $_POST['id_user'];
         if ($id_user == '') {
             $consult = $usuarios->comprobarCorreo($correo);
             if (empty($consult)) {
                 $hash = password_hash($clave, PASSWORD_DEFAULT);
-                $result = $usuarios->saveUser($nombre, $correo, $hash);
+                $result = $usuarios->saveUser($nombre, $correo, $hash, $perfil, $sede_id);
                 if ($result) {
                     $res = array('tipo' => 'success', 'mensaje' => 'USUARIO REGISTRADO');
                 } else {
@@ -53,7 +77,7 @@ switch ($option) {
                 $res = array('tipo' => 'error', 'mensaje' => 'EL CORREO YA EXISTE');
             }
         } else {
-            $result = $usuarios->updateUser($nombre, $correo, $id_user);
+            $result = $usuarios->updateUser($nombre, $perfil, $correo, $sede_id, $id_user);
             if ($result) {
                 $res = array('tipo' => 'success', 'mensaje' => 'USUARIO MODIFICADO');
             } else {

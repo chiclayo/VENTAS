@@ -11,7 +11,7 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fas fa-search"></i></span>
                     </div>
-                    <input type="text" class="form-control" placeholder="Barcode" id="seacrh">
+                    <input type="text" class="form-control" placeholder="Por Codigo" id="seacrh">
                 </div>
                 <div class="table-responsive">
                     <table class="table" id="table_temp" style="width: 100%;">
@@ -29,6 +29,10 @@
 
                         </tbody>
                     </table>
+                
+                </div>
+                <div class="d-flex justify-content-end">
+                    <h5>TOTAL: S/ <span id="total">0.00</span></h5>
                 </div>
                 <div class="d-flex justify-content-between">
                     <h5>Datos del cliente</h5>
@@ -56,7 +60,7 @@
                     <div class="col-md-8">
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="fas fa-credit-card mr-1"></i> Tipo Pago</span>
+                                <span class="input-group-text"><i class="fas fa-credit-card mr-1"></i> Forma Pago</span>
                             </div>
                             <select id="metodo" class="form-control">
                                 <option value="EFECTIVO">EFECTIVO</option>
@@ -66,7 +70,8 @@
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <button type="button" class="btn btn-primary btn-block" id="btn-guardar"><i class="fas fa-print"></i> Guardar</button>
+                        <button type="button" class="btn btn-success btn-block" id="btn-guardar"><i class="fas fa-print"></i> Guardar</button>
+                                            
                     </div>
                 </div>
 
@@ -82,8 +87,10 @@
                             <table class="table" id="table_venta" style="width: 100%;">
                                 <thead class="thead-dark">
                                     <tr>
+                                        
+                                        <th scope="col">Codigo</th>
                                         <th scope="col">Categoria</th>
-                                        <th scope="col">Nombre</th>
+                                        <th scope="col">Producto</th>
                                         <th scope="col">Stock</th>
                                         <th scope="col">Precio</th>
                                         <th>Accion</th>

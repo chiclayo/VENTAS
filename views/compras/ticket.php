@@ -10,20 +10,20 @@ if ($id_compra != null) {
 
     require('../fpdf/fpdf.php');
 
-    $pdf = new FPDF('P','mm',array(80, 200));
+    $pdf = new FPDF('P','mm',array(100, 200));
     $pdf->AddPage();
     $pdf->SetFont('Arial','B',14);
-    $pdf->Cell(60,10,$datos['nombre'], 0, 1, 'C');
+    $pdf->MultiCell(80, 10, $datos['nombre'], 0, 'C');
     $pdf->SetFont('Arial','', 11);
-    $pdf->Cell(60,5,utf8_decode('Telefono: ' . $datos['telefono']), 0, 1, 'C');
-    $pdf->Cell(60,5,'Correo: '. $datos['email'], 0, 1, 'C');
-    $pdf->Cell(60,5, utf8_decode('Dirección: '. $datos['direccion']), 0, 1, 'C');
+    $pdf->Cell(80,5,utf8_decode('Telefono: ' . $datos['telefono']), 0, 1, 'C');
+    $pdf->Cell(80,5,'Correo: '. $datos['email'], 0, 1, 'C');
+    $pdf->Cell(80,5, utf8_decode('Dirección: '. $datos['direccion']), 0, 1, 'C');
 
     $pdf->Cell(60,5, '===============================', 0, 1, 'C');
     //########## Datos del cliente
-    $pdf->Cell(60,5, utf8_decode('Nombre: '. $result['nombre']), 0, 1, 'C');
-    $pdf->Cell(60,5, utf8_decode('Telefono: '. $result['telefono']), 0, 1, 'C');
-    $pdf->Cell(60,5, utf8_decode('Dirección: '. $result['direccion']), 0, 1, 'C');
+    $pdf->Cell(80,5, utf8_decode('Nombre: '. $result['nombre']), 0, 1, 'C');
+    $pdf->Cell(80,5, utf8_decode('DNI/RUC: '. $result['ruc']), 0, 1, 'C');
+    $pdf->Cell(80,5, utf8_decode('Dirección: '. $result['direccion']), 0, 1, 'C');
     
 
     $pdf->Cell(60,5, '===============================', 0, 1, 'C');
@@ -36,7 +36,7 @@ if ($id_compra != null) {
     foreach ($products as $product) {
         $total += $product['cantidad'] * $product['precio'];
         $pdf->Cell(20,5, $product['cantidad'] . ' x ' . $product['precio'], 0, 0, 'C');
-        $pdf->MultiCell(40,5, $product['descripcion'], 0,'C');
+        $pdf->MultiCell(40,5, $product['nombre'], 0,'C');
         $pdf->Cell(60,5, number_format($product['cantidad'] * $product['precio'], 2), 0, 1, 'R');
         $pdf->Cell(60,5, '------------------------------------------------------', 0, 1, 'C');
     }

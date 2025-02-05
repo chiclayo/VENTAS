@@ -70,6 +70,21 @@ class Plantilla{
     {
         include_once 'views/sedes/index.php';
     }
-
+        public function detalles()
+    {
+        include_once 'views/ventas/detalles.php';
+    }
+    public function categorias()
+    {
+        include_once 'views/categorias/index.php';
+    }   
+     public function traslados()
+    {
+        include_once 'views/traslados/index.php';
+    }     
+    public function perfiles()
+    {
+        include_once 'views/perfiles/index.php';
+    }
 }
 ?>

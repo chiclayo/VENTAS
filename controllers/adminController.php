@@ -29,14 +29,15 @@ switch ($option) {
         break;
     case 'save':
         $nombre = $_POST['nombre'];
+        $ruc = $_POST['ruc'];
         $telefono = $_POST['telefono'];
         $direccion = $_POST['direccion'];
         $correo = $_POST['correo'];
         $id = $_POST['id'];
-        if (empty($id) || empty($nombre) || empty($telefono) || empty($direccion) || empty($correo)) {
-            $res = array('tipo' => 'error', 'mensaje' => 'TODO LOS CAMPOS SON REQUERIDOS');
+        if (empty($id) || empty($nombre) || empty($ruc)|| empty($telefono) || empty($direccion) || empty($correo)) {
+            $res = array('tipo' => 'error', 'mensaje' => 'TODO LOS CAMPOS SON OBLIGATORIOS');
         } else {
-            $result = $admin->saveDatos($nombre, $telefono, $correo, $direccion, $id);
+            $result = $admin->saveDatos($nombre, $ruc,$telefono, $correo, $direccion, $id);
             if ($result) {
                 $res = array('tipo' => 'success', 'mensaje' => 'REGISTRO MODIFICADO');
             } else {

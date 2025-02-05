@@ -9,7 +9,7 @@ class Productos{
     }
     public function getProducts()
     {
-        $consult = $this->pdo->prepare("SELECT * FROM producto WHERE status = 1");
+        $consult = $this->pdo->prepare("SELECT producto.codproducto,  producto.nombre, producto.descripcion, producto.precio,producto.status, categoria.nombre as nameCategoria FROM producto LEFT JOIN categoria ON categoria.idcategoria = producto.idcategoria WHERE producto.status = 1");
         $consult->execute();
         return $consult->fetchAll(PDO::FETCH_ASSOC);
     }
@@ -21,17 +21,17 @@ class Productos{
         return $consult->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function comprobarCategoria($categoria)
+    public function comprobarNombre($nombre)
     {
-        $consult = $this->pdo->prepare("SELECT * FROM producto WHERE categoria = ?");
-        $consult->execute([$categoria]);
+        $consult = $this->pdo->prepare("SELECT * FROM producto WHERE nombre = ?");
+        $consult->execute([$nombre]);
         return $consult->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function saveProduct($categoria, $nombre,$descripcion, $precio, $stock)
+    public function saveProduct($categoria, $nombre,$descripcion, $precio)
     {
-        $consult = $this->pdo->prepare("INSERT INTO producto (categoria,nombre, descripcion, precio, existencia) VALUES (?,?,?,?,?)");
-        return $consult->execute([$categoria, $nombre,$descripcion, $precio, $stock]);
+        $consult = $this->pdo->prepare("INSERT INTO producto (idcategoria,nombre, descripcion, precio) VALUES (?,?,?,?)");
+        return $consult->execute([$categoria, $nombre,$descripcion, $precio]);
     }
 
     public function deleteProducto($id)
@@ -42,7 +42,7 @@ class Productos{
 
     public function updateProduct($categoria, $nombre,$descripcion, $precio, $stock, $id)
     {
-        $consult = $this->pdo->prepare("UPDATE producto SET categoria=?, nombre=?,descripcion=?, precio=?, existencia=? WHERE codproducto=?");
+        $consult = $this->pdo->prepare("UPDATE producto SET idcategoria=?, nombre=?,descripcion=?, precio=?, existencia=? WHERE codproducto=?");
         return $consult->execute([$categoria, $nombre,$descripcion, $precio, $stock, $id]);
     }
 }

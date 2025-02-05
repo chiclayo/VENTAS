@@ -7,21 +7,22 @@ switch ($option) {
         $data = $clientes->getClientes();
         for ($i = 0; $i < count($data); $i++) {
             $data[$i]['accion'] = '<div class="d-flex">
-                <a class="btn btn-danger btn-sm" onclick="deleteCliente(' . $data[$i]['idcliente'] . ')"><i class="fas fa-eraser"></i></a>
-                <a class="btn btn-primary btn-sm" onclick="editCliente(' . $data[$i]['idcliente'] . ')"><i class="fas fa-edit"></i></a>
+                <a class="btn btn-danger btn-sm" onclick="deleteCliente(' . $data[$i]['idcliente'] . ')"><i class="fas fa-trash-alt"></i></a>
+                <a class="btn btn-warning btn-sm" onclick="editCliente(' . $data[$i]['idcliente'] . ')"><i class="fas fa-edit"></i></a>
                 </div>';
         }
         echo json_encode($data);
         break;
     case 'save':
         $nombre = $_POST['nombre'];
+        $tipo_documento = $_POST['tipo_documento'];
         $telefono = $_POST['telefono'];
         $direccion = $_POST['direccion'];
         $id_cliente = $_POST['id_cliente'];
         if ($id_cliente == '') {
             $consult = $clientes->comprobarTelefono($telefono);
             if (empty($consult)) {
-                $result = $clientes->saveCliente($nombre, $telefono, $direccion);
+                $result = $clientes->saveCliente($nombre,$tipo_documento, $telefono, $direccion);
                 if ($result) {
                     $res = array('tipo' => 'success', 'mensaje' => 'CLIENTE REGISTRADO');
                 } else {
@@ -31,7 +32,7 @@ switch ($option) {
                 $res = array('tipo' => 'error', 'mensaje' => 'EL TELEFONO YA EXISTE');
             }
         } else {
-            $result = $clientes->updateCliente($nombre, $telefono, $direccion, $id_cliente);
+            $result = $clientes->updateCliente($nombre, $tipo_documento,$telefono, $direccion, $id_cliente);
             if ($result) {
                 $res = array('tipo' => 'success', 'mensaje' => 'CLIENTE MODIFICADO');
             } else {

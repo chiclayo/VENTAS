@@ -3,7 +3,7 @@
         <div class="card-body">
             <input type="hidden" id="id_user" name="id_user">
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <label for="">Nombre <span class="text-danger">*</span></label>
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
@@ -12,7 +12,27 @@
                         <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre">
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-2">
+                    <label for="">Perfil <span class="text-danger">*</span></label>
+                    <div class="input-group mb-3">
+                    <select id="perfil" name="perfil" class="form-control">
+                                <option value="SELECCIONE">SELECCIONE....</option>
+                                <option value="ADMINISTRADOR">ADMINISTRADOR</option>
+                                <option value="DIRECTORA PROYECTOS">DIRECTORA PROYECTOS</option>
+                                <option value="ASISTENTE">ASISTENTE</option>
+                                <option value="TESORERA">TESORERA</option>
+                     </select>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <label for="">Sede <span class="text-danger">*</span></label>
+                    <div class="input-group mb-3">
+                    <select id="sede_id" name="sede_id" class="form-control">
+                            
+                     </select>
+                    </div>
+                </div>
+                <div class="col-md-3">
                     <label for="">Correo <span class="text-danger">*</span></label>
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
@@ -21,7 +41,7 @@
                         <input type="email" class="form-control" id="correo" name="correo" placeholder="Correo">
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-2">
                     <label for="">Contraseña <span class="text-danger">*</span></label>
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
@@ -33,7 +53,7 @@
             </div>
         </div>
         <div class="card-footer text-right">
-            <button type="button" class="btn btn-danger" id="btn-nuevo">Nuevo</button>
+            <button type="button" class="btn btn-success" id="btn-nuevo">Nuevo</button>
             <button type="submit" class="btn btn-primary" id="btn-save">Guardar</button>
         </div>
     </div>
@@ -46,6 +66,8 @@
                     <tr>
                         <th scope="col">Id</th>
                         <th scope="col">Nombre</th>
+                        <th scope="col">Perfil</th>
+                        <th scope="col">Sede</th>
                         <th scope="col">Correo</th>
                         <th></th>
                     </tr>
