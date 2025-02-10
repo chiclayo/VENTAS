@@ -1,392 +1,779 @@
+-- phpMyAdmin SQL Dump
+-- version 5.2.1
+-- https://www.phpmyadmin.net/
+--
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 10-02-2025 a las 18:20:42
+-- Versión del servidor: 10.4.32-MariaDB
+-- Versión de PHP: 8.2.12
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `cliente`
+-- Base de datos: `venta`
 --
 
-DROP TABLE IF EXISTS `cliente`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `categoria`
+--
+
+CREATE TABLE `categoria` (
+  `idcategoria` int(11) NOT NULL,
+  `nombre` varchar(40) NOT NULL,
+  `status` int(11) NOT NULL DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
+
+--
+-- Volcado de datos para la tabla `categoria`
+--
+
+INSERT INTO `categoria` (`idcategoria`, `nombre`, `status`) VALUES
+(1, 'PRENDAS DE VESTIR', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `cliente`
+--
+
 CREATE TABLE `cliente` (
-  `idcliente` int(11) NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
-  `telefono` varchar(15) COLLATE utf8_spanish_ci NOT NULL,
-  `direccion` varchar(200) COLLATE utf8_spanish_ci NOT NULL,
-  `status` int(11) NOT NULL DEFAULT 1,
-  PRIMARY KEY (`idcliente`)
+  `idcliente` int(11) NOT NULL,
+  `nombre` varchar(100) NOT NULL,
+  `tipo_documento` int(11) NOT NULL,
+  `telefono` varchar(15) NOT NULL,
+  `direccion` varchar(200) NOT NULL,
+  `status` int(11) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `cliente`
+-- Volcado de datos para la tabla `cliente`
 --
 
-LOCK TABLES `cliente` WRITE;
-/*!40000 ALTER TABLE `cliente` DISABLE KEYS */;
-/*!40000 ALTER TABLE `cliente` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `cliente` (`idcliente`, `nombre`, `tipo_documento`, `telefono`, `direccion`, `status`) VALUES
+(1, 'SARITA MOZOMBITE', 63263265, '953416833', 'SISA', 1),
+(2, 'Claudia Tuanama', 32696326, '956321526', 'jr. lima', 1),
+(3, 'JOSE LINARES', 42516325, '963256326', 'MOYOBAMBA', 0),
+(4, 'LUIS JOSE', 12345632, '963265236', 'LOLO', 0),
+(7, 'LAURA TAPULLIMA', 9632653, '96356329', 'MOYOBAMBA', 0),
+(8, 'JOSE', 6326532, '96325236', 'HH', 0),
+(9, 'MARIELA', 1236526, '96323652', 'RIOJA', 1),
+(10, 'carlos', 4251263, '96325165', 'moyobamba', 0),
+(11, 'CLIENTE VARIOS', 0, '96325632', 'SIN DIRECCION', 1);
+
+-- --------------------------------------------------------
 
 --
--- Table structure for table `compras`
+-- Estructura de tabla para la tabla `compras`
 --
 
-DROP TABLE IF EXISTS `compras`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `compras` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `total` decimal(10,2) NOT NULL DEFAULT 0.00,
   `fecha` date NOT NULL,
   `id_proveedor` int(11) NOT NULL,
   `id_usuario` int(11) NOT NULL,
   `estado` int(11) NOT NULL DEFAULT 1,
-  PRIMARY KEY (`id`),
-  KEY `id_proveedor` (`id_proveedor`),
-  KEY `id_usuario` (`id_usuario`),
-  CONSTRAINT `compras_ibfk_1` FOREIGN KEY (`id_proveedor`) REFERENCES `proveedor` (`idproveedor`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `compras_ibfk_2` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`idusuario`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `sede_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `compras`
+-- Volcado de datos para la tabla `compras`
 --
 
-LOCK TABLES `compras` WRITE;
-/*!40000 ALTER TABLE `compras` DISABLE KEYS */;
-/*!40000 ALTER TABLE `compras` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `compras` (`id`, `total`, `fecha`, `id_proveedor`, `id_usuario`, `estado`, `sede_id`) VALUES
+(1, 50.00, '2025-02-07', 1, 1, 1, 0),
+(2, 100.00, '2025-02-07', 1, 1, 1, 0),
+(3, 90.00, '2025-02-07', 1, 1, 1, 0);
+
+-- --------------------------------------------------------
 
 --
--- Table structure for table `configuracion`
+-- Estructura de tabla para la tabla `configuracion`
 --
 
-DROP TABLE IF EXISTS `configuracion`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `configuracion` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
-  `telefono` varchar(15) COLLATE utf8_spanish_ci NOT NULL,
-  `email` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
-  `direccion` text COLLATE utf8_spanish_ci NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `id` int(11) NOT NULL,
+  `nombre` varchar(100) NOT NULL,
+  `ruc` int(11) NOT NULL,
+  `telefono` varchar(15) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `direccion` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
--- Dumping data for table `configuracion`
+-- Volcado de datos para la tabla `configuracion`
 --
 
-LOCK TABLES `configuracion` WRITE;
-/*!40000 ALTER TABLE `configuracion` DISABLE KEYS */;
-INSERT INTO `configuracion` VALUES (1,'SISTEMAS FREE','66657765','ana.info1999@gmail.com','TRUJILLO - PERÚ');
-/*!40000 ALTER TABLE `configuracion` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `configuracion` (`id`, `nombre`, `ruc`, `telefono`, `email`, `direccion`) VALUES
+(1, 'CARITAS DE LA PRELATURA DE MOYOBAMBA', 2147483647, '953146833', 'info.caritasmoyobamba@gmail.com', 'JR. SAN MARTIN 314 - MOYOBAMBA');
+
+-- --------------------------------------------------------
 
 --
--- Table structure for table `detalle_compras`
+-- Estructura de tabla para la tabla `detalle_compras`
 --
 
-DROP TABLE IF EXISTS `detalle_compras`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `detalle_compras` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `precio` decimal(10,2) NOT NULL DEFAULT 0.00,
   `cantidad` int(11) NOT NULL,
   `id_producto` int(11) NOT NULL,
-  `id_compra` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `id_compra` (`id_compra`),
-  KEY `id_producto` (`id_producto`),
-  CONSTRAINT `detalle_compras_ibfk_1` FOREIGN KEY (`id_compra`) REFERENCES `compras` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `detalle_compras_ibfk_2` FOREIGN KEY (`id_producto`) REFERENCES `producto` (`codproducto`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `id_compra` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `detalle_compras`
+-- Volcado de datos para la tabla `detalle_compras`
 --
 
-LOCK TABLES `detalle_compras` WRITE;
-/*!40000 ALTER TABLE `detalle_compras` DISABLE KEYS */;
-/*!40000 ALTER TABLE `detalle_compras` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `detalle_compras` (`id`, `precio`, `cantidad`, `id_producto`, `id_compra`) VALUES
+(1, 10.00, 5, 1, 1),
+(2, 10.00, 10, 1, 2),
+(3, 10.00, 9, 1, 3);
+
+-- --------------------------------------------------------
 
 --
--- Table structure for table `detalle_permisos`
+-- Estructura de tabla para la tabla `detalle_permisos`
 --
 
-DROP TABLE IF EXISTS `detalle_permisos`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `detalle_permisos` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `id_permiso` int(11) NOT NULL,
-  `id_usuario` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `id_permiso` (`id_permiso`),
-  KEY `id_usuario` (`id_usuario`),
-  CONSTRAINT `detalle_permisos_ibfk_1` FOREIGN KEY (`id_permiso`) REFERENCES `permisos` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `detalle_permisos_ibfk_2` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`idusuario`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `id_usuario` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `detalle_permisos`
+-- Volcado de datos para la tabla `detalle_permisos`
 --
 
-LOCK TABLES `detalle_permisos` WRITE;
-/*!40000 ALTER TABLE `detalle_permisos` DISABLE KEYS */;
-INSERT INTO `detalle_permisos` VALUES (1,1,1),(2,2,1),(3,3,1),(4,4,1),(5,5,1),(6,6,1),(7,7,1),(8,8,1),(9,9,1);
-/*!40000 ALTER TABLE `detalle_permisos` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `detalle_permisos` (`id`, `id_permiso`, `id_usuario`) VALUES
+(1, 1, 1),
+(2, 2, 1),
+(3, 3, 1),
+(4, 4, 1),
+(5, 5, 1),
+(6, 6, 1),
+(7, 7, 1),
+(8, 8, 1),
+(9, 9, 1),
+(10, 10, 1),
+(11, 11, 1),
+(12, 14, 1),
+(27, 3, 5),
+(28, 5, 5),
+(29, 6, 5),
+(30, 9, 5),
+(43, 3, 4),
+(44, 4, 4),
+(45, 5, 4),
+(46, 6, 4),
+(47, 9, 4);
+
+-- --------------------------------------------------------
 
 --
--- Table structure for table `detalle_ventas`
+-- Estructura de tabla para la tabla `detalle_stock_sede`
 --
 
-DROP TABLE IF EXISTS `detalle_ventas`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `detalle_stock_sede` (
+  `id` int(11) NOT NULL,
+  `id_producto` int(11) NOT NULL,
+  `id_sede` int(11) NOT NULL,
+  `stock` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
+
+--
+-- Volcado de datos para la tabla `detalle_stock_sede`
+--
+
+INSERT INTO `detalle_stock_sede` (`id`, `id_producto`, `id_sede`, `stock`) VALUES
+(1, 1, 1, 5),
+(2, 1, 2, 0),
+(3, 1, 3, 9),
+(4, 1, 4, 0),
+(5, 2, 1, 0),
+(6, 2, 2, 0),
+(7, 2, 3, 0),
+(8, 2, 4, 0),
+(9, 3, 1, 0),
+(10, 3, 2, 0),
+(11, 3, 3, 0),
+(12, 3, 4, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `detalle_ventas`
+--
+
 CREATE TABLE `detalle_ventas` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `id_producto` int(11) NOT NULL,
   `id_venta` int(11) NOT NULL,
   `cantidad` int(11) NOT NULL,
-  `precio` decimal(10,2) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `id_producto` (`id_producto`),
-  KEY `id_venta` (`id_venta`),
-  CONSTRAINT `detalle_ventas_ibfk_1` FOREIGN KEY (`id_venta`) REFERENCES `ventas` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `detalle_ventas_ibfk_2` FOREIGN KEY (`id_producto`) REFERENCES `producto` (`codproducto`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `precio` decimal(10,2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `detalle_ventas`
+-- Volcado de datos para la tabla `detalle_ventas`
 --
 
-LOCK TABLES `detalle_ventas` WRITE;
-/*!40000 ALTER TABLE `detalle_ventas` DISABLE KEYS */;
-/*!40000 ALTER TABLE `detalle_ventas` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `detalle_ventas` (`id`, `id_producto`, `id_venta`, `cantidad`, `precio`) VALUES
+(1, 1, 1, 3, 10.00),
+(2, 1, 2, 1, 10.00),
+(3, 1, 3, 1, 10.00),
+(4, 1, 4, 3, 10.00),
+(5, 1, 5, 1, 10.00),
+(6, 1, 6, 1, 10.00),
+(7, 1, 7, 1, 10.00),
+(8, 1, 8, 2, 10.00),
+(9, 1, 9, 1, 10.00);
+
+-- --------------------------------------------------------
 
 --
--- Table structure for table `permisos`
+-- Estructura de tabla para la tabla `perfil`
 --
 
-DROP TABLE IF EXISTS `permisos`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `perfil` (
+  `id` int(11) NOT NULL,
+  `nombre_perfil` varchar(50) NOT NULL,
+  `status` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
+
+--
+-- Volcado de datos para la tabla `perfil`
+--
+
+INSERT INTO `perfil` (`id`, `nombre_perfil`, `status`) VALUES
+(1, 'ADMINISTRADOR', 1),
+(2, 'ASISTENTE', 1),
+(3, 'TESORERIA', 1),
+(4, 'MONSEÑOR', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `permisos`
+--
+
 CREATE TABLE `permisos` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(30) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `id` int(11) NOT NULL,
+  `nombre` varchar(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `permisos`
+-- Volcado de datos para la tabla `permisos`
 --
 
-LOCK TABLES `permisos` WRITE;
-/*!40000 ALTER TABLE `permisos` DISABLE KEYS */;
-INSERT INTO `permisos` VALUES (1,'Configuracion'),(2,'Usuarios'),(3,'Clientes'),(4,'Productos'),(5,'Ventas'),(6,'Nueva venta'),(7,'Compras'),(8,'Nueva compra'),(9,'Proveedores');
-/*!40000 ALTER TABLE `permisos` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `permisos` (`id`, `nombre`) VALUES
+(1, 'Configuracion'),
+(2, 'Usuarios'),
+(3, 'Clientes'),
+(4, 'Productos'),
+(5, 'Ventas'),
+(6, 'Nueva venta'),
+(7, 'Compras'),
+(8, 'Nueva compra'),
+(9, 'Proveedores'),
+(10, 'sede'),
+(11, 'categoria'),
+(14, 'traslado');
+
+-- --------------------------------------------------------
 
 --
--- Table structure for table `producto`
+-- Estructura de tabla para la tabla `producto`
 --
 
-DROP TABLE IF EXISTS `producto`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `producto` (
-  `codproducto` int(11) NOT NULL AUTO_INCREMENT,
-  `codigo` varchar(20) COLLATE utf8_spanish_ci NOT NULL,
-  `descripcion` varchar(200) COLLATE utf8_spanish_ci NOT NULL,
+  `codproducto` int(11) NOT NULL,
+  `idcategoria` varchar(20) NOT NULL,
+  `nombre` varchar(80) NOT NULL,
+  `descripcion` varchar(200) NOT NULL,
   `precio` decimal(10,2) NOT NULL,
-  `existencia` int(11) NOT NULL,
-  `status` int(11) NOT NULL DEFAULT 1,
-  PRIMARY KEY (`codproducto`)
+  `status` int(11) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `producto`
+-- Volcado de datos para la tabla `producto`
 --
 
-LOCK TABLES `producto` WRITE;
-/*!40000 ALTER TABLE `producto` DISABLE KEYS */;
-/*!40000 ALTER TABLE `producto` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `producto` (`codproducto`, `idcategoria`, `nombre`, `descripcion`, `precio`, `status`) VALUES
+(1, '1', 'Polera ', 'Hombre Azul Marino Land´s And', 10.00, 1),
+(2, '1', 'Chompa', 'Mujer peluche negra', 15.00, 1),
+(3, '1', 'Vestido', 'Mujer Rojo Land´s And', 10.00, 1);
+
+-- --------------------------------------------------------
 
 --
--- Table structure for table `proveedor`
+-- Estructura de tabla para la tabla `proveedor`
 --
 
-DROP TABLE IF EXISTS `proveedor`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `proveedor` (
-  `idproveedor` int(11) NOT NULL AUTO_INCREMENT,
+  `idproveedor` int(11) NOT NULL,
   `nombre` varchar(255) NOT NULL DEFAULT '',
+  `ruc` int(11) NOT NULL,
   `telefono` varchar(15) NOT NULL DEFAULT '',
   `direccion` text NOT NULL,
-  `status` int(11) NOT NULL DEFAULT 1,
-  PRIMARY KEY (`idproveedor`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `status` int(11) NOT NULL DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `proveedor`
+-- Volcado de datos para la tabla `proveedor`
 --
 
-LOCK TABLES `proveedor` WRITE;
-/*!40000 ALTER TABLE `proveedor` DISABLE KEYS */;
-/*!40000 ALTER TABLE `proveedor` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `proveedor` (`idproveedor`, `nombre`, `ruc`, `telefono`, `direccion`, `status`) VALUES
+(1, 'CONTENDOR', 2052136256, '963258415', 'JR. CALLAO - TARAPOTO', 1),
+(2, 'LIBRERIA PARROQUIA', 2147483647, '963265236', 'TARAPOTO', 1),
+(3, 'LIBRERIA CHACHA', 2147483647, '963265369', 'JR. 2 DE MAYO', 0),
+(4, 'TEXTELERIA MOYOBAMBA', 2013265262, '963265212', 'JR. LIMA', 0);
+
+-- --------------------------------------------------------
 
 --
--- Table structure for table `temp_compras`
+-- Estructura de tabla para la tabla `sede`
 --
 
-DROP TABLE IF EXISTS `temp_compras`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `sede` (
+  `sede_id` int(11) NOT NULL,
+  `nombre` varchar(20) CHARACTER SET utf8 COLLATE utf8_spanish2_ci NOT NULL,
+  `direccion` varchar(20) CHARACTER SET utf8 COLLATE utf8_spanish2_ci NOT NULL,
+  `estado` varchar(20) CHARACTER SET utf8 COLLATE utf8_spanish2_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
+
+--
+-- Volcado de datos para la tabla `sede`
+--
+
+INSERT INTO `sede` (`sede_id`, `nombre`, `direccion`, `estado`) VALUES
+(1, 'MOYOBAMBA', 'JR. SAN MARTIN 314', 'ACTIVO'),
+(2, 'PICOTA', 'JR. PICOTA', 'ACTIVO'),
+(3, 'SISA', 'JR. TACNA', 'ACTIVO'),
+(4, 'TARAPOTO', 'JR. JUAN VARGS', 'ACTIVO');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `temp_compras`
+--
+
 CREATE TABLE `temp_compras` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `precio` decimal(10,2) NOT NULL DEFAULT 0.00,
   `cantidad` int(11) NOT NULL,
   `id_producto` int(11) NOT NULL,
   `id_usuario` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `FK_temp_compras_producto` (`id_producto`),
-  KEY `FK_temp_compras_usuario` (`id_usuario`),
-  CONSTRAINT `temp_compras_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`idusuario`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `temp_compras_ibfk_2` FOREIGN KEY (`id_producto`) REFERENCES `producto` (`codproducto`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `sede_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
 
 --
--- Dumping data for table `temp_compras`
+-- Estructura de tabla para la tabla `temp_ventas`
 --
 
-LOCK TABLES `temp_compras` WRITE;
-/*!40000 ALTER TABLE `temp_compras` DISABLE KEYS */;
-/*!40000 ALTER TABLE `temp_compras` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `temp_ventas`
---
-
-DROP TABLE IF EXISTS `temp_ventas`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `temp_ventas` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `id_usuario` int(11) NOT NULL,
   `id_producto` int(11) NOT NULL,
   `cantidad` int(11) NOT NULL,
   `descuento` decimal(10,2) NOT NULL DEFAULT 0.00,
-  `precio` decimal(10,2) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `id_usuario` (`id_usuario`),
-  KEY `id_producto` (`id_producto`),
-  CONSTRAINT `temp_ventas_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`idusuario`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `temp_ventas_ibfk_2` FOREIGN KEY (`id_producto`) REFERENCES `producto` (`codproducto`) ON DELETE CASCADE ON UPDATE CASCADE
+  `precio` decimal(10,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+
+-- --------------------------------------------------------
 
 --
--- Dumping data for table `temp_ventas`
+-- Estructura de tabla para la tabla `traslado`
 --
 
-LOCK TABLES `temp_ventas` WRITE;
-/*!40000 ALTER TABLE `temp_ventas` DISABLE KEYS */;
-/*!40000 ALTER TABLE `temp_ventas` ENABLE KEYS */;
-UNLOCK TABLES;
+CREATE TABLE `traslado` (
+  `idtraslado` int(11) NOT NULL,
+  `sede_origen` varchar(40) NOT NULL,
+  `sede_destino` varchar(40) NOT NULL,
+  `fecha_creacion` datetime NOT NULL,
+  `fecha_aceptacion` datetime NOT NULL,
+  `status` int(11) NOT NULL DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
+
+-- --------------------------------------------------------
 
 --
--- Table structure for table `usuario`
+-- Estructura de tabla para la tabla `usuario`
 --
 
-DROP TABLE IF EXISTS `usuario`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `usuario` (
-  `idusuario` int(11) NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
-  `correo` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
-  `clave` varchar(150) COLLATE utf8_spanish_ci NOT NULL,
-  `status` int(11) NOT NULL DEFAULT 1,
-  PRIMARY KEY (`idusuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `idusuario` int(11) NOT NULL,
+  `nombre` varchar(100) NOT NULL,
+  `perfil` int(11) NOT NULL,
+  `correo` varchar(100) NOT NULL,
+  `clave` varchar(150) NOT NULL,
+  `sede_id` int(11) NOT NULL,
+  `status` int(11) NOT NULL DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
--- Dumping data for table `usuario`
+-- Volcado de datos para la tabla `usuario`
 --
 
-LOCK TABLES `usuario` WRITE;
-/*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES (1,'Sistemas Free','ana.info1999@gmail.com','$2y$10$vS5ajG877UWuW1dFDbA2ZehRJk0MKD8G/5gnlfauELXVYOQ6pk5y6',1),(2,'ANA LOPEZ','info@sistemasfree.com','$2y$10$KqXvy1kiVGnu5CeL0UfuHe9cxf.QpH3AC5grBqqx4NijaLw2bV8N.',1);
-/*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `usuario` (`idusuario`, `nombre`, `perfil`, `correo`, `clave`, `sede_id`, `status`) VALUES
+(1, 'ADMIN GENERAL', 1, 'admin@gmail.com', '$2y$10$eVouXr4.yN5jROwGL1e7VO/SX01k67Sy8avO8T1jLXSHM6Vz1Wfku', 1, 1),
+(4, 'HALI HUACCHA', 2, 'saridhuaccha@gmail.com', '$2y$10$sJSkVn3Zf9LufGT6qopAaeaO3J15nEhb9jXZmKB5NhPLDT1MDC5im', 3, 1),
+(5, 'MARILIN', 2, 'marilin@gmail.com', '$2y$10$yEX7JRpodYTAFymvDxnK9uYGPJ6o60iuibd62sLhH6AiNvmEeOUHK', 2, 0),
+(6, 'ARACELY TUANAMA', 2, 'aracelytuanama@gmail.com', '$2y$10$PCeXEEmjOdOQh6Fk92nwIOKKMMAv2WMzryY6dJla/MIRG9Kr401du', 2, 1);
+
+-- --------------------------------------------------------
 
 --
--- Table structure for table `ventas`
+-- Estructura de tabla para la tabla `ventas`
 --
 
-DROP TABLE IF EXISTS `ventas`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `ventas` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `id_cliente` int(11) NOT NULL,
   `total` decimal(10,2) NOT NULL,
   `metodo` varchar(80) NOT NULL DEFAULT '',
   `id_usuario` int(11) NOT NULL,
   `fecha` date NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `id_usuario` (`id_usuario`),
-  KEY `id_cliente` (`id_cliente`),
-  CONSTRAINT `ventas_ibfk_1` FOREIGN KEY (`id_cliente`) REFERENCES `cliente` (`idcliente`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `ventas_ibfk_2` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`idusuario`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `id_sede` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `ventas`
+-- Volcado de datos para la tabla `ventas`
 --
 
-LOCK TABLES `ventas` WRITE;
-/*!40000 ALTER TABLE `ventas` DISABLE KEYS */;
-/*!40000 ALTER TABLE `ventas` ENABLE KEYS */;
-UNLOCK TABLES;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+INSERT INTO `ventas` (`id`, `id_cliente`, `total`, `metodo`, `id_usuario`, `fecha`, `id_sede`) VALUES
+(1, 11, 30.00, 'EFECTIVO', 4, '2025-02-07', 1),
+(2, 11, 10.00, 'EFECTIVO', 4, '2025-02-07', 1),
+(3, 11, 10.00, 'EFECTIVO', 4, '2025-02-07', 1),
+(4, 1, 30.00, 'EFECTIVO', 4, '2025-02-07', 1),
+(5, 11, 10.00, 'YAPE', 4, '2025-02-07', 3),
+(6, 11, 10.00, 'DONACION', 1, '2025-02-07', 1),
+(7, 11, 10.00, 'EFECTIVO', 1, '2025-02-08', 1),
+(8, 11, 20.00, 'EFECTIVO', 1, '2025-02-10', 1),
+(9, 2, 10.00, 'DONACION', 1, '2025-02-10', 1);
 
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+--
+-- Índices para tablas volcadas
+--
+
+--
+-- Indices de la tabla `categoria`
+--
+ALTER TABLE `categoria`
+  ADD PRIMARY KEY (`idcategoria`);
+
+--
+-- Indices de la tabla `cliente`
+--
+ALTER TABLE `cliente`
+  ADD PRIMARY KEY (`idcliente`);
+
+--
+-- Indices de la tabla `compras`
+--
+ALTER TABLE `compras`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_proveedor` (`id_proveedor`),
+  ADD KEY `id_usuario` (`id_usuario`);
+
+--
+-- Indices de la tabla `configuracion`
+--
+ALTER TABLE `configuracion`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `detalle_compras`
+--
+ALTER TABLE `detalle_compras`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_compra` (`id_compra`),
+  ADD KEY `id_producto` (`id_producto`);
+
+--
+-- Indices de la tabla `detalle_permisos`
+--
+ALTER TABLE `detalle_permisos`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_permiso` (`id_permiso`),
+  ADD KEY `id_usuario` (`id_usuario`);
+
+--
+-- Indices de la tabla `detalle_stock_sede`
+--
+ALTER TABLE `detalle_stock_sede`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_producto_detalle` (`id_producto`),
+  ADD KEY `fk_detalle_Sede` (`id_sede`);
+
+--
+-- Indices de la tabla `detalle_ventas`
+--
+ALTER TABLE `detalle_ventas`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_producto` (`id_producto`),
+  ADD KEY `id_venta` (`id_venta`);
+
+--
+-- Indices de la tabla `perfil`
+--
+ALTER TABLE `perfil`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `permisos`
+--
+ALTER TABLE `permisos`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `producto`
+--
+ALTER TABLE `producto`
+  ADD PRIMARY KEY (`codproducto`);
+
+--
+-- Indices de la tabla `proveedor`
+--
+ALTER TABLE `proveedor`
+  ADD PRIMARY KEY (`idproveedor`);
+
+--
+-- Indices de la tabla `sede`
+--
+ALTER TABLE `sede`
+  ADD PRIMARY KEY (`sede_id`);
+
+--
+-- Indices de la tabla `temp_compras`
+--
+ALTER TABLE `temp_compras`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FK_temp_compras_producto` (`id_producto`),
+  ADD KEY `FK_temp_compras_usuario` (`id_usuario`);
+
+--
+-- Indices de la tabla `temp_ventas`
+--
+ALTER TABLE `temp_ventas`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_usuario` (`id_usuario`),
+  ADD KEY `id_producto` (`id_producto`);
+
+--
+-- Indices de la tabla `traslado`
+--
+ALTER TABLE `traslado`
+  ADD PRIMARY KEY (`idtraslado`);
+
+--
+-- Indices de la tabla `usuario`
+--
+ALTER TABLE `usuario`
+  ADD PRIMARY KEY (`idusuario`),
+  ADD KEY `fk_user_perfil` (`perfil`),
+  ADD KEY `fk_user_sede` (`sede_id`);
+
+--
+-- Indices de la tabla `ventas`
+--
+ALTER TABLE `ventas`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_usuario` (`id_usuario`),
+  ADD KEY `id_cliente` (`id_cliente`);
+
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `categoria`
+--
+ALTER TABLE `categoria`
+  MODIFY `idcategoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT de la tabla `cliente`
+--
+ALTER TABLE `cliente`
+  MODIFY `idcliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
+-- AUTO_INCREMENT de la tabla `compras`
+--
+ALTER TABLE `compras`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT de la tabla `configuracion`
+--
+ALTER TABLE `configuracion`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT de la tabla `detalle_compras`
+--
+ALTER TABLE `detalle_compras`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT de la tabla `detalle_permisos`
+--
+ALTER TABLE `detalle_permisos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+
+--
+-- AUTO_INCREMENT de la tabla `detalle_stock_sede`
+--
+ALTER TABLE `detalle_stock_sede`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- AUTO_INCREMENT de la tabla `detalle_ventas`
+--
+ALTER TABLE `detalle_ventas`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT de la tabla `perfil`
+--
+ALTER TABLE `perfil`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT de la tabla `permisos`
+--
+ALTER TABLE `permisos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
+--
+-- AUTO_INCREMENT de la tabla `producto`
+--
+ALTER TABLE `producto`
+  MODIFY `codproducto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT de la tabla `proveedor`
+--
+ALTER TABLE `proveedor`
+  MODIFY `idproveedor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT de la tabla `sede`
+--
+ALTER TABLE `sede`
+  MODIFY `sede_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT de la tabla `temp_compras`
+--
+ALTER TABLE `temp_compras`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+
+--
+-- AUTO_INCREMENT de la tabla `temp_ventas`
+--
+ALTER TABLE `temp_ventas`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT de la tabla `traslado`
+--
+ALTER TABLE `traslado`
+  MODIFY `idtraslado` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `usuario`
+--
+ALTER TABLE `usuario`
+  MODIFY `idusuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT de la tabla `ventas`
+--
+ALTER TABLE `ventas`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- Restricciones para tablas volcadas
+--
+
+--
+-- Filtros para la tabla `compras`
+--
+ALTER TABLE `compras`
+  ADD CONSTRAINT `compras_ibfk_1` FOREIGN KEY (`id_proveedor`) REFERENCES `proveedor` (`idproveedor`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `compras_ibfk_2` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`idusuario`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `detalle_compras`
+--
+ALTER TABLE `detalle_compras`
+  ADD CONSTRAINT `detalle_compras_ibfk_1` FOREIGN KEY (`id_compra`) REFERENCES `compras` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `detalle_compras_ibfk_2` FOREIGN KEY (`id_producto`) REFERENCES `producto` (`codproducto`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `detalle_permisos`
+--
+ALTER TABLE `detalle_permisos`
+  ADD CONSTRAINT `detalle_permisos_ibfk_1` FOREIGN KEY (`id_permiso`) REFERENCES `permisos` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `detalle_permisos_ibfk_2` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`idusuario`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `detalle_stock_sede`
+--
+ALTER TABLE `detalle_stock_sede`
+  ADD CONSTRAINT `fk_detalle_Sede` FOREIGN KEY (`id_sede`) REFERENCES `sede` (`sede_id`),
+  ADD CONSTRAINT `fk_producto_detalle` FOREIGN KEY (`id_producto`) REFERENCES `producto` (`codproducto`);
+
+--
+-- Filtros para la tabla `detalle_ventas`
+--
+ALTER TABLE `detalle_ventas`
+  ADD CONSTRAINT `detalle_ventas_ibfk_1` FOREIGN KEY (`id_venta`) REFERENCES `ventas` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `detalle_ventas_ibfk_2` FOREIGN KEY (`id_producto`) REFERENCES `producto` (`codproducto`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `temp_compras`
+--
+ALTER TABLE `temp_compras`
+  ADD CONSTRAINT `temp_compras_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`idusuario`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `temp_compras_ibfk_2` FOREIGN KEY (`id_producto`) REFERENCES `producto` (`codproducto`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `temp_ventas`
+--
+ALTER TABLE `temp_ventas`
+  ADD CONSTRAINT `temp_ventas_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`idusuario`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `temp_ventas_ibfk_2` FOREIGN KEY (`id_producto`) REFERENCES `producto` (`codproducto`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `usuario`
+--
+ALTER TABLE `usuario`
+  ADD CONSTRAINT `fk_user_perfil` FOREIGN KEY (`perfil`) REFERENCES `perfil` (`id`),
+  ADD CONSTRAINT `fk_user_sede` FOREIGN KEY (`sede_id`) REFERENCES `sede` (`sede_id`);
+
+--
+-- Filtros para la tabla `ventas`
+--
+ALTER TABLE `ventas`
+  ADD CONSTRAINT `ventas_ibfk_1` FOREIGN KEY (`id_cliente`) REFERENCES `cliente` (`idcliente`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `ventas_ibfk_2` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`idusuario`) ON DELETE CASCADE ON UPDATE CASCADE;
+COMMIT;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2023-01-02 11:22:51

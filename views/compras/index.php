@@ -67,8 +67,8 @@
                                 <thead class="thead-dark">
                                     <tr>
                                         <th scope="col">Codigo</th>
-                                        <th scope="col">Categoria</th>
                                         <th scope="col">Producto</th>
+                                        <th scope="col">Descripcion</th>
                                         <th scope="col">Stock</th>
                                         <th scope="col">Precio</th>
                                         <th>Accion</th>

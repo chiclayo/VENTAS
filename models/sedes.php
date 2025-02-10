@@ -60,6 +60,11 @@ class SedesModel{
             return $consult->fetchAll(PDO::FETCH_ASSOC);
         }
     }
+    
+    
+
+
+
 }
 
 ?>

@@ -8,26 +8,12 @@ const btn_save = document.querySelector('#btn-guardar');
 
 const seacrh = document.querySelector('#seacrh');
 
+const sedes = document.getElementById('sede_data');
+
 let table_proveedores;
 
 document.addEventListener('DOMContentLoaded', function () {
-  $('#table_compra').DataTable({
-    ajax: {
-      url: ruta + 'controllers/comprasController.php?option=listar',
-      dataSrc: ''
-    },
-    columns: [
-      { data: 'codproducto' },
-      { data: 'idcategoria' },
-      { data: 'nombre' },
-      { data: 'cantidad' },
-      { data: 'precio' },
-      { data: 'addcart' }
-    ],
-    language: {
-      url: 'https://cdn.datatables.net/plug-ins/1.13.1/i18n/es-ES.json'
-    }
-  });
+  
 
   temp()
 
@@ -58,7 +44,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
   btn_save.onclick = function () {
     axios.post(ruta + 'controllers/comprasController.php?option=savecompra', {
-      idProveedor: id_proveedor.value
+      idProveedor: id_proveedor.value,
+      idSede: sedes.value
     })
       .then(function (response) {
         const info = response.data;
@@ -94,11 +81,35 @@ document.addEventListener('DOMContentLoaded', function () {
 
 })
 
+sedes.addEventListener('change', (e) => {
+  const valor = e.target.value;
+
+  if(valor != 0) {
+    $('#table_compra').DataTable().destroy();
+    $('#table_compra').DataTable({
+      ajax: {
+        url: ruta + 'controllers/comprasController.php?option=listar&sede='+valor,
+        dataSrc: ''
+      },
+      columns: [
+        { data: 'codproducto' },
+        { data: 'nombre' },
+        { data: 'descripcion' },
+        { data: 'stock_total' },
+        { data: 'precio' },
+        { data: 'addcart' }
+      ],
+      language: {
+        url: 'https://cdn.datatables.net/plug-ins/1.13.1/i18n/es-ES.json'
+      }
+    });
+  }
+})
+
 function renderSedesPerfil() {
   axios.get(ruta + 'controllers/comprasController.php?option=sedesPerfil')
     .then(function (response) {
       const info = response.data;
-      const sedes = document.getElementById('sede_data');
 
       let html = "";
 

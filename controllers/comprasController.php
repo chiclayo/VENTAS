@@ -8,13 +8,14 @@ $id_user = $_SESSION['idusuario'];
 $id_perfil = $_SESSION['idperfil'];
 switch ($option) {
     case 'listar':
-        $result = $compras->getProducts();
+        $sede = $_GET['sede'];
+        $result = $compras->getProducts($sede);
         for ($i = 0; $i < count($result); $i++) {
             $result[$i]['addcart'] = '<a href="#" class="btn btn-primary btn-sm" onclick="addCart(' . $result[$i]['codproducto'] . ')"><i class="fas fa-cart-plus"></i></a>';
-            if ($result[$i]['precio'] > 15) {
-                $result[$i]['cantidad'] = '<span class="badge badge-info">'.$result[$i]['precio'].'</span>';
+            if ($result[$i]['stock_total'] > 15) {
+                $result[$i]['stock_total'] = '<span class="badge badge-info">'.$result[$i]['stock_total'].'</span>';
             } else {
-                $result[$i]['cantidad'] = '<span class="badge badge-warning">'.$result[$i]['precio'].'</span>';
+                $result[$i]['stock_total'] = '<span class="badge badge-warning">'.$result[$i]['stock_total'].'</span>';
             }           
             
         }
@@ -85,6 +86,7 @@ switch ($option) {
         $accion = file_get_contents('php://input');
         $array = json_decode($accion, true);
         $id_proveedor = $array['idProveedor'];
+        $idSede = $array['idSede'];
         $fecha = date('Y-m-d');
         $consult = $compras->getProductsUsers($id_user);
         if (empty($consult)) {
@@ -98,9 +100,15 @@ switch ($option) {
             if ($shoping > 0) {
                 foreach ($consult as $temp) {
                     $compras->saveDetalle($temp['id_producto'], $shoping, $temp['cantidad'], $temp['precio']);
-                    $producto = $compras->getProduct($temp['id_producto']);
-                    $stock = $producto['existencia'] + $temp['cantidad'];
-                    $compras->updateStock($stock, $temp['id_producto']);
+                    //$producto = $compras->getProduct($temp['id_producto']);
+                    //$stock = $producto['existencia'] + $temp['cantidad'];
+                    //$compras->updateStock($stock, $temp['id_producto']);
+                    $stockDetalle = $compras->getStockProducto($temp['id_producto'], $idSede);
+
+                    $stock = $stockDetalle['stock'] + $temp['cantidad'];
+
+                    $compras->updateStockDetalle($stock, $stockDetalle['id']);
+
                 }
                 $compras->deleteTemp($id_user);
                 $res = array('tipo' => 'success', 'mensaje' => 'ok', 'shoping' => $shoping);

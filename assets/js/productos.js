@@ -7,26 +7,17 @@ const stock = document.querySelector('#stock');
 const id_product = document.querySelector('#id_product');
 const btn_nuevo = document.querySelector('#btn-nuevo');
 const btn_save = document.querySelector('#btn-save');
+const sede_id = document.getElementById('sede_id');
+
 document.addEventListener('DOMContentLoaded', function () {
-  $('#table_productos').DataTable({
-    ajax: {
-      url: ruta + 'controllers/productosController.php?option=listar',
-      dataSrc: ''
-    },
-    columns: [
-      { data: 'codproducto' },
-      { data: 'nameCategoria' },
-      { data: 'nombre' },
-      { data: 'descripcion' },
-      { data: 'precio' },
-      { data: 'precio' },
-      { data: 'accion' }
-    ],
-    language: {
-      url: 'https://cdn.datatables.net/plug-ins/1.13.1/i18n/es-ES.json'
-    },
-    "order": [[0, 'desc']]
-  });
+  loadSedes();
+
+  setTimeout(() => {
+
+    renderProductos(sede_id.value);
+
+  }, 1000);
+  
   frm.onsubmit = function (e) {
 
     e.preventDefault();
@@ -58,7 +49,31 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   loadCategorias();
+  
 })
+
+function renderProductos(sede) {
+  $('#table_productos').DataTable().destroy();
+  $('#table_productos').DataTable({
+    ajax: {
+      url: ruta + 'controllers/productosController.php?option=listar&sede='+sede,
+      dataSrc: ''
+    },
+    columns: [
+      { data: 'codproducto' },
+      { data: 'nameCategoria' },
+      { data: 'nombre' },
+      { data: 'descripcion' },
+      { data: 'precio' },
+      { data: 'stock_total' },
+      { data: 'accion' }
+    ],
+    language: {
+      url: 'https://cdn.datatables.net/plug-ins/1.13.1/i18n/es-ES.json'
+    },
+    "order": [[0, 'desc']]
+  });
+}
 
 function deleteProducto(id) {
   Snackbar.show({
@@ -88,6 +103,7 @@ function deleteProducto(id) {
 function editProducto(id) {
   axios.get(ruta + 'controllers/productosController.php?option=edit&id=' + id)
     .then(function (response) {
+      
       const info = response.data;
       categoria.value = info.idcategoria;
       nombre.value = info.nombre;
@@ -119,3 +135,28 @@ function loadCategorias() {
       console.log(error);
     });
 }
+
+function loadSedes() {
+  axios.get(ruta + 'controllers/productosController.php?option=sedes')
+    .then(function (response) {
+      const info = response.data;
+      const sedes= document.getElementById('sede_id');
+
+      let html = `<option value="0">TODOS</option>`;
+
+      info.forEach(sede=> {
+        html += `<option value="${sede.sede_id}">${sede.nombre}</option>`;
+      });
+
+      sedes.innerHTML = html;
+      
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+}
+
+sede_id.addEventListener('change', (e) => {
+  const valor = e.target.value;
+  renderProductos(valor);
+})

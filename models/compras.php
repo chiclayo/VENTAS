@@ -8,9 +8,13 @@ class Compras{
         $this->pdo = $this->con->conectar();
     }
 
-    public function getProducts()
+    public function getProducts($sede)
     {
-        $consult = $this->pdo->prepare("SELECT * FROM producto WHERE status = 1");
+        /*$consult = $this->pdo->prepare("SELECT * FROM producto WHERE status = 1");
+        $consult->execute();
+        return $consult->fetchAll(PDO::FETCH_ASSOC);*/
+
+        $consult = $this->pdo->prepare("SELECT p.codproducto, p.nombre, p.descripcion, c.nombre as nameCategoria, p.precio, dss.stock as stock_total, p.status FROM producto p LEFT JOIN categoria c on c.idcategoria = p.idcategoria LEFT JOIN detalle_stock_sede dss ON p.codproducto = dss.id_producto WHERE p.status = 1 and dss.id_sede = $sede");
         $consult->execute();
         return $consult->fetchAll(PDO::FETCH_ASSOC);
     }
@@ -80,6 +84,13 @@ class Compras{
         return $consult->execute([$id_producto, $id_compra, $cantidad, $precio]);
     }
 
+    public function getStockProducto($id_producto, $id_sede)
+    {
+        $consult = $this->pdo->prepare("SELECT * FROM detalle_stock_sede WHERE id_producto = ? and id_sede = ?");
+        $consult->execute([$id_producto, $id_sede]);
+        return $consult->fetch(PDO::FETCH_ASSOC);
+    }
+
     public function deleteTemp($id_user)
     {
         $consult = $this->pdo->prepare("DELETE FROM temp_compras WHERE id_usuario = ?");
@@ -116,6 +127,12 @@ class Compras{
     {
         $consult = $this->pdo->prepare("UPDATE producto SET existencia = ? WHERE codproducto = ?");
         return $consult->execute([$stock, $id_producto]);
+    }
+
+    public function updateStockDetalle($stock, $id_detalle)
+    {
+        $consult = $this->pdo->prepare("UPDATE detalle_stock_sede SET stock = ? WHERE id = ?");
+        return $consult->execute([$stock, $id_detalle]);
     }
 }
 

@@ -7,12 +7,7 @@
     <div class="col-md-5">
         <div class="card">
             <div class="card-body">
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="fas fa-search"></i></span>
-                    </div>
-                    <input type="text" class="form-control" placeholder="Por Codigo" id="seacrh">
-                </div>
+                
                 <div class="table-responsive">
                     <table class="table" id="table_temp" style="width: 100%;">
                         <thead>
@@ -89,8 +84,8 @@
                                     <tr>
                                         
                                         <th scope="col">Codigo</th>
-                                        <th scope="col">Categoria</th>
-                                        <th scope="col">Producto</th>
+                                        <th scope="col">Nombre</th>
+                                        <th scope="col">Descripción</th>
                                         <th scope="col">Stock</th>
                                         <th scope="col">Precio</th>
                                         <th>Accion</th>

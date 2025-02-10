@@ -21,6 +21,9 @@ $categorias = $permisos->getPermiso(9, $id_user);
 $precios = $permisos->getPermiso(9, $id_user);
 $traslados = $permisos->getPermiso(9, $id_user);
 $perfiles = $permisos->getPermiso(9, $id_user);
+$cajas = $permisos->getPermiso(9, $id_user);
+$reportes = $permisos->getPermiso(9, $id_user);
+
 ##### FIN PERMISOS ####
 require_once 'views/includes/header.php';
 if (isset($_GET['pagina'])) {
@@ -60,7 +63,11 @@ if (isset($_GET['pagina'])) {
             }else if ($archivo == 'traslados' && !empty($traslados)) {
                 $plantilla->traslados();    
             }else if ($archivo == 'perfiles' && !empty($perfiles)) {
-                $plantilla->perfiles();     
+                $plantilla->perfiles();   
+            }else if ($archivo == 'reportes' && !empty($reportes)) {
+                $plantilla->reportes();  
+            }else if ($archivo == 'cajas' && !empty($cajas)) {
+                $plantilla->cajas(); 
                 
             } else{ 
             

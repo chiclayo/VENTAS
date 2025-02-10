@@ -1,17 +1,19 @@
 <?php
 $option = (empty($_GET['option'])) ? '' : $_GET['option'];
 require_once '../models/ventas.php';
+require_once '../models/compras.php';
 $ventas = new Ventas();
+$compras = new Compras();
 $id_user = $_SESSION['idusuario'];
 switch ($option) {
     case 'listar':
-        $result = $ventas->getProducts();
+        $result = $ventas->getProducts($_SESSION['idsede']);
         for ($i = 0; $i < count($result); $i++) {
             $result[$i]['addcart'] = '<a href="#" class="btn btn-primary btn-sm" onclick="addCart(' . $result[$i]['codproducto'] . ')"><i class="fas fa-cart-plus"></i></a>';
-            if ($result[$i]['precio'] > 10) {
-                $result[$i]['precio'] = '<span class="badge badge-info">'.$result[$i]['precio'].'</span>';
+            if ($result[$i]['stock_total'] > 5) {
+                $result[$i]['stock_total'] = '<span class="badge badge-info">'.$result[$i]['stock_total'].'</span>';
             } else {
-                $result[$i]['precio'] = '<span class="badge badge-warning">'.$result[$i]['precio'].'</span>';
+                $result[$i]['stock_total'] = '<span class="badge badge-danger">'.$result[$i]['stock_total'].'</span>';
             }           
             
         }
@@ -20,9 +22,9 @@ switch ($option) {
     case 'addcart':
         $cve = $_GET['id'];
         $cant = $_GET['cantidad'];
-        $result = $ventas->getProduct($cve);
+        $result = $ventas->getProduct($cve, $_SESSION['idsede']);
         $id_product = $result['codproducto'];
-        $existencia = $result['precio'];
+        $existencia = $result['stock_total'];
         $cantidad = 1;
         $precio = $result['precio'];
         $consult = $ventas->getTemp($id_product, $id_user);
@@ -75,9 +77,9 @@ switch ($option) {
         $idTemp = $array['id'];
         $cantidad = $array['cantidad'];
         $idproducto = $array['producto'];
-        $prod = $ventas->getProduct($idproducto);
+        $prod = $ventas->getProduct($idproducto, $_SESSION['idsede']);
 
-        $existencia = $prod['existencia'];
+        $existencia = $prod['stock_total'];
 
         if($cantidad > $existencia) {
             $res = array('tipo' => 'warning', 'mensaje' => 'LA CANTIDAD SUPERA AL STOCK', 'stock' => $existencia);
@@ -87,7 +89,7 @@ switch ($option) {
 
         $result = $ventas->updateCantidad($cantidad, $idTemp);
         if ($result) {
-            $res = array('tipo' => 'success', 'mensaje' => 'ok');
+            $res = array('tipo' => 'success', 'mensaje' => 'Ok');
         } else {
             $res = array('tipo' => 'error', 'mensaje' => 'ERROR AL AGREGAR');
         }
@@ -124,13 +126,18 @@ switch ($option) {
             foreach ($consult as $temp) {
                 $total += $temp['cantidad'] * $temp['precio'];
             }
-            $sale = $ventas->saveVenta($id_cliente, $total, $metodo, $fecha, $id_user);
+            $sale = $ventas->saveVenta($id_cliente, $total, $metodo, $fecha, $id_user, $_SESSION['idsede']);
             if ($sale > 0) {
                 foreach ($consult as $temp) {
                     $ventas->saveDetalle($temp['id_producto'], $sale, $temp['cantidad'], $temp['precio']);
-                    $producto = $ventas->getProduct($temp['id_producto']);
+                    /*$producto = $ventas->getProduct($temp['id_producto'], $_SESSION['idsede']);
                     $stock = $producto['existencia'] - $temp['cantidad'];
-                    $ventas->updateStock($stock, $temp['id_producto']);
+                    $ventas->updateStock($stock, $temp['id_producto']);*/
+                    $stockDetalle = $compras->getStockProducto($temp['id_producto'], $_SESSION['idsede']);
+
+                    $stock = $stockDetalle['stock'] - $temp['cantidad'];
+
+                    $compras->updateStockDetalle($stock, $stockDetalle['id']);
                 }
                 $ventas->deleteTemp($id_user);
                 $res = array('tipo' => 'success', 'mensaje' => 'ok', 'sale' => $sale);

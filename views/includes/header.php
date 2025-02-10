@@ -72,6 +72,16 @@ if (!empty($_GET['pagina'])) {
                     </a>
                 </li>
             <?php } ?>
+            <?php if (!empty($cajas)) { ?>
+                <!-- Nav Item - Pages Collapse Menu -->
+                <hr class="sidebar-divider d-none d-md-block">
+                <li class="nav-item <?php echo (!empty($_GET['pagina'])  && $_GET['pagina'] == 'cajas') ? 'bg-gradient-secondary' : ''; ?>">
+                    <a class="nav-link" href="?pagina=cajas">
+                        <i class="fas fa-money-bill-wave"></i>
+                        <span>Caja</span>
+                    </a>
+                </li>
+            <?php } ?>
             <?php if (!empty($clientes)) { ?>
                 <!-- Nav Item - Pages Collapse Menu -->
                 <hr class="sidebar-divider d-none d-md-block">
@@ -121,6 +131,16 @@ if (!empty($_GET['pagina'])) {
                     <a class="nav-link" href="?pagina=productos">
                         <i class="fas fa-fw fa-list"></i>
                         <span>Productos</span>
+                    </a>
+                </li>
+            <?php } ?>
+            <?php if (!empty($reportes)) { ?>
+                <!-- Nav Item - Pages Collapse Menu -->
+                <hr class="sidebar-divider d-none d-md-block">
+                <li class="nav-item <?php echo (!empty($_GET['pagina'])  && $_GET['pagina'] == 'reportes') ? 'bg-gradient-secondary' : ''; ?>">
+                    <a class="nav-link" href="?pagina=reportes">
+                        <i class="fas fa-file-pdf"></i>
+                        <span>Reportes</span>
                     </a>
                 </li>
             <?php } ?>

@@ -19,9 +19,9 @@ document.addEventListener('DOMContentLoaded', function () {
     },
     columns: [
       { data: 'codproducto' },
-      { data: 'idcategoria' },
       { data: 'nombre' },
-      { data: 'cantidad' },
+      { data: 'descripcion' },
+      { data: 'stock_total' },
       { data: 'precio' },
       { data: 'addcart' }
     ],
@@ -78,24 +78,7 @@ document.addEventListener('DOMContentLoaded', function () {
       });
   }
 
-  seacrh.onkeyup = function (e) {
-    if (e.key === "Enter") {
-      if (e.target.value == '') {
-        message('error', 'INGRESE BARCODE');
-      } else {
-        axios.get(ruta + 'controllers/ventasController.php?option=searchbarcode&barcode=' + e.target.value)
-          .then(function (response) {
-            const info = response.data;
-            seacrh.value = '';
-            message(info.tipo, info.mensaje);
-            temp();
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
-      }
-    }
-  }
+  
 
 })
 

@@ -7,6 +7,7 @@ if ($id_venta != null) {
     $datos = $ventas->getConfiguracion();
     $result = $ventas->getSale($id_venta);
     $products = $ventas->getProductsVenta($id_venta);
+    date_default_timezone_set('America/Lima'); 
 
     require('../fpdf/fpdf.php');
 

@@ -57,7 +57,7 @@ switch ($option) {
         echo json_encode($data);
         break;
 
-    default:
+         default:
         # code...
         break;
 }

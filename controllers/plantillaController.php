@@ -85,6 +85,14 @@ class Plantilla{
     public function perfiles()
     {
         include_once 'views/perfiles/index.php';
+    }     
+    public function reportes()
+    {
+        include_once 'views/reportes/index.php';
+    }     
+    public function cajas()
+    {
+        include_once 'views/cajas/index.php';
     }
 }
 ?>
