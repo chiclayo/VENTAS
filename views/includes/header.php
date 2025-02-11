@@ -195,7 +195,6 @@ if (!empty($_GET['pagina'])) {
                             <?php }
                             if (!empty($ventas)) { ?>
                                 <a class="collapse-item" href="?pagina=historial">Lista ventas</a>
-                                <a class="collapse-item" href="?pagina=detalles">Venta Detallada</a>
                             <?php } ?>
                         </div>
                     </div>

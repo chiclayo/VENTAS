@@ -14,16 +14,13 @@
         <!-- Selección de sede -->
         <div class="col-md-3 mb-3">
             <label for="sede" class="form-label">Selecciona una sede:</label>
-            <select id="sede_id"   name= "sede_id" form-select">
+            <select id="sede_id" class="form-select"  name= "sede_id"">
                   
               </select>
         </div>
 
         <!-- Botones de acción -->
         <div class="d-flex justify-content-center mt-3">
-            <button id="vistaPrevia" class="btn btn-primary me-2">
-                <i class="fas fa-eye"></i> Vista Previa
-            </button>
             <a id="btnPDF" class="btn btn-danger me-2" target="_blank">
                 <i class="fas fa-file-pdf"></i> Generar PDF
             </a>
@@ -38,10 +35,11 @@
                 <thead class="table-dark">
                     <tr>
                         <th>ID</th>
-                        <th>Producto</th>
-                        <th>Categoría</th>
-                        <th>Stock</th>
+                        <th>CategorÍa</th>
+                        <th>ProductoS</th>
+                        <th>Descripcion</th>
                         <th>Precio</th>
+                        <th>Stock</th>
                     </tr>
                 </thead>
                 <tbody>

@@ -163,7 +163,7 @@ switch ($option) {
             <button class="btn btn-danger btn-sm btnEliminar " data-id="' . $historial[$i]['id'] . '">
                 <i class="fas fa-trash-alt"></i> 
             </button>';
-                    }
+        }
         echo json_encode($historial);
         break;
     case 'searchbarcode':
@@ -205,17 +205,16 @@ switch ($option) {
         echo json_encode($res);
         break;
 
-   case 'delete':
-            if (!empty($_GET['id'])) {
+   case 'delete_venta':
                 $idVenta = $_GET['id'];
                 $result = $ventas->deleteVenta($idVenta);
                 
                 if ($result) {
-                    echo json_encode(['tipo' => 'success', 'mensaje' => 'Venta eliminada']);
+                    $res = array (['tipo' => 'success', 'mensaje' => 'Venta eliminada']);
                 } else {
-                    echo json_encode(['tipo' => 'error', 'mensaje' => 'Error al eliminar']);
+                    $res = array (['tipo' => 'error', 'mensaje' => 'Error al eliminar']);
                 }
-            }
+                echo json_encode($res);
             break;
     case 'logout':
         session_destroy();

@@ -15,8 +15,8 @@
                 <thead>
                     <tr>
                         <th scope="col">Id</th>
-                        <th scope="col">Cliente</th>
-                        <th scope="col">Productos</th>
+                        <th scope="col">Clientes</th>
+                        <th scope="col">Metodo</th>
                         <th scope="col">Total</th>
                         <th scope="col">Fecha</th>
                         <th></th>

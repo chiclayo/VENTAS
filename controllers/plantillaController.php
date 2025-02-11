@@ -70,10 +70,6 @@ class Plantilla{
     {
         include_once 'views/sedes/index.php';
     }
-        public function detalles()
-    {
-        include_once 'views/ventas/detalles.php';
-    }
     public function categorias()
     {
         include_once 'views/categorias/index.php';
@@ -88,7 +84,12 @@ class Plantilla{
     }     
     public function reportes()
     {
-        include_once 'views/reportes/index.php';
+        if($_SESSION['idperfil'] == 1) {
+            include_once 'views/reportes/index.php';
+        } else {
+            include_once 'views/reportes/userSede.php';
+        }
+        
     }     
     public function cajas()
     {

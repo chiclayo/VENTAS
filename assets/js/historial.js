@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function () {
         columns: [
           { data: 'id' },
           { data: 'nombre' },
-          { data: 'producto' },
+          { data: 'metodo' },
           { data: 'total' },
           { data: 'fecha' },
           { data: 'accion' }

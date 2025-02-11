@@ -5,10 +5,7 @@ if ($id_venta != null) {
     require_once '../../models/reporte.php';
     require '../models/Productos.php';
     
-    $ventas = new Reporte();
-    $datos = $ventas->getConfiguracion();
-    $result = $ventas->getSale($id_venta);
-    $products = $ventas->getProductsVenta($id_venta);
+
    
     require('../fpdf/fpdf.php');
 

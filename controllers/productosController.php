@@ -8,14 +8,19 @@ $categorias = new CategoriasModel();
 $sede = new SedesModel();
 switch ($option) {
     case 'listar':
-        $sede = $_GET['sede'];
-        $data = $productos->getProducts($sede);
+        $sede_id = $_GET['sede'];
+        $data = $productos->getProducts($sede_id);
         for ($i = 0; $i < count($data); $i++) {
             $data[$i]['accion'] = '<div class="d-flex">
             <a class="btn btn-danger btn-sm" onclick="deleteProducto(' . $data[$i]['codproducto'] . ')"><i class="fas fa-trash-alt"></i></a>
             <a class="btn btn-warning btn-sm" onclick="editProducto(' . $data[$i]['codproducto'] . ')"><i class="fas fa-edit"></i></a>
             </div>';
         }
+        echo json_encode($data);
+        break;
+    case 'listar_reporte':
+        $sede_id = $_GET['sede'];
+        $data = $productos->getProducts($sede_id);
         echo json_encode($data);
         break;
     case 'save':

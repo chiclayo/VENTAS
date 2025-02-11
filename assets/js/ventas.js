@@ -198,24 +198,17 @@ function deleteproducto(idTemp) {
       console.log(error);
     });
 }
-document.addEventListener('click', function (event) {
-  if (event.target.classList.contains('btnEliminar')) {
-      let idVenta = event.target.getAttribute('data-id');
 
-      if (confirm('¿Estás seguro de eliminar esta venta?')) {
-          fetch('controllers/ventasController.php?option=delete&id=' + idVenta, {
-              method: 'GET'
-          })
-          .then(response => response.json())
-          .then(data => {
-              if (data.tipo === 'success') {
-                  alert('Venta eliminada correctamente');
-                  location.reload();
-              } else {
-                  alert('Error al eliminar');
-              }
-          })
-          .catch(error => console.log(error));
-      }
-  }
-});
+function deleteVenta(idVenta) {
+  console.log("Intentando eliminar venta con ID:", idVenta); // Depuración
+  axios.get(ruta + 'controllers/ventasController.php?option=delete&id=' + idVenta, )
+    .then(function (response) {
+      const info = response.data;
+      message(info.tipo, info.mensaje);
+      temp();
+    })
+    .catch(function (error) {
+      console.log(error);id
+    });
+}
+
