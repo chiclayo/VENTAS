@@ -1,15 +1,13 @@
 <?php
-$id_venta = (empty($_GET['sale'])) ? null : $_GET['sale'];
-if ($id_venta != null) {
-    require_once '../../config.php';
-    require_once '../../models/reporte.php';
-    require '../models/Productos.php';
+$id_sede = (empty($_GET['idsede'])) ? null : $_GET['idsede'];
+if ($id_sede != null) {
     
+    require_once '../../config.php';
+    require_once '../models/Productos.php';
 
    
     require('../fpdf/fpdf.php');
 
-if (!empty($_GET['sede'])) {
     $productos = new Productos();
     $data = $productos->getProducts($_GET['sede']);
 
@@ -27,7 +25,7 @@ if (!empty($_GET['sede'])) {
     }
 
     $pdf->Output();
-   } else {
-    echo 'PAGINA NO ENCONTRADA';
-}
+} else {
+
+    echo "PAGINA NO ENCONTRADA";
 }

@@ -90,6 +90,11 @@ class Plantilla{
             include_once 'views/reportes/userSede.php';
         }
         
+    }
+    public function reportesPdf()
+    {
+        include_once 'views/productos/reporte.php';
+        
     }     
     public function cajas()
     {

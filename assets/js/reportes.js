@@ -21,14 +21,23 @@ function loadSedes() {
 }
 
 const sede = document.getElementById('sede_id');
+const btnPDF = document.getElementById('btnPDF');
 
-sede.addEventListener('change', (e) => {
+if(sede) {
+  sede.addEventListener('change', (e) => {
     const valor = e.target.value;
 
     if(valor != "") {
-        renderProductos(valor)
+      btnPDF.setAttribute('href', "http://localhost/ventas/views/productos/reporte.php?idsede=1")
+      renderProductos(valor)
     }
-})
+  })
+} else {
+  const valor = document.getElementById('sede');
+  renderProductos(valor.value)
+}
+
+
 
 function renderProductos(sede) {
     $('#tablaReporte').DataTable().destroy();

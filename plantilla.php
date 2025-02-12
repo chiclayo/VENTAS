@@ -21,6 +21,7 @@ $sedes = $permisos->getPermiso(11, $id_user);
 $traslados = $permisos->getPermiso(14, $id_user);
 $cajas = $permisos->getPermiso(15, $id_user);
 $reportes = $permisos->getPermiso(16, $id_user);
+$reportesPdf = $permisos->getPermiso(16, $id_user);
 
 ##### FIN PERMISOS ####
 require_once 'views/includes/header.php';
@@ -61,7 +62,9 @@ if (isset($_GET['pagina'])) {
             }else if ($archivo == 'perfiles' && !empty($perfiles)) {
                 $plantilla->perfiles();   
             }else if ($archivo == 'reportes' && !empty($reportes)) {
-                $plantilla->reportes();  
+                $plantilla->reportes();
+            }else if ($archivo == 'reportePdf' && !empty($reportesPdf)) {
+                $plantilla->reportesPdf(); 
             }else if ($archivo == 'cajas' && !empty($cajas)) {
                 $plantilla->cajas(); 
                 
