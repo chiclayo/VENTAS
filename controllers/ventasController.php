@@ -46,7 +46,7 @@ switch ($option) {
             $cantidad = $consult['cantidad'] + 1;
 
             if($existencia == $cant) {
-                $res = array('tipo' => 'error', 'mensaje' => 'YA NO SE PUEDE AGREGAR MAS STCOK');
+                $res = array('tipo' => 'error', 'mensaje' => 'YA NO SE PUEDE AGREGAR MAS STOCK');
                 echo json_encode($res); exit;
             }
 
@@ -210,9 +210,9 @@ switch ($option) {
                 $result = $ventas->deleteVenta($idVenta);
                 
                 if ($result) {
-                    $res = array (['tipo' => 'success', 'mensaje' => 'Venta eliminada']);
+                    $res = array (['tipo' => 'success', 'mensaje' => 'VENTA ELIMINADA']);
                 } else {
-                    $res = array (['tipo' => 'error', 'mensaje' => 'Error al eliminar']);
+                    $res = array (['tipo' => 'error', 'mensaje' => 'ERROR AL ELIMINAR']);
                 }
                 echo json_encode($res);
             break;

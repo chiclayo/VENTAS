@@ -38,9 +38,9 @@ if ($id_venta != null) {
         $total += $product['cantidad'] * $product['precio'];
         $pdf->Cell(30, 5, $product['cantidad'] . ' x ' . $product['precio'], 0, 0, 'C');
         $pdf->MultiCell(40, 5, $product['nombre'], 0, 'C');
-        $pdf->Cell(60, 5, number_format($product['cantidad'] * $product['precio'], 2), 0, 1, 'R');
-        $pdf->Cell(80, 5, '----------------------------------------------------------------------', 0, 1, 'C');
+        $pdf->Cell(80, 5, number_format($product['cantidad'] * $product['precio'], 2), 0, 1, 'R');
     }
+        $pdf->Cell(80, 5, '----------------------------------------------------------------------', 0, 1, 'C');
 
     if($result['metodo'] === 'DONACION') {
         $donacion = $total;

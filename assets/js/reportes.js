@@ -28,16 +28,14 @@ if(sede) {
     const valor = e.target.value;
 
     if(valor != "") {
-      btnPDF.setAttribute('href', "http://localhost/ventas/views/productos/reporte.php?idsede=1")
-      renderProductos(valor)
+      btnPDF.setAttribute('href', `http://localhost/ventas/views/productos/reporte.php?idsede=${valor}`);
+      renderProductos(valor);
     }
-  })
+  });
 } else {
   const valor = document.getElementById('sede');
-  renderProductos(valor.value)
+  renderProductos(valor.value);
 }
-
-
 
 function renderProductos(sede) {
     $('#tablaReporte').DataTable().destroy();

@@ -28,12 +28,12 @@
 
         <!-- Tabla de Vista Previa -->
         <div class="mt-4">
-            <table class="table table-bordered text-center" id="tablaReporte">
+            <table class="table table-bordered text-center" id="tablaReporte" style="width: 100%;">
                 <thead class="table-dark">
                     <tr>
                         <th>ID</th>
-                        <th>CategorÍa</th>
-                        <th>ProductoS</th>
+                        <th>Categoría</th>
+                        <th>Productos</th>
                         <th>Descripcion</th>
                         <th>Precio</th>
                         <th>Stock</th>

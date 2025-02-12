@@ -19,14 +19,14 @@ if ($id_compra != null) {
     $pdf->Cell(80,5,'Correo: '. $datos['email'], 0, 1, 'C');
     $pdf->Cell(80,5, utf8_decode('Dirección: '. $datos['direccion']), 0, 1, 'C');
 
-    $pdf->Cell(60,5, '===============================', 0, 1, 'C');
+    $pdf->Cell(60,5, '---------------------------------------------------------------', 0, 1, 'C');
     //########## Datos del cliente
     $pdf->Cell(80,5, utf8_decode('Nombre: '. $result['nombre']), 0, 1, 'C');
     $pdf->Cell(80,5, utf8_decode('DNI/RUC: '. $result['ruc']), 0, 1, 'C');
     $pdf->Cell(80,5, utf8_decode('Dirección: '. $result['direccion']), 0, 1, 'C');
     
 
-    $pdf->Cell(60,5, '===============================', 0, 1, 'C');
+    $pdf->Cell(60,5, '--------------------------------------------------------------', 0, 1, 'C');
 
     $pdf->SetFont('Arial','B', 11);
     $pdf->Cell(20,5, utf8_decode('Cant - Precio: '), 0, 0, 'C');

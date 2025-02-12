@@ -67,7 +67,7 @@ if (!empty($_GET['pagina'])) {
                 <hr class="sidebar-divider d-none d-md-block">
                 <li class="nav-item <?php echo (!empty($_GET['pagina'])  && $_GET['pagina'] == 'usuarios') ? 'bg-gradient-secondary' : ''; ?>">
                     <a class="nav-link" href="?pagina=usuarios">
-                        <i class="fas fa-fw fa-user" style="font-size: 20px;"></i>
+                        <i class="fas fa-user" style="font-size: 20px;"></i>
                         <span>Usuarios</span>
                     </a>
                 </li>
@@ -77,7 +77,7 @@ if (!empty($_GET['pagina'])) {
                 <hr class="sidebar-divider d-none d-md-block">
                 <li class="nav-item <?php echo (!empty($_GET['pagina'])  && $_GET['pagina'] == 'cajas') ? 'bg-gradient-secondary' : ''; ?>">
                     <a class="nav-link" href="?pagina=cajas">
-                        <i class="fas fa-money-bill-wave"></i>
+                        <i class="fas fa-coins" style="font-size: 20px;"></i>
                         <span>Caja</span>
                     </a>
                 </li>
@@ -183,7 +183,7 @@ if (!empty($_GET['pagina'])) {
             <?php if (!empty($nueva_venta) || !empty($ventas)) { ?>
                 <li class="nav-item <?php echo (!empty($_GET['pagina'])  && $_GET['pagina'] == 'ventas' || !empty($_GET['pagina'])  && $_GET['pagina'] == 'historial') ? 'bg-gradient-secondary' : ''; ?>">
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseVenta" aria-expanded="true" aria-controls="collapseVenta">
-                        <i class="fas fa-cash-register"></i>
+                        <i class="fas fa-shopping-cart"></i>
                         <span>Ventas</span>
                         <i class="fas fa-chevron-right float-right"></i>
                     </a>

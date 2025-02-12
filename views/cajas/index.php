@@ -18,26 +18,17 @@
                     <label for="fecha_inicio">Fecha Inicio</label>
                     <input type="date" id="fecha_inicio" name="fecha_inicio" class="form-control">
                 </div>
-                <div class="col-md-3">
-                    <label for="fecha_fin">Fecha Fin</label>
-                    <input type="date" id="fecha_fin" name="fecha_fin" class="form-control">
-                </div>
-                <div class="col-md-3">
-                    <label for="sede">Sede</label>
-                    <select id="sede" name="sede" class="form-control">
-                         <option value="">Seleccione...</option>
-
-                    </select>
-                </div>
-                <div class="col-md-3">
-                    <label for="metodo_pago">Método de Pago</label>
-                    <select id="metodo_pago" name="metodo_pago" class="form-control">
-                        <option value="">Seleccione un método</option>
-                        <option value="efectivo">Efectivo</option>
-                        <option value="yape">Yape</option>
-                    </select>
-                </div>
-            </div>
+                     <div class="col-md-3">
+                          <label for="fecha_fin">Fecha Fin</label>
+                          <input type="date" id="fecha_fin" name="fecha_fin" class="form-control">
+                      </div>
+                 <div class="col-md-3 mb-6">
+                     <label for="sede" class="form-label">Selecciona una sede:</label>
+                         <select id="sede_id" class="form-select form-select-lg w-100" name= "sede_id">
+                  
+                        </select>
+                 </div>
+            </div>  
 
             <button type="submit" class="btn btn-primary mt-3">Generar Reporte</button>
         </form>

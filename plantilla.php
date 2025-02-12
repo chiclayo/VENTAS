@@ -61,7 +61,7 @@ if (isset($_GET['pagina'])) {
                 $plantilla->traslados();    
             }else if ($archivo == 'perfiles' && !empty($perfiles)) {
                 $plantilla->perfiles();   
-            }else if ($archivo == 'reportes' && !empty($reportes)) {
+            }else if ($archivo == 'reportes' && !empty($productos)) {
                 $plantilla->reportes();
             }else if ($archivo == 'reportePdf' && !empty($reportesPdf)) {
                 $plantilla->reportesPdf(); 
