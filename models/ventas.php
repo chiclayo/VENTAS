@@ -93,11 +93,18 @@ class Ventas{
         return $consult->execute([$id_user]);
     }
 
-    public function getSales()
+    public function getSales($sede)
     {
-        $consult = $this->pdo->prepare("SELECT v.*, c.nombre FROM ventas v INNER JOIN cliente c ON v.id_cliente = c.idcliente");
-        $consult->execute();
+        $consult = $this->pdo->prepare("SELECT v.*, c.nombre FROM ventas v INNER JOIN cliente c ON v.id_cliente = c.idcliente where v.id_sede = ? ");
+        $consult->execute([$sede]);
         return $consult->fetchAll();
+    }
+
+    public function getSalesCaja($desde, $hasta, $sede)
+    {
+        $consult = $this->pdo->prepare("SELECT v.*, c.nombre, s.nombre as nameSede FROM ventas v INNER JOIN cliente c ON v.id_cliente = c.idcliente INNER JOIN sede s ON s.sede_id = v.id_sede where v.id_sede = ? AND v.fecha BETWEEN ? AND ? ");
+        $consult->execute([$sede, $desde, $hasta]);
+        return $consult->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function getProductsVenta($id_venta)

@@ -16,15 +16,15 @@
             <div class="row">
                 <div class="col-md-3">
                     <label for="fecha_inicio">Fecha Inicio</label>
-                    <input type="date" id="fecha_inicio" name="fecha_inicio" class="form-control">
+                    <input type="date" id="fecha_inicio" name="fecha_inicio" class="form-control" required>
                 </div>
                      <div class="col-md-3">
                           <label for="fecha_fin">Fecha Fin</label>
-                          <input type="date" id="fecha_fin" name="fecha_fin" class="form-control">
+                          <input type="date" id="fecha_fin" name="fecha_fin" class="form-control" required>
                       </div>
                  <div class="col-md-3 mb-6">
                      <label for="sede" class="form-label">Selecciona una sede:</label>
-                         <select id="sede_id" class="form-select form-select-lg w-100" name= "sede_id">
+                         <select id="sede_id" class="form-control" name= "sede_id" required>
                   
                         </select>
                  </div>
@@ -46,7 +46,7 @@
                     <th>Ingresos</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="tbody">
                 <!-- Aquí se llenarán los resultados de la consulta -->
             </tbody>
         </table>

@@ -28,12 +28,13 @@ if(sede) {
     const valor = e.target.value;
 
     if(valor != "") {
-      btnPDF.setAttribute('href', `http://localhost/ventas/views/productos/reporte.php?idsede=${valor}`);
+      btnPDF.setAttribute('href', `http://localhost/ventas/plantilla.php?pagina=reportePdf&idsede=${valor}`);
       renderProductos(valor);
     }
   });
 } else {
   const valor = document.getElementById('sede');
+  btnPDF.setAttribute('href', `http://localhost/ventas/plantilla.php?pagina=reportePdf&idsede=${valor.value}`);
   renderProductos(valor.value);
 }
 

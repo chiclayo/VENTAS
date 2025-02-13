@@ -149,7 +149,8 @@ switch ($option) {
 
         break;
     case 'historial':
-        $historial = $ventas->getSales();
+        $idsede = $_GET['idsede'];
+        $historial = $ventas->getSales($idsede);
         for ($i = 0; $i < count($historial); $i++) {
             $historial[$i]['producto'] = '';
             $productos = $ventas->getProductsVenta($historial[$i]['id']);
@@ -165,6 +166,20 @@ switch ($option) {
             </button>';
         }
         echo json_encode($historial);
+        break;
+    case 'reporte-caja':
+        
+        $desde = $_POST['fecha_inicio'];
+        $hasta = $_POST['fecha_fin'];
+        $sede_id = $_POST['sede_id'];
+
+        $historial = $ventas->getSalesCaja($desde, $hasta, $sede_id);
+        $datos = array(
+            "tipo" => "success",
+            "mensaje" => "Se consulto correctamente",
+            "data" => $historial
+        );
+        echo json_encode($datos);
         break;
     case 'searchbarcode':
         $barcode = $_GET['barcode'];

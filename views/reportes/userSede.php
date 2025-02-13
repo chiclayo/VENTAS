@@ -18,9 +18,6 @@
             <a id="btnPDF" class="btn btn-danger me-2" target="_blank">
                 <i class="fas fa-file-pdf"></i> Generar PDF
             </a>
-            <a id="btnExcel" class="btn btn-success">
-                <i class="fas fa-file-excel"></i> Generar Excel
-            </a>
         </div>
 
         <!-- Tabla de Vista Previa -->

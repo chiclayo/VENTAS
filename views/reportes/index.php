@@ -21,7 +21,7 @@
 
         <!-- Botones de acción -->
         <div class="d-flex justify-content-center mt-3">
-            <a id="btnPDF" class="btn btn-danger me-2" target="_blank">
+            <a id="btnPDF" class="btn btn-danger me-2">
                 <i class="fas fa-file-pdf"></i> Generar PDF
             </a>
         </div>
