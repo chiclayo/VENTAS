@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 10-02-2025 a las 18:20:42
+-- Tiempo de generación: 13-02-2025 a las 18:23:27
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -93,7 +93,8 @@ CREATE TABLE `compras` (
 INSERT INTO `compras` (`id`, `total`, `fecha`, `id_proveedor`, `id_usuario`, `estado`, `sede_id`) VALUES
 (1, 50.00, '2025-02-07', 1, 1, 1, 0),
 (2, 100.00, '2025-02-07', 1, 1, 1, 0),
-(3, 90.00, '2025-02-07', 1, 1, 1, 0);
+(3, 90.00, '2025-02-07', 1, 1, 1, 0),
+(4, 150.00, '2025-02-12', 1, 1, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -138,7 +139,8 @@ CREATE TABLE `detalle_compras` (
 INSERT INTO `detalle_compras` (`id`, `precio`, `cantidad`, `id_producto`, `id_compra`) VALUES
 (1, 10.00, 5, 1, 1),
 (2, 10.00, 10, 1, 2),
-(3, 10.00, 9, 1, 3);
+(3, 10.00, 9, 1, 3),
+(4, 15.00, 10, 2, 4);
 
 -- --------------------------------------------------------
 
@@ -157,27 +159,33 @@ CREATE TABLE `detalle_permisos` (
 --
 
 INSERT INTO `detalle_permisos` (`id`, `id_permiso`, `id_usuario`) VALUES
-(1, 1, 1),
-(2, 2, 1),
-(3, 3, 1),
-(4, 4, 1),
-(5, 5, 1),
-(6, 6, 1),
-(7, 7, 1),
-(8, 8, 1),
-(9, 9, 1),
-(10, 10, 1),
-(11, 11, 1),
-(12, 14, 1),
 (27, 3, 5),
 (28, 5, 5),
 (29, 6, 5),
 (30, 9, 5),
-(43, 3, 4),
-(44, 4, 4),
-(45, 5, 4),
-(46, 6, 4),
-(47, 9, 4);
+(61, 1, 1),
+(62, 2, 1),
+(63, 3, 1),
+(64, 4, 1),
+(65, 5, 1),
+(66, 6, 1),
+(67, 7, 1),
+(68, 8, 1),
+(69, 9, 1),
+(70, 10, 1),
+(71, 11, 1),
+(72, 14, 1),
+(73, 15, 1),
+(74, 16, 1),
+(85, 3, 6),
+(86, 5, 6),
+(87, 15, 6),
+(88, 16, 6),
+(100, 3, 4),
+(101, 5, 4),
+(102, 6, 4),
+(103, 15, 4),
+(104, 16, 4);
 
 -- --------------------------------------------------------
 
@@ -197,11 +205,11 @@ CREATE TABLE `detalle_stock_sede` (
 --
 
 INSERT INTO `detalle_stock_sede` (`id`, `id_producto`, `id_sede`, `stock`) VALUES
-(1, 1, 1, 5),
+(1, 1, 1, 4),
 (2, 1, 2, 0),
 (3, 1, 3, 9),
 (4, 1, 4, 0),
-(5, 2, 1, 0),
+(5, 2, 1, 8),
 (6, 2, 2, 0),
 (7, 2, 3, 0),
 (8, 2, 4, 0),
@@ -237,7 +245,9 @@ INSERT INTO `detalle_ventas` (`id`, `id_producto`, `id_venta`, `cantidad`, `prec
 (6, 1, 6, 1, 10.00),
 (7, 1, 7, 1, 10.00),
 (8, 1, 8, 2, 10.00),
-(9, 1, 9, 1, 10.00);
+(9, 1, 9, 1, 10.00),
+(10, 1, 10, 1, 10.00),
+(11, 2, 10, 2, 15.00);
 
 -- --------------------------------------------------------
 
@@ -288,7 +298,9 @@ INSERT INTO `permisos` (`id`, `nombre`) VALUES
 (9, 'Proveedores'),
 (10, 'sede'),
 (11, 'categoria'),
-(14, 'traslado');
+(14, 'traslado'),
+(15, 'Cajas'),
+(16, 'Reportes');
 
 -- --------------------------------------------------------
 
@@ -312,7 +324,7 @@ CREATE TABLE `producto` (
 INSERT INTO `producto` (`codproducto`, `idcategoria`, `nombre`, `descripcion`, `precio`, `status`) VALUES
 (1, '1', 'Polera ', 'Hombre Azul Marino Land´s And', 10.00, 1),
 (2, '1', 'Chompa', 'Mujer peluche negra', 15.00, 1),
-(3, '1', 'Vestido', 'Mujer Rojo Land´s And', 10.00, 1);
+(3, '1', 'Vestido', 'Mujer Rojo Land´s And', 10.00, 0);
 
 -- --------------------------------------------------------
 
@@ -348,7 +360,7 @@ INSERT INTO `proveedor` (`idproveedor`, `nombre`, `ruc`, `telefono`, `direccion`
 CREATE TABLE `sede` (
   `sede_id` int(11) NOT NULL,
   `nombre` varchar(20) CHARACTER SET utf8 COLLATE utf8_spanish2_ci NOT NULL,
-  `direccion` varchar(20) CHARACTER SET utf8 COLLATE utf8_spanish2_ci NOT NULL,
+  `direccion` varchar(40) CHARACTER SET utf8 COLLATE utf8_spanish2_ci NOT NULL,
   `estado` varchar(20) CHARACTER SET utf8 COLLATE utf8_spanish2_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
 
@@ -358,9 +370,9 @@ CREATE TABLE `sede` (
 
 INSERT INTO `sede` (`sede_id`, `nombre`, `direccion`, `estado`) VALUES
 (1, 'MOYOBAMBA', 'JR. SAN MARTIN 314', 'ACTIVO'),
-(2, 'PICOTA', 'JR. PICOTA', 'ACTIVO'),
+(2, 'NARANJOS', 'FERNANDO BELAUNDE TERRY', 'ACTIVO'),
 (3, 'SISA', 'JR. TACNA', 'ACTIVO'),
-(4, 'TARAPOTO', 'JR. JUAN VARGS', 'ACTIVO');
+(4, 'TARAPOTO', 'JR. JUAN VARGS', '0');
 
 -- --------------------------------------------------------
 
@@ -462,7 +474,8 @@ INSERT INTO `ventas` (`id`, `id_cliente`, `total`, `metodo`, `id_usuario`, `fech
 (6, 11, 10.00, 'DONACION', 1, '2025-02-07', 1),
 (7, 11, 10.00, 'EFECTIVO', 1, '2025-02-08', 1),
 (8, 11, 20.00, 'EFECTIVO', 1, '2025-02-10', 1),
-(9, 2, 10.00, 'DONACION', 1, '2025-02-10', 1);
+(9, 2, 10.00, 'DONACION', 1, '2025-02-10', 1),
+(10, 9, 40.00, 'YAPE', 1, '2025-02-12', 1);
 
 --
 -- Índices para tablas volcadas
@@ -614,7 +627,7 @@ ALTER TABLE `cliente`
 -- AUTO_INCREMENT de la tabla `compras`
 --
 ALTER TABLE `compras`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `configuracion`
@@ -626,13 +639,13 @@ ALTER TABLE `configuracion`
 -- AUTO_INCREMENT de la tabla `detalle_compras`
 --
 ALTER TABLE `detalle_compras`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `detalle_permisos`
 --
 ALTER TABLE `detalle_permisos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=105;
 
 --
 -- AUTO_INCREMENT de la tabla `detalle_stock_sede`
@@ -644,7 +657,7 @@ ALTER TABLE `detalle_stock_sede`
 -- AUTO_INCREMENT de la tabla `detalle_ventas`
 --
 ALTER TABLE `detalle_ventas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de la tabla `perfil`
@@ -656,7 +669,7 @@ ALTER TABLE `perfil`
 -- AUTO_INCREMENT de la tabla `permisos`
 --
 ALTER TABLE `permisos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT de la tabla `producto`
@@ -680,13 +693,13 @@ ALTER TABLE `sede`
 -- AUTO_INCREMENT de la tabla `temp_compras`
 --
 ALTER TABLE `temp_compras`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT de la tabla `temp_ventas`
 --
 ALTER TABLE `temp_ventas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT de la tabla `traslado`
@@ -704,7 +717,7 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `ventas`
 --
 ALTER TABLE `ventas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- Restricciones para tablas volcadas

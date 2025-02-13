@@ -1,6 +1,8 @@
 loadSedes();
 
 function loadSedes() {
+  const perfil = document.getElementById('perfil');
+  if(perfil.value == 1) {
     axios.get(ruta + 'controllers/productosController.php?option=sedes')
       .then(function (response) {
         const info = response.data;
@@ -18,6 +20,8 @@ function loadSedes() {
       .catch(function (error) {
         console.log(error);
       });
+  }
+    
 }
 
 const sede = document.getElementById('sede_id');
@@ -28,13 +32,13 @@ if(sede) {
     const valor = e.target.value;
 
     if(valor != "") {
-      btnPDF.setAttribute('href', `http://localhost/ventas/plantilla.php?pagina=reportePdf&idsede=${valor}`);
+      btnPDF.setAttribute('href', `http://localhost/venta/plantilla.php?pagina=reportePdf&idsede=${valor}`);
       renderProductos(valor);
     }
   });
 } else {
   const valor = document.getElementById('sede');
-  btnPDF.setAttribute('href', `http://localhost/ventas/plantilla.php?pagina=reportePdf&idsede=${valor.value}`);
+  btnPDF.setAttribute('href', `http://localhost/venta/plantilla.php?pagina=reportePdf&idsede=${valor.value}`);
   renderProductos(valor.value);
 }
 

@@ -11,6 +11,7 @@
     <div class="container mt-4">
         <h3 class="text-center">Reporte de Productos por Sede</h3>
 
+        <input type="hidden" name="perfil" id="perfil" value="<?= $_SESSION['idperfil'] ?>">
         <!-- Selección de sede -->
         <div class="col-md-3 mb-3">
             <label for="sede" class="form-label">Selecciona una sede:</label>

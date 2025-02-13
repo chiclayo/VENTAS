@@ -12,7 +12,7 @@
         <h3 class="text-center">Reporte de Productos por Sede</h3>
 
         <input type="hidden" name="sede" id="sede" value="<?= $_SESSION['idsede'] ?>">
-
+        <input type="hidden" name="perfil" id="perfil" value="<?= $_SESSION['idperfil'] ?>">
         <!-- Botones de acción -->
         <div class="d-flex justify-content-center mt-3">
             <a id="btnPDF" class="btn btn-danger me-2" target="_blank">
@@ -26,7 +26,7 @@
                 <thead class="table-dark">
                     <tr>
                         <th>ID</th>
-                        <th>CategorÍa</th>
+                        <th>Categoria</th>
                         <th>ProductoS</th>
                         <th>Descripcion</th>
                         <th>Precio</th>
