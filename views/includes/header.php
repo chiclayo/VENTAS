@@ -68,7 +68,7 @@ if (!empty($_GET['pagina'])) {
                 <li class="nav-item <?php echo (!empty($_GET['pagina'])  && $_GET['pagina'] == 'usuarios') ? 'bg-gradient-secondary' : ''; ?>">
                     <a class="nav-link" href="?pagina=usuarios">
                         <i class="fas fa-user" style="font-size: 20px;"></i>
-                        <span>Usuarios</span>
+                        <span>USUARIOS</span>
                     </a>
                 </li>
             <?php } ?>
@@ -78,7 +78,7 @@ if (!empty($_GET['pagina'])) {
                 <li class="nav-item <?php echo (!empty($_GET['pagina'])  && $_GET['pagina'] == 'cajas') ? 'bg-gradient-secondary' : ''; ?>">
                     <a class="nav-link" href="?pagina=cajas">
                         <i class="fas fa-coins" style="font-size: 20px;"></i>
-                        <span>Caja</span>
+                        <span>CAJA</span>
                     </a>
                 </li>
             <?php } ?>
@@ -88,7 +88,7 @@ if (!empty($_GET['pagina'])) {
                 <li class="nav-item <?php echo (!empty($_GET['pagina'])  && $_GET['pagina'] == 'clientes') ? 'bg-gradient-secondary' : ''; ?>">
                     <a class="nav-link" href="?pagina=clientes">
                         <i class="fas fa-fw fa-users"></i>
-                        <span>Clientes</span>
+                        <span>CLIENTES</span>
                     </a>
                 </li>
             <?php } ?>
@@ -98,7 +98,7 @@ if (!empty($_GET['pagina'])) {
                 <li class="nav-item <?php echo (!empty($_GET['pagina'])  && $_GET['pagina'] == 'proveedor') ? 'bg-gradient-secondary' : ''; ?>">
                     <a class="nav-link" href="?pagina=proveedor">
                         <i class="fas fa-store"></i>
-                        <span>Proveedores</span>
+                        <span>PROVEEDORES</span>
                     </a>
                 </li>
             <?php } ?>
@@ -108,7 +108,7 @@ if (!empty($_GET['pagina'])) {
                 <li class="nav-item <?php echo (!empty($_GET['pagina'])  && $_GET['pagina'] == 'sedes') ? 'bg-gradient-secondary' : ''; ?>">
                     <a class="nav-link" href="?pagina=sedes">
                         <i class="fas fa-fw fa-home"></i>
-                        <span>Sedes</span>
+                        <span>SEDES</span>
                     </a>
                 </li>
             <?php } ?>
@@ -118,7 +118,7 @@ if (!empty($_GET['pagina'])) {
                 <li class="nav-item <?php echo (!empty($_GET['pagina'])  && $_GET['pagina'] == 'categorias') ? 'bg-gradient-secondary' : ''; ?>">
                     <a class="nav-link" href="?pagina=categorias">
                         <i class="fas fa-fw fa-list"></i>
-                        <span>Categorias</span>
+                        <span>CATEGORIAS</span>
                     </a>
                 </li>
             <?php } ?>
@@ -130,7 +130,7 @@ if (!empty($_GET['pagina'])) {
                 <li class="nav-item <?php echo (!empty($_GET['pagina'])  && $_GET['pagina'] == 'productos') ? 'bg-gradient-secondary' : ''; ?>">
                     <a class="nav-link" href="?pagina=productos">
                         <i class="fas fa-fw fa-list"></i>
-                        <span>Productos</span>
+                        <span>PRODUCTOS</span>
                     </a>
                 </li>
             <?php } ?>
@@ -140,7 +140,7 @@ if (!empty($_GET['pagina'])) {
                 <li class="nav-item <?php echo (!empty($_GET['pagina'])  && $_GET['pagina'] == 'reportes') ? 'bg-gradient-secondary' : ''; ?>">
                     <a class="nav-link" href="?pagina=reportes">
                         <i class="fas fa-file-pdf"></i>
-                        <span>Reportes</span>
+                        <span>REPORTES</span>
                     </a>
                 </li>
             <?php } ?>
@@ -150,7 +150,7 @@ if (!empty($_GET['pagina'])) {
                 <li class="nav-item <?php echo (!empty($_GET['pagina'])  && $_GET['pagina'] == 'traslados') ? 'bg-gradient-secondary' : ''; ?>">
                     <a class="nav-link" href="?pagina=traslados">
                         <i class="fas fa-truck"></i>
-                        <span>Traslados</span>
+                        <span>TRASLADOS</span>
                     </a>
                 </li>
             <?php } ?>
@@ -161,7 +161,7 @@ if (!empty($_GET['pagina'])) {
                 <li class="nav-item <?php echo (!empty($_GET['pagina'])  && $_GET['pagina'] == 'compras' || !empty($_GET['pagina'])  && $_GET['pagina'] == 'historial_compras') ? 'bg-gradient-secondary' : ''; ?>">
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCompra" aria-expanded="true" aria-controls="collapseCompra">
                         <i class="fas fa-cart-plus"></i>
-                        <span>Compras</span>
+                        <span>COMPRAS</span>
                         <i class="fas fa-chevron-right float-right"></i>
                     </a>
                     <div id="collapseCompra" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
@@ -184,7 +184,7 @@ if (!empty($_GET['pagina'])) {
                 <li class="nav-item <?php echo (!empty($_GET['pagina'])  && $_GET['pagina'] == 'ventas' || !empty($_GET['pagina'])  && $_GET['pagina'] == 'historial') ? 'bg-gradient-secondary' : ''; ?>">
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseVenta" aria-expanded="true" aria-controls="collapseVenta">
                         <i class="fas fa-shopping-cart"></i>
-                        <span>Ventas</span>
+                        <span>VENTAS</span>
                         <i class="fas fa-chevron-right float-right"></i>
                     </a>
                     <div id="collapseVenta" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
@@ -208,7 +208,7 @@ if (!empty($_GET['pagina'])) {
                 <li class="nav-item <?php echo (!empty($_GET['pagina']) && $_GET['pagina'] == 'configuracion') ? 'bg-gradient-secondary' : ''; ?>">
                     <a class="nav-link" href="?pagina=configuracion">
                         <i class="fas fa-user-cog"></i>
-                        <span>Configuración</span>
+                        <span>CONFIGURACION</span>
                     </a>
                 </li>
             <?php } ?>

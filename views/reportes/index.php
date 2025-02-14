@@ -29,8 +29,8 @@
 
         <!-- Tabla de Vista Previa -->
         <div class="mt-4">
-            <table class="table table-bordered text-center" id="tablaReporte" style="width: 100%;">
-                <thead class="table-dark">
+            <table class="table table-bordered text-center text-dark" id="tablaReporte" style="width: 100%;">
+                <thead class="table-dark ">
                     <tr>
                         <th>ID</th>
                         <th>Categoría</th>

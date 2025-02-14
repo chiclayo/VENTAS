@@ -41,8 +41,8 @@
             </div>
         </div>
         <div class="card-footer text-right">
-            <button type="button" class="btn btn-success" id="btn-nuevo">Nuevo</button>
-            <button type="submit" class="btn btn-primary" id="btn-save">Guardar</button>
+            <button type="button" class="btn btn-outline-success" id="btn-nuevo">Nuevo</button>
+            <button type="submit" class="btn btn-outline-primary" id="btn-save">Guardar</button>
         </div>
     </div>
 </form>
@@ -55,7 +55,7 @@
         </div>
         
         <div class="table-responsive">
-            <table class="table table-striped table-hover" style="width: 100%;" id="table_productos">
+            <table class="table table-bordered table-hover text-dark" style="width: 100%;" id="table_productos">
                 <thead>
                     <tr>
                         <th scope="col">Id</th>

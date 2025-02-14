@@ -6,6 +6,7 @@
     <title>Reporte de Ingresos - Módulo Caja</title>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/css/bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.4/xlsx.full.min.js"></script>
 </head>
 <body>
     <div class="container mt-5">
@@ -26,18 +27,23 @@
                      <label for="sede" class="form-label">Selecciona una sede:</label>
                          <select id="sede_id" class="form-control" name= "sede_id" required>
                   
-                        </select>
+                         </select>
                  </div>
+                        <button type="submit" class="btn btn-outline-primary mt-4">Generar Reporte</button>
             </div>  
 
-            <button type="submit" class="btn btn-primary mt-3">Generar Reporte</button>
+            <div class="d-flex justify-content-center  mt-2">
+                   <button id="btnExportExcel" class="btn btn-outline-success">
+                       <i class="fas fa-file-excel"></i> Exportar a Excel
+                </button>
+            </div>
         </form>
 
         <hr>
 
         <!-- Tabla para mostrar los resultados -->
         <h4>Resultados</h4>
-        <table id="ingresosTable" class="table table-bordered table-striped">
+        <table id="ingresosTable" class="table table-bordered table-striped text-dark">
             <thead>
                 <tr>
                     <th>Fecha</th>

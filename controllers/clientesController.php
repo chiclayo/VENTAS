@@ -7,8 +7,8 @@ switch ($option) {
         $data = $clientes->getClientes();
         for ($i = 0; $i < count($data); $i++) {
             $data[$i]['accion'] = '<div class="d-flex">
-                <a class="btn btn-danger btn-sm" onclick="deleteCliente(' . $data[$i]['idcliente'] . ')"><i class="fas fa-trash-alt"></i></a>
-                <a class="btn btn-warning btn-sm" onclick="editCliente(' . $data[$i]['idcliente'] . ')"><i class="fas fa-edit"></i></a>
+                <a class="btn btn-outline-danger mx-1 btn-sm" onclick="deleteCliente(' . $data[$i]['idcliente'] . ')"><i class="fas fa-trash-alt"></i></a>
+                <a class="btn btn-outline-info btn-sm" onclick="editCliente(' . $data[$i]['idcliente'] . ')"><i class="fas fa-edit"></i></a>
                 </div>';
         }
         echo json_encode($data);
