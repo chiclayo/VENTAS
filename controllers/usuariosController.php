@@ -45,13 +45,13 @@ switch ($option) {
             $delete = "";
 
             if($data[$i]['idusuario'] != 1) {
-                $delete = '<a class="btn btn-danger btn-sm" onclick="deleteUser(' . $data[$i]['idusuario'] . ')"><i class="fas fa-trash-alt"></i></a>';
+                $delete = '<a class="btn btn-outline-danger mx-1 btn-sm" onclick="deleteUser(' . $data[$i]['idusuario'] . ')"><i class="fas fa-trash-alt"></i></a>';
             }
 
             $data[$i]['accion'] = '<div class="d-flex">
                 '.$delete.'
-                <a class="btn btn-warning btn-sm" onclick="editUser(' . $data[$i]['idusuario'] . ')"><i class="fas fa-edit"></i></a>
-                <a class="btn btn-info btn-sm" onclick="permisos(' . $data[$i]['idusuario'] . ')"><i class="fas fa-lock"></i></a>
+                <a class="btn btn-outline-info  mx-1 btn-sm" onclick="editUser(' . $data[$i]['idusuario'] . ')"><i class="fas fa-edit"></i></a>
+                <a class="btn btn-outline-dark btn-sm" onclick="permisos(' . $data[$i]['idusuario'] . ')"><i class="fas fa-lock"></i></a>
                 </div>';
         }
         echo json_encode($data);

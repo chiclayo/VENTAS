@@ -41,8 +41,8 @@
             </div>
         </div>
         <div class="card-footer text-right">
-            <button type="button" class="btn btn-outline-success" id="btn-nuevo">Nuevo</button>
-            <button type="submit" class="btn btn-outline-primary" id="btn-save">Guardar</button>
+            <button type="button" class="btn btn-outline-success" id="btn-nuevo"> <i class="fas fa-plus"></i>Nuevo</button>
+            <button type="submit" class="btn btn-outline-primary" id="btn-save"> <i class="fas fa-save"></i>Guardar</button>
         </div>
     </div>
 </form>
