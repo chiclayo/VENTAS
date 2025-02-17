@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 13-02-2025 a las 18:23:27
+-- Tiempo de generación: 17-02-2025 a las 22:31:52
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -38,7 +38,8 @@ CREATE TABLE `categoria` (
 --
 
 INSERT INTO `categoria` (`idcategoria`, `nombre`, `status`) VALUES
-(1, 'PRENDAS DE VESTIR', 1);
+(1, 'Prendas de Vestir', 1),
+(2, 'accerios religios', 1);
 
 -- --------------------------------------------------------
 
@@ -66,7 +67,7 @@ INSERT INTO `cliente` (`idcliente`, `nombre`, `tipo_documento`, `telefono`, `dir
 (4, 'LUIS JOSE', 12345632, '963265236', 'LOLO', 0),
 (7, 'LAURA TAPULLIMA', 9632653, '96356329', 'MOYOBAMBA', 0),
 (8, 'JOSE', 6326532, '96325236', 'HH', 0),
-(9, 'MARIELA', 1236526, '96323652', 'RIOJA', 1),
+(9, 'MARIELA', 1236526, '96323652', 'RIOJA', 0),
 (10, 'carlos', 4251263, '96325165', 'moyobamba', 0),
 (11, 'CLIENTE VARIOS', 0, '96325632', 'SIN DIRECCION', 1);
 
@@ -94,7 +95,8 @@ INSERT INTO `compras` (`id`, `total`, `fecha`, `id_proveedor`, `id_usuario`, `es
 (1, 50.00, '2025-02-07', 1, 1, 1, 0),
 (2, 100.00, '2025-02-07', 1, 1, 1, 0),
 (3, 90.00, '2025-02-07', 1, 1, 1, 0),
-(4, 150.00, '2025-02-12', 1, 1, 1, 0);
+(4, 150.00, '2025-02-12', 1, 1, 1, 0),
+(5, 100.00, '2025-02-17', 1, 1, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -140,7 +142,8 @@ INSERT INTO `detalle_compras` (`id`, `precio`, `cantidad`, `id_producto`, `id_co
 (1, 10.00, 5, 1, 1),
 (2, 10.00, 10, 1, 2),
 (3, 10.00, 9, 1, 3),
-(4, 15.00, 10, 2, 4);
+(4, 15.00, 10, 2, 4),
+(5, 20.00, 5, 4, 5);
 
 -- --------------------------------------------------------
 
@@ -177,15 +180,16 @@ INSERT INTO `detalle_permisos` (`id`, `id_permiso`, `id_usuario`) VALUES
 (72, 14, 1),
 (73, 15, 1),
 (74, 16, 1),
-(85, 3, 6),
-(86, 5, 6),
-(87, 15, 6),
-(88, 16, 6),
 (100, 3, 4),
 (101, 5, 4),
 (102, 6, 4),
 (103, 15, 4),
-(104, 16, 4);
+(104, 16, 4),
+(105, 3, 6),
+(106, 5, 6),
+(107, 6, 6),
+(108, 15, 6),
+(109, 16, 6);
 
 -- --------------------------------------------------------
 
@@ -207,7 +211,7 @@ CREATE TABLE `detalle_stock_sede` (
 INSERT INTO `detalle_stock_sede` (`id`, `id_producto`, `id_sede`, `stock`) VALUES
 (1, 1, 1, 4),
 (2, 1, 2, 0),
-(3, 1, 3, 9),
+(3, 1, 3, 8),
 (4, 1, 4, 0),
 (5, 2, 1, 8),
 (6, 2, 2, 0),
@@ -216,7 +220,10 @@ INSERT INTO `detalle_stock_sede` (`id`, `id_producto`, `id_sede`, `stock`) VALUE
 (9, 3, 1, 0),
 (10, 3, 2, 0),
 (11, 3, 3, 0),
-(12, 3, 4, 0);
+(12, 3, 4, 0),
+(13, 4, 1, 0),
+(14, 4, 2, 4),
+(15, 4, 3, 0);
 
 -- --------------------------------------------------------
 
@@ -237,17 +244,15 @@ CREATE TABLE `detalle_ventas` (
 --
 
 INSERT INTO `detalle_ventas` (`id`, `id_producto`, `id_venta`, `cantidad`, `precio`) VALUES
-(1, 1, 1, 3, 10.00),
 (2, 1, 2, 1, 10.00),
 (3, 1, 3, 1, 10.00),
-(4, 1, 4, 3, 10.00),
-(5, 1, 5, 1, 10.00),
 (6, 1, 6, 1, 10.00),
 (7, 1, 7, 1, 10.00),
 (8, 1, 8, 2, 10.00),
 (9, 1, 9, 1, 10.00),
 (10, 1, 10, 1, 10.00),
-(11, 2, 10, 2, 15.00);
+(11, 2, 10, 2, 15.00),
+(12, 1, 11, 1, 10.00);
 
 -- --------------------------------------------------------
 
@@ -324,7 +329,8 @@ CREATE TABLE `producto` (
 INSERT INTO `producto` (`codproducto`, `idcategoria`, `nombre`, `descripcion`, `precio`, `status`) VALUES
 (1, '1', 'Polera ', 'Hombre Azul Marino Land´s And', 10.00, 1),
 (2, '1', 'Chompa', 'Mujer peluche negra', 15.00, 1),
-(3, '1', 'Vestido', 'Mujer Rojo Land´s And', 10.00, 0);
+(3, '1', 'Vestido', 'Mujer Rojo Land´s And', 10.00, 0),
+(4, '1', 'Boina', 'niña', 20.00, 1);
 
 -- --------------------------------------------------------
 
@@ -443,7 +449,8 @@ INSERT INTO `usuario` (`idusuario`, `nombre`, `perfil`, `correo`, `clave`, `sede
 (1, 'ADMIN GENERAL', 1, 'admin@gmail.com', '$2y$10$eVouXr4.yN5jROwGL1e7VO/SX01k67Sy8avO8T1jLXSHM6Vz1Wfku', 1, 1),
 (4, 'HALI HUACCHA', 2, 'saridhuaccha@gmail.com', '$2y$10$sJSkVn3Zf9LufGT6qopAaeaO3J15nEhb9jXZmKB5NhPLDT1MDC5im', 3, 1),
 (5, 'MARILIN', 2, 'marilin@gmail.com', '$2y$10$yEX7JRpodYTAFymvDxnK9uYGPJ6o60iuibd62sLhH6AiNvmEeOUHK', 2, 0),
-(6, 'ARACELY TUANAMA', 2, 'aracelytuanama@gmail.com', '$2y$10$PCeXEEmjOdOQh6Fk92nwIOKKMMAv2WMzryY6dJla/MIRG9Kr401du', 2, 1);
+(6, 'ARACELY TUANAMA', 2, 'aracelytuanama@gmail.com', '$2y$10$PCeXEEmjOdOQh6Fk92nwIOKKMMAv2WMzryY6dJla/MIRG9Kr401du', 2, 1),
+(7, 'hsjsd', 2, 'saddsd@dgmail.com', '$2y$10$Ez4iZIF6a3Sw320wAdlHue6UeKsqppifcwzIQ6LQB.DGymBWLDy.6', 1, 0);
 
 -- --------------------------------------------------------
 
@@ -466,16 +473,14 @@ CREATE TABLE `ventas` (
 --
 
 INSERT INTO `ventas` (`id`, `id_cliente`, `total`, `metodo`, `id_usuario`, `fecha`, `id_sede`) VALUES
-(1, 11, 30.00, 'EFECTIVO', 4, '2025-02-07', 1),
 (2, 11, 10.00, 'EFECTIVO', 4, '2025-02-07', 1),
 (3, 11, 10.00, 'EFECTIVO', 4, '2025-02-07', 1),
-(4, 1, 30.00, 'EFECTIVO', 4, '2025-02-07', 1),
-(5, 11, 10.00, 'YAPE', 4, '2025-02-07', 3),
 (6, 11, 10.00, 'DONACION', 1, '2025-02-07', 1),
 (7, 11, 10.00, 'EFECTIVO', 1, '2025-02-08', 1),
 (8, 11, 20.00, 'EFECTIVO', 1, '2025-02-10', 1),
 (9, 2, 10.00, 'DONACION', 1, '2025-02-10', 1),
-(10, 9, 40.00, 'YAPE', 1, '2025-02-12', 1);
+(10, 9, 40.00, 'YAPE', 1, '2025-02-12', 1),
+(11, 11, 10.00, 'YAPE', 4, '2025-02-14', 3);
 
 --
 -- Índices para tablas volcadas
@@ -615,7 +620,7 @@ ALTER TABLE `ventas`
 -- AUTO_INCREMENT de la tabla `categoria`
 --
 ALTER TABLE `categoria`
-  MODIFY `idcategoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `idcategoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `cliente`
@@ -627,7 +632,7 @@ ALTER TABLE `cliente`
 -- AUTO_INCREMENT de la tabla `compras`
 --
 ALTER TABLE `compras`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `configuracion`
@@ -639,25 +644,25 @@ ALTER TABLE `configuracion`
 -- AUTO_INCREMENT de la tabla `detalle_compras`
 --
 ALTER TABLE `detalle_compras`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `detalle_permisos`
 --
 ALTER TABLE `detalle_permisos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=105;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=110;
 
 --
 -- AUTO_INCREMENT de la tabla `detalle_stock_sede`
 --
 ALTER TABLE `detalle_stock_sede`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT de la tabla `detalle_ventas`
 --
 ALTER TABLE `detalle_ventas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT de la tabla `perfil`
@@ -675,7 +680,7 @@ ALTER TABLE `permisos`
 -- AUTO_INCREMENT de la tabla `producto`
 --
 ALTER TABLE `producto`
-  MODIFY `codproducto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `codproducto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `proveedor`
@@ -693,13 +698,13 @@ ALTER TABLE `sede`
 -- AUTO_INCREMENT de la tabla `temp_compras`
 --
 ALTER TABLE `temp_compras`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT de la tabla `temp_ventas`
 --
 ALTER TABLE `temp_ventas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT de la tabla `traslado`
@@ -711,13 +716,13 @@ ALTER TABLE `traslado`
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `idusuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `idusuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `ventas`
 --
 ALTER TABLE `ventas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- Restricciones para tablas volcadas

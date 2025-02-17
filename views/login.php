@@ -40,7 +40,7 @@
                             <div class="col-lg-6">
                                 <div class="p-5">
                                     <div class="text-center">
-                                        <h1 class="h4 text-gray-800 mb-0"><b>BIENVENIDOS AL SISTEMA DE VENTAS</b></h1>
+                                        <h1 class="h4 text-gray-800 mb-0"><b>CARITAS DE LA PRELATURA DE MOYOBAMBA</b></h1>
                                     </div>
                                     <form class="user" autocomplete="off" id="frmLogin">
                                         <div class="form-group">

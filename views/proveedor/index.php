@@ -41,16 +41,16 @@
                 </div>
             </div>
         </div>
-        <div class="card-footer text-right">
+        <div class="card-footer text-left">
             <button type="button" class="btn btn-outline-success" id="btn-nuevo"> <i class="fas fa-plus"></i>Nuevo</button>
-            <button type="submit" class="btn btn-primary" id="btn-save">Guardar</button>
+            <button type="submit" class="btn btn-outline-primary" id="btn-save"><i class="fas fa-save"></i>Guardar</button>
         </div>
     </div>
 </form>
 <div class="card">
     <div class="card-body">
         <div class="table-responsive">
-            <table class="table table-striped table-hover" style="width: 100%;" id="table_proveedores">
+            <table class="table table-bordered table-hover text-dark" style="width: 100%;" id="table_proveedores">
                 <thead>
                     <tr>
                         <th scope="col">Id</th>

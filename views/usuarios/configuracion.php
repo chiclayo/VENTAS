@@ -50,7 +50,7 @@
             </div>
         </div>
         <div class="card-footer text-right">
-            <button type="submit" class="btn btn-primary" id="btn-save">Modificar</button>
+            <button type="submit" class="btn btn-outline-primary" id="btn-save">Modificar</button>
         </div>
     </div>
 </form>

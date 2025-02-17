@@ -52,7 +52,7 @@
                 </div>
             </div>
         </div>
-        <div class="card-footer text-right">
+        <div class="card-footer text-left">
             <button type="button" class="btn btn-outline-success" id="btn-nuevo"><i class="fas fa-plus"></i>Nuevo</button>
             <button type="submit" class="btn btn-outline-primary" id="btn-save"> <i class="fas fa-save"></i>Guardar</button>
         </div>
