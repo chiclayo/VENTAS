@@ -94,3 +94,33 @@ const idsede = document.getElementById('sede');
 idsede.addEventListener('change', (e) => {
   renderVentas();
 })
+
+function deleteVenta(id) {
+  Swal.fire({
+    title: 'Desea eliminar la venta',
+    text: 'no podrá revertir después.',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Eliminar',
+    cancelButtonText: 'Cancelar'
+  }).then((result) => {
+      if (result.isConfirmed) {
+        axios.get(ruta + 'controllers/ventasController.php?option=delete_venta&id=' + id)
+        .then(function (response) {
+          const info = response.data;
+    
+          if(info.tipo === 'error') {
+            message('error', info.mensaje);
+            return false;
+          }
+    
+          message(info.tipo, info.mensaje);
+          renderVentas();
+          
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+      }
+  });
+}

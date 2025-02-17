@@ -157,13 +157,23 @@ switch ($option) {
             foreach ($productos as $producto) {
                 $historial[$i]['producto'] .= '<li>' . $producto['nombre'] . '</li>';
             }
-            $historial[$i]['accion'] = '
-            <a href="?pagina=reporte&sale=' . $historial[$i]['id'] . '" class="btn btn-primary btn-sm">
-                <i class="fas fa-file-pdf"></i> 
-            </a>
-            <button class="btn btn-danger btn-sm btnEliminar " data-id="' . $historial[$i]['id'] . '">
-                <i class="fas fa-trash-alt"></i> 
-            </button>';
+
+            if($_SESSION['idperfil'] == 1) {
+                $historial[$i]['accion'] = '
+                <a href="?pagina=reporte&sale=' . $historial[$i]['id'] . '" class="btn btn-primary btn-sm">
+                    <i class="fas fa-file-pdf"></i> 
+                </a>
+                <button class="btn btn-danger btn-sm" onclick="deleteVenta(' . $historial[$i]['id'] . ')" data-id="' . $historial[$i]['id'] . '">
+                    <i class="fas fa-trash-alt"></i> 
+                </button>';
+            } else {
+                $historial[$i]['accion'] = '
+                <a href="?pagina=reporte&sale=' . $historial[$i]['id'] . '" class="btn btn-primary btn-sm">
+                    <i class="fas fa-file-pdf"></i> 
+                </a>';
+            }
+
+            
         }
         echo json_encode($historial);
         break;
@@ -225,9 +235,9 @@ switch ($option) {
                 $result = $ventas->deleteVenta($idVenta);
                 
                 if ($result) {
-                    $res = array (['tipo' => 'success', 'mensaje' => 'VENTA ELIMINADA']);
+                    $res = array ('tipo' => 'success', 'mensaje' => 'VENTA ELIMINADA');
                 } else {
-                    $res = array (['tipo' => 'error', 'mensaje' => 'ERROR AL ELIMINAR']);
+                    $res = array ('tipo' => 'error', 'mensaje' => 'ERROR AL ELIMINAR');
                 }
                 echo json_encode($res);
             break;

@@ -1,15 +1,25 @@
 loadSedes();
 
 function loadSedes() {
+    const idperfil = document.getElementById('idperfil');
+    
     axios.get(ruta + 'controllers/productosController.php?option=sedes')
       .then(function (response) {
         const info = response.data;
         const sedes= document.getElementById('sede_id');
+        const sed= document.getElementById('idsede');
   
         let html = `<option value="">Seleccione...</option>`;
   
         info.forEach(sede=> {
-          html += `<option value="${sede.sede_id}">${sede.nombre}</option>`;
+          if(idperfil.value == 1) {
+            html += `<option value="${sede.sede_id}">${sede.nombre}</option>`;
+          } else {
+            if(sede.sede_id == sed.value) {
+              html += `<option value="${sede.sede_id}" selected>${sede.nombre}</option>`;
+            }
+          }
+          
         });
   
         sedes.innerHTML = html;
@@ -48,7 +58,20 @@ filterForm.addEventListener('submit', (e) => {
               `;
             });
 
+            $('#ingresosTable').DataTable().destroy();
+
             tbody.innerHTML = html;
+
+            $('#ingresosTable').DataTable({
+              dom: 'Bfrtip', // Habilita los botones
+              buttons: [
+                  {
+                      extend: 'excelHtml5',
+                      text: '<i class="fas fa-file-excel"></i> Exportar a Excel',
+                      className: 'btn btn-success'
+                  }
+              ]
+            });
           }
         })
         .catch(function (error) {

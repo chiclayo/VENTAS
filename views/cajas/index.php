@@ -12,6 +12,8 @@
     <div class="container mt-5">
         <h2 class="text-center">Reporte de Ingresos por Sede</h2>
 
+        <input type="hidden" id="idperfil" value="<?= $_SESSION['idperfil'] ?>">
+        <input type="hidden" id="idsede" value="<?= $_SESSION['idsede'] ?>">
         <!-- Formulario de Filtro -->
         <form id="filterForm">
             <div class="row">
@@ -32,11 +34,6 @@
                         <button type="submit" class="btn btn-outline-primary mt-4">Generar Reporte</button>
             </div>  
 
-            <div class="d-flex justify-content-center  mt-2">
-                   <button id="btnExportExcel" class="btn btn-outline-success">
-                       <i class="fas fa-file-excel"></i> Exportar a Excel
-                </button>
-            </div>
         </form>
 
         <hr>

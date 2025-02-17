@@ -20,6 +20,7 @@
     <link href="<?php echo RUTA . 'assets/'; ?>css/iframe.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="<?php echo RUTA . 'assets/'; ?>css/datatables.min.css" />
     <link rel="stylesheet" type="text/css" href="<?php echo RUTA . 'assets/'; ?>css/dataTables.dateTime.min.css" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.bootstrap4.min.css">
 </head>
 <?php $mini = false;
 if (!empty($_GET['pagina'])) {
