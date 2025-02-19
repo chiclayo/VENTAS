@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 17-02-2025 a las 22:31:52
+-- Tiempo de generación: 18-02-2025 a las 23:46:03
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -38,8 +38,7 @@ CREATE TABLE `categoria` (
 --
 
 INSERT INTO `categoria` (`idcategoria`, `nombre`, `status`) VALUES
-(1, 'Prendas de Vestir', 1),
-(2, 'accerios religios', 1);
+(1, 'Prendas de Vestir', 1);
 
 -- --------------------------------------------------------
 
@@ -56,21 +55,6 @@ CREATE TABLE `cliente` (
   `status` int(11) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
---
--- Volcado de datos para la tabla `cliente`
---
-
-INSERT INTO `cliente` (`idcliente`, `nombre`, `tipo_documento`, `telefono`, `direccion`, `status`) VALUES
-(1, 'SARITA MOZOMBITE', 63263265, '953416833', 'SISA', 1),
-(2, 'Claudia Tuanama', 32696326, '956321526', 'jr. lima', 1),
-(3, 'JOSE LINARES', 42516325, '963256326', 'MOYOBAMBA', 0),
-(4, 'LUIS JOSE', 12345632, '963265236', 'LOLO', 0),
-(7, 'LAURA TAPULLIMA', 9632653, '96356329', 'MOYOBAMBA', 0),
-(8, 'JOSE', 6326532, '96325236', 'HH', 0),
-(9, 'MARIELA', 1236526, '96323652', 'RIOJA', 0),
-(10, 'carlos', 4251263, '96325165', 'moyobamba', 0),
-(11, 'CLIENTE VARIOS', 0, '96325632', 'SIN DIRECCION', 1);
-
 -- --------------------------------------------------------
 
 --
@@ -86,17 +70,6 @@ CREATE TABLE `compras` (
   `estado` int(11) NOT NULL DEFAULT 1,
   `sede_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Volcado de datos para la tabla `compras`
---
-
-INSERT INTO `compras` (`id`, `total`, `fecha`, `id_proveedor`, `id_usuario`, `estado`, `sede_id`) VALUES
-(1, 50.00, '2025-02-07', 1, 1, 1, 0),
-(2, 100.00, '2025-02-07', 1, 1, 1, 0),
-(3, 90.00, '2025-02-07', 1, 1, 1, 0),
-(4, 150.00, '2025-02-12', 1, 1, 1, 0),
-(5, 100.00, '2025-02-17', 1, 1, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -134,17 +107,6 @@ CREATE TABLE `detalle_compras` (
   `id_compra` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Volcado de datos para la tabla `detalle_compras`
---
-
-INSERT INTO `detalle_compras` (`id`, `precio`, `cantidad`, `id_producto`, `id_compra`) VALUES
-(1, 10.00, 5, 1, 1),
-(2, 10.00, 10, 1, 2),
-(3, 10.00, 9, 1, 3),
-(4, 15.00, 10, 2, 4),
-(5, 20.00, 5, 4, 5);
-
 -- --------------------------------------------------------
 
 --
@@ -162,10 +124,6 @@ CREATE TABLE `detalle_permisos` (
 --
 
 INSERT INTO `detalle_permisos` (`id`, `id_permiso`, `id_usuario`) VALUES
-(27, 3, 5),
-(28, 5, 5),
-(29, 6, 5),
-(30, 9, 5),
 (61, 1, 1),
 (62, 2, 1),
 (63, 3, 1),
@@ -184,12 +142,7 @@ INSERT INTO `detalle_permisos` (`id`, `id_permiso`, `id_usuario`) VALUES
 (101, 5, 4),
 (102, 6, 4),
 (103, 15, 4),
-(104, 16, 4),
-(105, 3, 6),
-(106, 5, 6),
-(107, 6, 6),
-(108, 15, 6),
-(109, 16, 6);
+(104, 16, 4);
 
 -- --------------------------------------------------------
 
@@ -204,27 +157,6 @@ CREATE TABLE `detalle_stock_sede` (
   `stock` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
 
---
--- Volcado de datos para la tabla `detalle_stock_sede`
---
-
-INSERT INTO `detalle_stock_sede` (`id`, `id_producto`, `id_sede`, `stock`) VALUES
-(1, 1, 1, 4),
-(2, 1, 2, 0),
-(3, 1, 3, 8),
-(4, 1, 4, 0),
-(5, 2, 1, 8),
-(6, 2, 2, 0),
-(7, 2, 3, 0),
-(8, 2, 4, 0),
-(9, 3, 1, 0),
-(10, 3, 2, 0),
-(11, 3, 3, 0),
-(12, 3, 4, 0),
-(13, 4, 1, 0),
-(14, 4, 2, 4),
-(15, 4, 3, 0);
-
 -- --------------------------------------------------------
 
 --
@@ -238,21 +170,6 @@ CREATE TABLE `detalle_ventas` (
   `cantidad` int(11) NOT NULL,
   `precio` decimal(10,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Volcado de datos para la tabla `detalle_ventas`
---
-
-INSERT INTO `detalle_ventas` (`id`, `id_producto`, `id_venta`, `cantidad`, `precio`) VALUES
-(2, 1, 2, 1, 10.00),
-(3, 1, 3, 1, 10.00),
-(6, 1, 6, 1, 10.00),
-(7, 1, 7, 1, 10.00),
-(8, 1, 8, 2, 10.00),
-(9, 1, 9, 1, 10.00),
-(10, 1, 10, 1, 10.00),
-(11, 2, 10, 2, 15.00),
-(12, 1, 11, 1, 10.00);
 
 -- --------------------------------------------------------
 
@@ -322,16 +239,6 @@ CREATE TABLE `producto` (
   `status` int(11) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
---
--- Volcado de datos para la tabla `producto`
---
-
-INSERT INTO `producto` (`codproducto`, `idcategoria`, `nombre`, `descripcion`, `precio`, `status`) VALUES
-(1, '1', 'Polera ', 'Hombre Azul Marino Land´s And', 10.00, 1),
-(2, '1', 'Chompa', 'Mujer peluche negra', 15.00, 1),
-(3, '1', 'Vestido', 'Mujer Rojo Land´s And', 10.00, 0),
-(4, '1', 'Boina', 'niña', 20.00, 1);
-
 -- --------------------------------------------------------
 
 --
@@ -346,16 +253,6 @@ CREATE TABLE `proveedor` (
   `direccion` text NOT NULL,
   `status` int(11) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Volcado de datos para la tabla `proveedor`
---
-
-INSERT INTO `proveedor` (`idproveedor`, `nombre`, `ruc`, `telefono`, `direccion`, `status`) VALUES
-(1, 'CONTENDOR', 2052136256, '963258415', 'JR. CALLAO - TARAPOTO', 1),
-(2, 'LIBRERIA PARROQUIA', 2147483647, '963265236', 'TARAPOTO', 1),
-(3, 'LIBRERIA CHACHA', 2147483647, '963265369', 'JR. 2 DE MAYO', 0),
-(4, 'TEXTELERIA MOYOBAMBA', 2013265262, '963265212', 'JR. LIMA', 0);
 
 -- --------------------------------------------------------
 
@@ -377,8 +274,7 @@ CREATE TABLE `sede` (
 INSERT INTO `sede` (`sede_id`, `nombre`, `direccion`, `estado`) VALUES
 (1, 'MOYOBAMBA', 'JR. SAN MARTIN 314', 'ACTIVO'),
 (2, 'NARANJOS', 'FERNANDO BELAUNDE TERRY', 'ACTIVO'),
-(3, 'SISA', 'JR. TACNA', 'ACTIVO'),
-(4, 'TARAPOTO', 'JR. JUAN VARGS', '0');
+(3, 'SISA', 'JR. TACNA', 'ACTIVO');
 
 -- --------------------------------------------------------
 
@@ -447,10 +343,7 @@ CREATE TABLE `usuario` (
 
 INSERT INTO `usuario` (`idusuario`, `nombre`, `perfil`, `correo`, `clave`, `sede_id`, `status`) VALUES
 (1, 'ADMIN GENERAL', 1, 'admin@gmail.com', '$2y$10$eVouXr4.yN5jROwGL1e7VO/SX01k67Sy8avO8T1jLXSHM6Vz1Wfku', 1, 1),
-(4, 'HALI HUACCHA', 2, 'saridhuaccha@gmail.com', '$2y$10$sJSkVn3Zf9LufGT6qopAaeaO3J15nEhb9jXZmKB5NhPLDT1MDC5im', 3, 1),
-(5, 'MARILIN', 2, 'marilin@gmail.com', '$2y$10$yEX7JRpodYTAFymvDxnK9uYGPJ6o60iuibd62sLhH6AiNvmEeOUHK', 2, 0),
-(6, 'ARACELY TUANAMA', 2, 'aracelytuanama@gmail.com', '$2y$10$PCeXEEmjOdOQh6Fk92nwIOKKMMAv2WMzryY6dJla/MIRG9Kr401du', 2, 1),
-(7, 'hsjsd', 2, 'saddsd@dgmail.com', '$2y$10$Ez4iZIF6a3Sw320wAdlHue6UeKsqppifcwzIQ6LQB.DGymBWLDy.6', 1, 0);
+(4, 'HALI HUACCHA', 2, 'saridhuaccha@gmail.com', '$2y$10$sJSkVn3Zf9LufGT6qopAaeaO3J15nEhb9jXZmKB5NhPLDT1MDC5im', 3, 1);
 
 -- --------------------------------------------------------
 
@@ -467,20 +360,6 @@ CREATE TABLE `ventas` (
   `fecha` date NOT NULL,
   `id_sede` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Volcado de datos para la tabla `ventas`
---
-
-INSERT INTO `ventas` (`id`, `id_cliente`, `total`, `metodo`, `id_usuario`, `fecha`, `id_sede`) VALUES
-(2, 11, 10.00, 'EFECTIVO', 4, '2025-02-07', 1),
-(3, 11, 10.00, 'EFECTIVO', 4, '2025-02-07', 1),
-(6, 11, 10.00, 'DONACION', 1, '2025-02-07', 1),
-(7, 11, 10.00, 'EFECTIVO', 1, '2025-02-08', 1),
-(8, 11, 20.00, 'EFECTIVO', 1, '2025-02-10', 1),
-(9, 2, 10.00, 'DONACION', 1, '2025-02-10', 1),
-(10, 9, 40.00, 'YAPE', 1, '2025-02-12', 1),
-(11, 11, 10.00, 'YAPE', 4, '2025-02-14', 3);
 
 --
 -- Índices para tablas volcadas
@@ -620,19 +499,19 @@ ALTER TABLE `ventas`
 -- AUTO_INCREMENT de la tabla `categoria`
 --
 ALTER TABLE `categoria`
-  MODIFY `idcategoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `idcategoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `cliente`
 --
 ALTER TABLE `cliente`
-  MODIFY `idcliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `idcliente` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `compras`
 --
 ALTER TABLE `compras`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `configuracion`
@@ -644,7 +523,7 @@ ALTER TABLE `configuracion`
 -- AUTO_INCREMENT de la tabla `detalle_compras`
 --
 ALTER TABLE `detalle_compras`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `detalle_permisos`
@@ -656,13 +535,13 @@ ALTER TABLE `detalle_permisos`
 -- AUTO_INCREMENT de la tabla `detalle_stock_sede`
 --
 ALTER TABLE `detalle_stock_sede`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `detalle_ventas`
 --
 ALTER TABLE `detalle_ventas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `perfil`
@@ -680,13 +559,13 @@ ALTER TABLE `permisos`
 -- AUTO_INCREMENT de la tabla `producto`
 --
 ALTER TABLE `producto`
-  MODIFY `codproducto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `codproducto` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `proveedor`
 --
 ALTER TABLE `proveedor`
-  MODIFY `idproveedor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `idproveedor` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `sede`
@@ -722,7 +601,7 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `ventas`
 --
 ALTER TABLE `ventas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Restricciones para tablas volcadas

@@ -31,7 +31,7 @@
                 </div>
                 <div class="d-flex justify-content-between">
                     <h5>Datos del cliente</h5>
-                    <button class="btn btn-info" data-toggle="modal" data-target="#modal-cliente"><i class="fas fa-search"></i> Cliente</button>
+                    <button class="btn btn-warning" data-toggle="modal" data-target="#modal-cliente"><i class="fas fa-search"></i>Buscar Cliente</button>
                 </div>
                 <hr>
                 <div class="row">
@@ -65,7 +65,7 @@
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <button type="button" class="btn btn-success btn-block" id="btn-guardar"><i class="fas fa-print"></i> Guardar</button>
+                        <button type="button" class="btn btn-info btn-block" id="btn-guardar"><i class="fas fa-print"></i> Guardar</button>
                                             
                     </div>
                 </div>

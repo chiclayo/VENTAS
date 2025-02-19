@@ -21,6 +21,9 @@
     <link rel="stylesheet" type="text/css" href="<?php echo RUTA . 'assets/'; ?>css/datatables.min.css" />
     <link rel="stylesheet" type="text/css" href="<?php echo RUTA . 'assets/'; ?>css/dataTables.dateTime.min.css" />
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.bootstrap4.min.css">
+    <!-- Bootstrap 5 CSS -->
+     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQHO6E3KQUboAdGdrT4If6k29THDhG6U4gHjI4QIdI8KUv6MaCtylxj0x" crossorigin="anonymous">
+
 </head>
 <?php $mini = false;
 if (!empty($_GET['pagina'])) {

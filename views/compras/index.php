@@ -27,8 +27,8 @@
                     </table>
                 </div>
                 <div class="d-flex justify-content-between">
-                    <h5>Datos del proveedor</h5>
-                    <button class="btn btn-info" data-toggle="modal" data-target="#modal-proveedor"><i class="fas fa-search"></i> Proveedor</button>
+                    <h5>Datos de la Sede</h5>
+                    <button class="btn btn-info" data-toggle="modal" data-target="#modal-proveedor"><i class="fas fa-search"></i> Buscar Sede</button>
                 </div>
                 <hr>
                 <div class="row">
@@ -91,7 +91,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Seleccionar proveedor</h5>
+                <h5 class="modal-title">Seleccionar Sede / Proveedor</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>

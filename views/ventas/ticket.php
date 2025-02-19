@@ -20,7 +20,7 @@ if ($id_venta != null) {
     $pdf->Cell(80, 5, mb_convert_encoding('Direcion: ' . $datos['direccion'], 'ISO-8859-1', 'UTF-8'), 0, 1, 'C');
     $pdf->Cell(80, 5, utf8_decode('Fecha: ' . $result['fecha'] . ' - Hora: ' . date('H:i:s')), 0, 1, 'C');
     $pdf->Cell(80, 5, utf8_decode('Forma Pago: ' . $result['metodo']), 0, 1, 'C');
-    $pdf->Cell(80, 5, utf8_decode('Tikeck: ' . $result['correlativo']), 0, 1, 'C');
+    $pdf->Cell(80, 5, utf8_decode('Ticket: ' . $result['correlativo']), 0, 1, 'C');
     $pdf->Cell(80, 5, '-------------------------------------------------------------------------', 0, 1, 'C');
     //########## Datos del cliente
     $pdf->Cell(80, 5, utf8_decode('Nombre: ' . $result['nombre']), 0, 1, 'L');

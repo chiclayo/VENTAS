@@ -23,7 +23,7 @@
 
 </head>
 
-<body class="bg-gradient-dark">
+<body class="bg-gradient-info">
 
     <div class="container">
 
@@ -55,7 +55,7 @@
                                                 id="password" placeholder="Contraseña.....">
                                         </div>
                                      <div class="text-center">
-                                        <button type="submit" class="btn btn-danger btn-user btn-sm">
+                                        <button type="submit" class="btn btn-info btn-user btn-sm">
                                             INICIAR SESIÓN
                                         </button>
                                         </div>
