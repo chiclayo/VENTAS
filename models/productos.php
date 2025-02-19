@@ -10,11 +10,11 @@ class Productos{
     public function getProducts($sede)
     {
         if($sede == 0) {
-            $consult = $this->pdo->prepare("SELECT p.codproducto, p.nombre, p.descripcion, c.nombre as nameCategoria, p.precio, SUM(dss.stock) AS stock_total, p.status FROM producto p LEFT JOIN categoria c on c.idcategoria = p.idcategoria LEFT JOIN detalle_stock_sede dss ON p.codproducto = dss.id_producto WHERE p.status = 1 GROUP BY p.codproducto, p.nombre, c.nombre, p.precio ");
+            $consult = $this->pdo->prepare("SELECT LPAD(p.codproducto, 4, '0') as codproducto, p.nombre, p.descripcion, c.nombre as nameCategoria, p.precio, SUM(dss.stock) AS stock_total, p.status FROM producto p LEFT JOIN categoria c on c.idcategoria = p.idcategoria LEFT JOIN detalle_stock_sede dss ON p.codproducto = dss.id_producto WHERE p.status = 1 GROUP BY p.codproducto, p.nombre, c.nombre, p.precio ");
             $consult->execute();
             return $consult->fetchAll(PDO::FETCH_ASSOC);
         } else {
-            $consult = $this->pdo->prepare("SELECT p.codproducto, p.nombre, p.descripcion, c.nombre as nameCategoria, p.precio, dss.stock as stock_total, p.status FROM producto p LEFT JOIN categoria c on c.idcategoria = p.idcategoria LEFT JOIN detalle_stock_sede dss ON p.codproducto = dss.id_producto WHERE p.status = 1 and dss.id_sede = $sede  AND dss.stock > 0 ");
+            $consult = $this->pdo->prepare("SELECT LPAD(p.codproducto, 4, '0') as codproducto, p.nombre, p.descripcion, c.nombre as nameCategoria, p.precio, dss.stock as stock_total, p.status FROM producto p LEFT JOIN categoria c on c.idcategoria = p.idcategoria LEFT JOIN detalle_stock_sede dss ON p.codproducto = dss.id_producto WHERE p.status = 1 and dss.id_sede = $sede  AND dss.stock > 0 ");
             $consult->execute();
             return $consult->fetchAll(PDO::FETCH_ASSOC);
         }

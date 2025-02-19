@@ -10,7 +10,7 @@ class Ventas{
 
     public function getProducts($sede)
     {
-        $consult = $this->pdo->prepare("SELECT p.codproducto, p.nombre, p.descripcion, c.nombre as nameCategoria, p.precio, dss.stock as stock_total, p.status FROM producto p LEFT JOIN categoria c on c.idcategoria = p.idcategoria LEFT JOIN detalle_stock_sede dss ON p.codproducto = dss.id_producto WHERE p.status = 1 and dss.id_sede = $sede");
+        $consult = $this->pdo->prepare("SELECT LPAD(p.codproducto, 4, '0') as codproducto, p.nombre, p.descripcion, c.nombre as nameCategoria, p.precio, dss.stock as stock_total, p.status FROM producto p LEFT JOIN categoria c on c.idcategoria = p.idcategoria LEFT JOIN detalle_stock_sede dss ON p.codproducto = dss.id_producto WHERE p.status = 1 and dss.id_sede = $sede");
         $consult->execute();
         return $consult->fetchAll(PDO::FETCH_ASSOC);
     }
@@ -79,6 +79,19 @@ class Ventas{
         $consult = $this->pdo->prepare("INSERT INTO ventas (id_cliente, total, metodo, fecha, id_usuario, id_sede) VALUES (?, ?,?,?,?,?)");
         $consult->execute([$id_cliente, $total, $metodo, $fecha, $id_user, $id_sede]);
         return $this->pdo->lastInsertId();
+    }
+
+    public function quantyventa($id_sede)
+    {
+        $consult = $this->pdo->prepare("SELECT COUNT(id) as total FROM ventas WHERE id_sede = ?");
+        $consult->execute([$id_sede]);
+        return $consult->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function upadteVentaNumero($idventa, $numero)
+    {
+        $consult = $this->pdo->prepare("UPDATE ventas SET correlativo = ? WHERE id = ?");
+        return $consult->execute([$numero, $idventa]);
     }
 
     public function saveDetalle($id_producto, $id_venta, $cantidad, $precio)

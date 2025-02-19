@@ -128,6 +128,12 @@ switch ($option) {
             }
             $sale = $ventas->saveVenta($id_cliente, $total, $metodo, $fecha, $id_user, $_SESSION['idsede']);
             if ($sale > 0) {
+                $cantidad = $ventas->quantyventa($_SESSION['idsede']);
+
+                $cant = $cantidad['total'] + 1;
+
+                $ventas->upadteVentaNumero($sale, $cant);
+
                 foreach ($consult as $temp) {
                     $ventas->saveDetalle($temp['id_producto'], $sale, $temp['cantidad'], $temp['precio']);
                     /*$producto = $ventas->getProduct($temp['id_producto'], $_SESSION['idsede']);
